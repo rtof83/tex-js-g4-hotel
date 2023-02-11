@@ -1,8 +1,6 @@
 <template>
   <!-- <HeaderComponent /> -->
 
-  {{ rating }}
-
   <main>
     <div class="main">
       <h1>{{ accommodation.accommodation }}</h1>
@@ -38,15 +36,24 @@
         <!-- </form> -->
       </article>
     </div>
+
+    <vue3-star-ratings v-model="rating" />
+
+      <div v-for="item in accommodationComments" :key="item.accommodationId">
+        <p>Usuário: {{ item.user }}</p>
+        <p>Comentário: {{ item.comment }}</p>
+        <p>Nota: {{ item.rating }}</p>
+        <hr>
+      </div>
   </main>
 
-  
-  <vue3-star-ratings v-model="rating" />
+  <!-- <footer-component></footer-component> -->
 </template>
 
 <script>
-  import Teste from '@/components/Test.js';
+  import Comments from '@/components/Comments.js';
   import HeaderComponent from '@/components/HeaderComponent.vue';
+  import FooterComponent from '@/components/FooterComponent.vue';
 
   import { toast } from 'vue3-toastify';
   import 'vue3-toastify/dist/index.css';
@@ -59,9 +66,10 @@
 
     data() {
       return {
-        // message: Teste.message
         comment: '',
-        rating: 0
+        rating: 0,
+        accommodationComments: [],
+        comments: new Comments
       }
     },
 
@@ -81,20 +89,20 @@
     },
 
     methods: {
-      getAccommodation() {
-        // console.log(this.dbAccommodations.find(item => item.id === this.id));
-        console.log('object');
-        // return accommodations.find(item => item.id === this.id)
-      },
-
       confirmComment() {
-        const accommodation = { accommodationId: this.accommodation.id,
+
+        // class
+        this.comments.checkLogin(this.login);
+        
+        const newComment = { accommodationId: this.accommodation.id,
                                 user: this.login.user,
                                 comment: this.comment,
                                 rating: this.rating
-                              }
+                              };
 
-        localStorage.setItem('accommodation', JSON.stringify(accommodation));
+        this.comments.insertComment(newComment);
+
+        this.comments.getComments(this.id);
 
         this.notify();
       },
@@ -107,12 +115,13 @@
     },
 
     mounted() {
-      
+      this.accommodationComments = this.comments.getComments(this.id)
     },
 
     components: {
-    vue3StarRatings,
-    HeaderComponent
+      vue3StarRatings,
+      HeaderComponent,
+      FooterComponent
     },
   }
 </script>
