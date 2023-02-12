@@ -54,10 +54,10 @@
             class="quartos__images__card"
           >
             <div v-if="item.id < 3">
-              <div :id="`imagem${item.id + 1}`">
+              <div class="image" :id="`imagem${item.id + 1}`">
                 <router-link :to="`/reservations/${item.id}`">
                   <img
-                    src=""
+                    :src="require(`../assets/images/${item.image}.jpg`)"
                     :alt="item.accommodation"
                     :title="item.accommodation"
                   />
@@ -162,4 +162,19 @@ export default {
 
 <style scoped>
 @import "@/assets/css/sobre.css";
+@import "@/assets/css/header.css";
+@import "@/assets/css/footer.css";
+
+.image img {
+  width: 400px;
+  height: 250px;
+  opacity: 1;
+  margin: 0 auto 20px auto;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.image:hover {
+  opacity: 0.7;
+}
 </style>

@@ -78,4 +78,6 @@ export default {
 
 <style scoped>
 @import "@/assets/css/contato.css";
+@import "@/assets/css/header.css";
+@import "@/assets/css/footer.css";
 </style>

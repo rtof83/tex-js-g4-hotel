@@ -13,8 +13,8 @@
     >
       <div class="cards__images__card">
         <img
-          src=""
-          :id="`image${item.id + 1}`"
+          class="image"
+          :src="require(`../assets/images/${item.image}.jpg`)"
           :alt="item.accommodation"
           :title="item.accommodation"
         />
@@ -86,3 +86,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.image {
+  width: 400px;
+  height: 280px;
+}
+</style>

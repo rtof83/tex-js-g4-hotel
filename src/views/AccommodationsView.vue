@@ -27,17 +27,18 @@
           :key="item.id"
           class="products-container__card"
         >
-        <router-link :to="`/accommodation/${item.id}`">
-          <div
-            class="products-container__card__product-image"
-            :id="`img-${item.id + 1}`"
-            :alt="item.accommodation"
-            :title="item.accommodation"
-          ></div>
-        </router-link>
+          <router-link :to="`/accommodation/${item.id}`">
+            <img
+              class="products-container__card__product-image"
+              :src="require(`../assets/images/${item.image}.jpg`)"
+              :alt="item.accommodation"
+            />
+          </router-link>
 
           <h3>{{ item.accommodation }}</h3>
-          <router-link class="products-container__card__btn" :to="`/reservations/${item.id}`"
+          <router-link
+            class="products-container__card__btn"
+            :to="`/reservations/${item.id}`"
             >Reservar</router-link
           >
         </div>
@@ -92,4 +93,6 @@ export default {
 
 <style scoped>
 @import "@/assets/css/quartos.css";
+@import "@/assets/css/header.css";
+@import "@/assets/css/footer.css";
 </style>
