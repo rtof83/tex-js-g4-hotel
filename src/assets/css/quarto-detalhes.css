@@ -13,7 +13,152 @@ p {
   font-size: 1.3rem;
 }
 
+.container__subtitle {
+  text-transform: uppercase;
+}
+
+.container__content__room, .form__subtitle, .container__subtitle {
+  text-align: center;
+}
+
+.container__subtitle {
+  font-size: 2rem;
+  padding: 20px 0;
+}
+
+.container__content, .form__content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
 /* --------------  MAIN  ----------------  */
+.container {
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 0 auto;
+  width: 80vw;
+}
+.container__content__room {
+  width: 100vw;
+}
+.container__content__room img {
+  width: 50%;
+}
+.container__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container__text {
+  margin-top: 70px;
+}
+.container__text p {
+  text-align: left;
+  padding-bottom: 1rem;
+}
+
+.form {
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 70vw;
+}
+.form__subtitle {
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+.form__content {
+  flex-direction: column;
+  margin: 0;
+}
+.form__content label {
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: 600;
+  width: 50%;
+  margin: 0 auto;
+}
+.form__content input, .form__content textarea {
+  width: 50%;
+  margin: 0 auto;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid #949fab;
+  border-radius: 0.3rem;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.form__content__btn {
+  width: 30%;
+  margin: 0 auto 2rem auto;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.3rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  opacity: 1;
+  transition: 0.3s;
+}
+.form__content__btn:hover {
+  opacity: 0.5;
+}
+
+.comments {
+  border: 1px solid #949fab;
+  width: 60%;
+  margin: 0 auto 2rem auto;
+  padding: 1rem;
+}
+.comments__user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.comments__user img {
+  width: 50px;
+}
+.comments span {
+  font-weight: bold;
+}
+.comments__rating {
+  margin-left: 4rem;
+}
+
 /* --------------  RESPONSIVIDADE ----------------  */
+/* TABLET LANDSCAPE */
+@media (max-width: 1194px) and (orientation: landscape) {
+  .form__content label {
+    width: 70%;
+  }
+  .form__content input, .form__content textarea {
+    width: 70%;
+  }
+}
+/* MOBILE PORTRAIT */
+@media (max-width: 414px) and (orientation: portrait) {
+  .comments {
+    width: 100%;
+  }
+  .form {
+    width: 100%;
+  }
+  .form__content label {
+    width: 100%;
+  }
+  .form__content input, .form__content textarea {
+    width: 100%;
+  }
+}
 
 /*# sourceMappingURL=quarto-detalhes.css.map */
