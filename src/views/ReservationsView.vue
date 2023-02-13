@@ -37,7 +37,6 @@
       <CreateAccommodations v-bind:id="id" />
 
       <Booking />
-
     </section>
   </main>
 
@@ -49,18 +48,18 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import CreateAccommodations from "@/components/CreateAccommodations.vue";
 import Booking from "@/components/Booking.vue";
-import { addDays } from '@/store/getDate.js';
+import { addDays } from "@/store/getDate.js";
 
 export default {
   name: "ReservationsView",
 
-  props: ['id'],
+  props: ["id"],
 
   components: {
     HeaderComponent,
     FooterComponent,
     CreateAccommodations,
-    Booking
+    Booking,
   },
 
   computed: {
@@ -69,8 +68,8 @@ export default {
     },
 
     dbAccommodations() {
-      return this.$store.getters.dbAccommodations
-    }
+      return this.$store.getters.dbAccommodations;
+    },
   },
 
   watch: {
@@ -78,35 +77,52 @@ export default {
       handler() {
         // validate date
         if (this.reservation.checkout <= this.reservation.checkin) {
-          alert('Atenção! A data de Check out não pode ser menor ou igual à data de Check in.');
-          this.reservation.checkout = addDays(new Date(this.reservation.checkout), 1, true);
-        };
+          alert(
+            "Atenção! A data de Check out não pode ser menor ou igual à data de Check in."
+          );
+          this.reservation.checkout = addDays(
+            new Date(this.reservation.checkout),
+            1,
+            true
+          );
+        }
 
-        this.reservation.accommodation = this.dbAccommodations[this.reservation.id].accommodation;
+        this.reservation.accommodation =
+          this.dbAccommodations[this.reservation.id].accommodation;
 
         let sumServices = 0;
-        this.reservation.services.map(service => sumServices += service.price);
+        this.reservation.services.map(
+          (service) => (sumServices += service.price)
+        );
 
-        this.reservation.rates = (new Date(this.reservation.checkout) - new Date(this.reservation.checkin)) / 86400000;    
-        this.reservation.total = (sumServices + (this.reservation.rates * this.reservation.qty * this.dbAccommodations[this.reservation.id].price)) - this.reservation.discount;
-      
+        this.reservation.rates =
+          (new Date(this.reservation.checkout) -
+            new Date(this.reservation.checkin)) /
+          86400000;
+        this.reservation.total =
+          sumServices +
+          this.reservation.rates *
+            this.reservation.qty *
+            this.dbAccommodations[this.reservation.id].price -
+          this.reservation.discount;
+
         // set to localStorage
-        localStorage.setItem('booking', JSON.stringify(this.reservation));
+        localStorage.setItem("booking", JSON.stringify(this.reservation));
       },
 
-      deep: true
-    } 
+      deep: true,
+    },
   },
 
   methods: {
     init() {
-      this.$store.commit('initReservation')
-    }
+      this.$store.commit("initReservation");
+    },
   },
 
   mounted() {
-    const bookingStorage = JSON.parse(localStorage.getItem('booking'));
- 
+    const bookingStorage = JSON.parse(localStorage.getItem("booking"));
+
     if (!bookingStorage) {
       this.init();
     } else {
@@ -115,11 +131,13 @@ export default {
       this.reservation.checkout = bookingStorage.checkout;
       this.reservation.qty = bookingStorage.qty;
       this.reservation.services = bookingStorage.services;
-    };
-  }
+    }
+  },
 };
 </script>
 
 <style scoped>
-  @import "@/assets/css/reservas.css";
+@import "@/assets/css/reservas.css";
+@import "@/assets/css/header.css";
+@import "@/assets/css/footer.css";
 </style>

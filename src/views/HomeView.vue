@@ -1,6 +1,5 @@
 <template>
   <header id="topo" class="home">
-
     <UserPanel />
 
     <div class="home__background">
@@ -35,7 +34,9 @@
       <li><router-link to="/about">O Hotel</router-link></li>
       <li><router-link to="/accommodations">Quartos</router-link></li>
       <li><router-link to="/reservations">Reservas</router-link></li>
-      <li v-if="login.user && reservationsStorage"><router-link to="/my-reservations">Minhas Reservas</router-link></li>
+      <li v-if="login.user && reservationsStorage">
+        <router-link to="/my-reservations">Minhas Reservas</router-link>
+      </li>
       <li><router-link to="/contact">Contato</router-link></li>
       <li><router-link to="/login">Login</router-link></li>
     </ul>
@@ -169,28 +170,28 @@ export default {
   name: "HomeView",
   components: {
     UserPanel,
-    FooterComponent
+    FooterComponent,
   },
 
   data() {
     return {
-      loginStorage: JSON.parse(localStorage.getItem('login')),
-      reservationsStorage: JSON.parse(localStorage.getItem('reservations')),
-    }
+      loginStorage: JSON.parse(localStorage.getItem("login")),
+      reservationsStorage: JSON.parse(localStorage.getItem("reservations")),
+    };
   },
 
   computed: {
     login() {
-      return this.$store.state.login
+      return this.$store.state.login;
     },
 
     dbBanners() {
-      return this.$store.getters.dbBanners
+      return this.$store.getters.dbBanners;
     },
 
     getSorteio() {
-      return this.$store.state.sorteio
-    }
+      return this.$store.state.sorteio;
+    },
   },
 
   methods: {
@@ -203,7 +204,7 @@ export default {
       this.getSorteio.slogan = this.dbBanners[position].slogan;
     },
   },
-  
+
   mounted() {
     this.sorteio();
 
@@ -232,6 +233,7 @@ export default {
 </script>
 
 <style scoped>
-  @import "@/assets/css/home.css";
-  @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css";
+@import "@/assets/css/home.css";
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css";
+@import "@/assets/css/footer.css";
 </style>

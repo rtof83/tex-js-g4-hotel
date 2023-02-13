@@ -52,41 +52,50 @@ export default {
 
   computed: {
     dbLogin() {
-      return this.$store.getters.dbLogin
+      return this.$store.getters.dbLogin;
     },
 
     login() {
-      return this.$store.state.login
-    }
+      return this.$store.state.login;
+    },
   },
 
   methods: {
     removeQuotesSpaces(str) {
-      return str.replaceAll('\'', '').replaceAll('\"', '').trim();
+      return str.replaceAll("'", "").replaceAll('"', "").trim();
     },
 
     confirm() {
-      // check blank    
-      if (this.login.email === '' || this.login.password === '')
-        return alert('Atenção! Os campos usuário e senha devem ser preenchidos.');
+      // check blank
+      if (this.login.email === "" || this.login.password === "")
+        return alert(
+          "Atenção! Os campos usuário e senha devem ser preenchidos."
+        );
 
       const filteredEmail = this.removeQuotesSpaces(this.login.email);
-      const result = this.dbLogin.find(item => (item.email === filteredEmail) && (item.password === this.login.password));
+      const result = this.dbLogin.find(
+        (item) =>
+          item.email === filteredEmail && item.password === this.login.password
+      );
 
-      if (!result)
-        return alert('Atenção! Email ou senha inválidos.');
+      if (!result) return alert("Atenção! Email ou senha inválidos.");
 
       // send to localStorage
       this.dbLogin.user = result.user;
-      localStorage.setItem('login', JSON.stringify({ user: result.user, email: result.email }));
-      
+      localStorage.setItem(
+        "login",
+        JSON.stringify({ user: result.user, email: result.email })
+      );
+
       // redirect to home
-      window.location.href = '/';
+      window.location.href = "/";
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
 @import "@/assets/css/login.css";
+@import "@/assets/css/header.css";
+@import "@/assets/css/footer.css";
 </style>
