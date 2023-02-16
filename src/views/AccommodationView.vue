@@ -1,52 +1,75 @@
 <template>
   <HeaderComponent />
 
-  <main>
-    <div class="main">
-      <h1>{{ accommodation.accommodation }}</h1>
+  <main class="container">
+    <div>
+      <h2 class="container__subtitle">{{ accommodation.accommodation }}</h2>
 
-      <img
-        :src="require(`../assets/images/${accommodation.image}.jpg`)"
-        :alt="accommodation.accommodation"
-      />
-      <br />
-      <span>{{ accommodation.description }}</span>
+      <div class="container__content">
+        <div class="container__content__room">
+          <div class="container__content__room__image">
+            <img
+              :src="require(`../assets/images/${accommodation.image}.jpg`)"
+              :alt="accommodation.accommodation"
+            />
+          </div>
+          <div class="container__content__room__text">
+            <p>{{ accommodation.description }}</p>
+          </div>
+        </div>
+      </div>
 
-      <br />
+      <div class="form">
+        <h3 class="form__subtitle">
+          Faça um comentário sobre sua experiência:
+        </h3>
+        <form class="form__content">
+          <label for="name">Nome:</label>
+          <input
+            type="text"
+            placeholder="Digite seu nome completo"
+            id="name"
+            name="name"
+            required
+          />
 
-      <article class="main__login">
-        <!-- <form action="/public" method="get"> -->
-        <label for="name">Nome:</label>
-        <input
-          type="text"
-          placeholder="Digite seu nome completo"
-          id="name"
-          name="name"
-          required
-        />
+          <label for="message">Mensagem:</label>
+          <textarea
+            placeholder="Digite sua mensagem..."
+            name="message"
+            id="message"
+            cols="30"
+            rows="10"
+            v-model="comment"
+          ></textarea>
 
-        <label for="message">Mensagem:</label>
-        <textarea
-          placeholder="Digite sua mensagem"
-          name="message"
-          id="message"
-          cols="30"
-          rows="10"
-          v-model="comment"
-        ></textarea>
+          <vue3-star-ratings v-model="rating" />
 
-        <button @click="confirmComment">Confirmar</button>
-        <!-- </form> -->
-      </article>
+          <button class="form__content__btn" @click="confirmComment">
+            Confirmar
+          </button>
+        </form>
+      </div>
     </div>
 
-    <vue3-star-ratings v-model="rating" />
-
-    <div v-for="item in accommodationComments" :key="item.accommodationId">
-      <p>Usuário: {{ item.user }}</p>
-      <p>Comentário: {{ item.comment }}</p>
-      <p>Nota: {{ item.rating }}</p>
-      <hr />
+    <div
+      class="comments"
+      v-for="item in accommodationComments"
+      :key="item.accommodationId"
+    >
+      <div class="comments__user">
+        <img src="../assets/images/avatar.jpg" alt="default avatar" />
+        <p><span>Usuário:</span> {{ item.user }}</p>
+      </div>
+      <div class="comments__rating">
+        <p><span>Comentário:</span> {{ item.comment }}</p>
+        <p v-if="item.rating < 0.5"><span>Nota:</span> ☆ ☆ ☆ ☆ ☆</p>
+        <p v-else-if="item.rating < 1.5"><span>Nota:</span> ★ ☆ ☆ ☆ ☆</p>
+        <p v-else-if="item.rating < 2.5"><span>Nota:</span> ★ ★ ☆ ☆ ☆</p>
+        <p v-else-if="item.rating < 3.5"><span>Nota:</span> ★ ★ ★ ☆ ☆</p>
+        <p v-else-if="item.rating < 4.5"><span>Nota:</span> ★ ★ ★ ★ ☆</p>
+        <p v-else><span>Nota:</span> ★ ★ ★ ★ ★</p>
+      </div>
     </div>
   </main>
 
@@ -113,7 +136,7 @@ export default {
     notify() {
       toast("comentário adicionado!", {
         autoClose: 3000,
-      }); // ToastOptions
+      });
     },
   },
 
@@ -133,8 +156,4 @@ export default {
 @import "@/assets/css/quarto-detalhes.css";
 @import "@/assets/css/header.css";
 @import "@/assets/css/footer.css";
-
-img {
-  width: 50%;
-}
 </style>
