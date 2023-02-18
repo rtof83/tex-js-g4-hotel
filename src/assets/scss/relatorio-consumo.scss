@@ -1,0 +1,44 @@
+@use "variaveis" as let;
+@use "mixins" as mix;
+@use "extends";
+
+@import url("https://fonts.googleapis.com/css2?family=Della+Respira&family=Forum&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Forum&family=Italiana&display=swap");
+
+/* --------------  MAIN  ----------------  */
+.container {
+  background-color: let.$branco;
+  color: let.$text;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 0 auto;
+  width: 80vw;
+
+  &__subtitle {
+    @extend %subtitle;
+    padding: 0;
+  }
+
+  &__content {
+    width: 800px;
+    margin: 0 auto 4rem auto;
+    font-size: 1.2rem;
+    border-bottom: 1px solid let.$text;
+  }
+
+  & th {
+    background-color: let.$azul-claro;
+    color: let.$branco;
+    width: 25%;
+  }
+
+  & tr:nth-child(odd) {
+    background-color: let.$branco-escuro;
+  }
+
+  & td {
+    text-align: center;
+    font-weight: bold;
+  }
+}
