@@ -88,7 +88,13 @@ export default {
       );
 
       // redirect to home
-      window.location.href = "/";
+      if (this.login.email === 'user@email.com') {
+        window.location.href = "/";
+      }
+      // redirect to admin page
+      if (this.login.email === 'admin@email.com') {
+        window.location.href = "/#/admin";
+      }
     },
   },
 };

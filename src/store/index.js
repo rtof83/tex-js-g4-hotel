@@ -3,6 +3,7 @@ import dbAccommodations from './db/dbAccommodations';
 import dbServices from './db/dbServices';
 import dbLogin from './db/dbLogin';
 import dbBanners from './db/dbBanner';
+import dbProducts from './db/dbProducts';
 import { addDays, getFromDate } from './getDate';
 
 export default createStore({
@@ -56,6 +57,10 @@ export default createStore({
 
     dbLogin: () => {
       return dbLogin
+    },
+
+    dbProducts: () => {
+      return dbProducts
     },
 
     dbBanners: () => {
