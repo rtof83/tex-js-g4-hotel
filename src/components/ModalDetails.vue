@@ -33,16 +33,26 @@
 
       <br />
 
-      <p><b>Serviços Adicionais</b></p>
-      <div
-        v-for="item in reservation.services"
-        :key="item.id"
-        id="detailsServices"
-      >
-        <p>{{ item.service }}</p>
+      <div v-if="!reservation.services.length">
+        <p><b>Nenhum Serviço Adicional</b></p>
+      </div>
+      <div v-else>
+        <p><b>Serviços Adicionais</b></p>
+        <div
+          v-for="item in reservation.services"
+          :key="item.id"
+          id="detailsServices"
+        >
+          <p>{{ item.service }}</p>
+        </div>
       </div>
 
       <br />
+
+      <div v-if="!reservation.itemsBar">
+        <p><b>Nenhum Consumo</b></p>
+        <br />
+      </div>
 
       <div id="detailsSummary">
         <h2>Resumo</h2>
@@ -55,6 +65,10 @@
 
         <div v-for="item in reservation.services" :key="item.id">
           <p>{{ item.service }} -> R$ {{ item.price.toFixed(2) }}</p>
+        </div>
+
+        <div v-if="reservation.itemsBar">
+          <p>Consumo -> R$ {{ reservation.itemsBar.toFixed(2) }}</p>
         </div>
 
         <br />

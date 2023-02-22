@@ -18,6 +18,7 @@ export default createStore({
       services: [],
       coupon: '',
       discount: 0,
+      itemsBar: 0,
       total: 0,
     },
 
@@ -78,8 +79,10 @@ export default createStore({
 
       state.reservation.qty = 1;
       state.reservation.services = [];
+      state.reservation.itemsBar = 0;
 
       localStorage.removeItem('coupon');
+      localStorage.removeItem('report');
     },
 
     initLogin: (state) => {

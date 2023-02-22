@@ -95,11 +95,15 @@ export default {
           (service) => (sumServices += service.price)
         );
 
+        const report =  JSON.parse(localStorage.getItem('report'));
+        if (report) this.reservation.itemsBar = report.totalItems;
+
         this.reservation.rates =
           (new Date(this.reservation.checkout) -
             new Date(this.reservation.checkin)) /
           86400000;
         this.reservation.total =
+          this.reservation.itemsBar +
           sumServices +
           this.reservation.rates *
             this.reservation.qty *

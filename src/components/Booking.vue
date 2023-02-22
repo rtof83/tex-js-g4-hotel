@@ -21,6 +21,11 @@
         </div>
       </div>
 
+      <div class="escolha__resumo" id="itemsBar">
+        <p v-if="!itemsBar"><span>Nenhum Consumo</span></p>
+        <p v-else><span>Total Consumo: R$ {{ itemsBar.totalItems.toFixed(2) }}</span></p>
+      </div>
+
       <!-- <div class="link"><a href="#"><span>Adicionar mais serviços</span></a></div> -->
 
       <div class="escolha__btn">
@@ -69,6 +74,10 @@
       
       modal() {
         return this.$store.state.modal
+      },
+
+      itemsBar() {
+        return JSON.parse(localStorage.getItem('report'))
       }
     },
     
