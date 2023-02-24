@@ -2,8 +2,6 @@
 @use "mixins" as mix;
 @use "extends";
 
-@import url("https://fonts.googleapis.com/css2?family=Della+Respira&family=Forum&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Forum&family=Italiana&display=swap");
 
 /* --------------  MAIN  ----------------  */
 // SEÇÃO NOSSO HOTEL
@@ -96,6 +94,19 @@
         padding: 0 3rem 3rem 3rem;
       }
     }
+  }
+
+  .image img {
+    width: 400px;
+    height: 250px;
+    opacity: 1;
+    margin: 0 auto 20px auto;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .image:hover {
+    opacity: 0.7;
   }
 }
 

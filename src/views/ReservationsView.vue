@@ -140,8 +140,8 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "@/assets/css/reservas.css";
-@import "@/assets/css/header.css";
-@import "@/assets/css/footer.css";
+<style lang="scss" scoped>
+@import "@/assets/scss/reservas.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 </style>

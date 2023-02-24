@@ -152,8 +152,8 @@ export default {
 };
 </script>
 
-<style>
-@import "@/assets/css/quarto-detalhes.css";
-@import "@/assets/css/header.css";
-@import "@/assets/css/footer.css";
+<style lang="scss">
+@import "@/assets/scss/quarto-detalhes.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 </style>

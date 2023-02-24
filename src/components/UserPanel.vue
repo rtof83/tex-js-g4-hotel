@@ -1,8 +1,8 @@
 <template>
-  <div v-if="login.user" class="home__painel-usuario" id="painel">
+  <div v-if="login.user" class="painel-usuario" id="painel">
       <div id="user">Olá, {{ login.user }}!</div>
       <div id="email">email: {{ login.email }}</div>
-      <div class="home__painel-usuario__painel-sair">
+      <div class="painel-usuario__painel-sair">
         <button @click="logout" id="clearStorage">Sair</button>
       </div>
     </div>
@@ -39,3 +39,5 @@
   }
 }
 </script>
+
+<style src="@/assets/scss/painel-usuario.scss" lang="scss" scoped />

@@ -160,21 +160,21 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "@/assets/css/sobre.css";
-@import "@/assets/css/header.css";
-@import "@/assets/css/footer.css";
+<style lang="scss" scoped>
+@import "@/assets/scss/sobre.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 
-.image img {
-  width: 400px;
-  height: 250px;
-  opacity: 1;
-  margin: 0 auto 20px auto;
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-}
+// .image img {
+//   width: 400px;
+//   height: 250px;
+//   opacity: 1;
+//   margin: 0 auto 20px auto;
+//   transition: all 0.3s ease-in-out;
+//   cursor: pointer;
+// }
 
-.image:hover {
-  opacity: 0.7;
-}
+// .image:hover {
+//   opacity: 0.7;
+// }
 </style>

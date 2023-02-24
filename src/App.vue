@@ -7,6 +7,4 @@
   <router-view />
 </template>
 
-<style>
-/* #app {} */
-</style>
+<style src="@/assets/scss/global.scss" lang="scss" />

@@ -173,7 +173,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@use "@/assets/scss/modal.scss";
+
 .escolha__modal {
   display: v-bind("modal.showDetails");
 }

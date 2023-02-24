@@ -76,8 +76,8 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "@/assets/css/contato.css";
-@import "@/assets/css/header.css";
-@import "@/assets/css/footer.css";
+<style lang="scss" scoped>
+@import "@/assets/scss/contato.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 </style>

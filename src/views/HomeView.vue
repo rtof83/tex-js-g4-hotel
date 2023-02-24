@@ -232,8 +232,10 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "@/assets/css/home.css";
+<style lang="scss">
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css";
-@import "@/assets/css/footer.css";
+@import "@/assets/scss/home.scss";
+
+/* @import "@/assets/css/home.css"; */
+/* @import "@/assets/css/footer.css"; */
 </style>

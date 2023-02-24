@@ -123,10 +123,10 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "@/assets/css/relatorio-consumo.css";
-@import "@/assets/css/header.css";
-@import "@/assets/css/footer.css";
+<style lang="scss" scoped>
+@import "@/assets/scss/relatorio-consumo.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 
 .save {
   display: flex;

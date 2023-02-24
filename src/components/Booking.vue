@@ -100,3 +100,5 @@
     },
   };
 </script>
+
+<style src="@/assets/scss/booking.scss" lang="scss" scoped />
