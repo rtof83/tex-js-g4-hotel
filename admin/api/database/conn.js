@@ -1,16 +1,29 @@
 const Sequelize = require('sequelize');
 const express = require('express');
+const mysql = require('mysql2');
 const app = express();
-
 require('dotenv').config();
-
 app.use(express.json());
 
+
+// mysql2 test
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'admin',
+  password: 'admin123',
+  database: 'hotel'
+});
+// ===========================
+
+
+// sequelize
 const conn = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
   dialect: process.env.DB_DIALECT,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT
 });
+// ===========================
+
 
 (async () => {
   await conn.sync();
@@ -26,4 +39,4 @@ conn
     console.log('Unable to connect to the database:', err);
   });
 
-module.exports = { app, conn };
+module.exports = { app, conn, connection };

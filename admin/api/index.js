@@ -4,7 +4,7 @@ const cors = require('cors');
 app.use(cors());
 
 // ====== environment variables ======
-require('dotenv').config();
+// require('dotenv').config();
 
 
 // accommodations routes
