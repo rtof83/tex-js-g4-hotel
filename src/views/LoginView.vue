@@ -35,19 +35,29 @@
     </div>
   </main>
 
+  <div v-for="item in accommodations" :key="item.id">
+    {{ item.name }}
+  </div>
+
   <FooterComponent />
 </template>
 
 <script>
-import HeaderComponent from "@/components/HeaderComponent.vue";
-import FooterComponent from "@/components/FooterComponent.vue";
-// import login from "@/store/login";
+import HeaderComponent from '@/components/HeaderComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 
 export default {
-  name: "LoginView",
+  name: 'LoginView',
+
   components: {
     HeaderComponent,
     FooterComponent,
+  },
+
+  data() {
+    return {
+      teste: []
+    }
   },
 
   computed: {
@@ -58,6 +68,10 @@ export default {
     login() {
       return this.$store.state.login;
     },
+
+    accommodations() {
+      return this.$store.state.accommodations.accommodations;
+    }
   },
 
   methods: {
@@ -97,6 +111,10 @@ export default {
       }
     },
   },
+
+  async mounted() {
+    this.$store.dispatch('accommodations/getAccommodations')
+  }
 };
 </script>
 

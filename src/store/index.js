@@ -6,6 +6,8 @@ import dbBanners from './db/dbBanner';
 import dbProducts from './db/dbProducts';
 import { addDays, getFromDate } from './getDate';
 
+import accommodations from './modules/accommodations';
+
 export default createStore({
   state: {
     reservation: {
@@ -94,10 +96,9 @@ export default createStore({
   },
 
   actions: {
-
   },
 
   modules: {
-
+    accommodations
   }
 });
