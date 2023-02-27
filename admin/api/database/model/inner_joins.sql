@@ -1,6 +1,6 @@
-SELECT hotel.reserva.checkin, hotel.service.name FROM hotel.reservaServices
-INNER JOIN hotel.reserva
-ON hotel.reservaServices.reservaId = hotel.reserva.id
-INNER JOIN hotel.service
-ON hotel.reservaServices.serviceId = hotel.service.id
-WHERE hotel.reserva.id = 3;
+SELECT reservation.checkin, service.name FROM reservationservices
+INNER JOIN reservation
+ON reservationservices.reservationId = reservation.id
+INNER JOIN service
+ON reservationservices.serviceId = service.id
+
