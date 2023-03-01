@@ -1,6 +1,7 @@
 const { app } = require('../../database/conn');
+const checkAdmin = require('../../middlewares/checkAdmin');
 
-module.exports = app.post('/banners', async (req, res) => {
+module.exports = app.post('/banners', checkAdmin, async (req, res) => {
   try {
     await global.connection.query(`INSERT INTO banner (image, slogan) VALUES (?, ?);`, [req.body['image'], req.body.slogan]);
     // await global.connection.query(`INSERT INTO banner (image, slogan) VALUES (?, ?);`, [req.body]);
