@@ -7,3 +7,6 @@ const { connect } = require('./database/conn');
 // accommodations routes
 require('./routes/accommodations/getAllAccommodations');
 require('./routes/accommodations/getAccommodationById');
+
+// banners routes
+require('./routes/banners/createBanner');
