@@ -1,6 +1,6 @@
 import api from '../api';
 
-const accommodations = {
+const accommodationsModule = {
   namespaced: true,
 
   state: {
@@ -29,4 +29,4 @@ const accommodations = {
   }
 }
 
-export default accommodations
+export default accommodationsModule;

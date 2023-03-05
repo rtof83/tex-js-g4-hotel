@@ -6,7 +6,8 @@ import dbBanners from './db/dbBanner';
 import dbProducts from './db/dbProducts';
 import { addDays, getFromDate } from './getDate';
 
-import accommodations from './modules/accommodations';
+import accommodationsModule from './modules/accommodations';
+import bannersModule from './modules/banners';
 
 export default createStore({
   state: {
@@ -99,6 +100,7 @@ export default createStore({
   },
 
   modules: {
-    accommodations
+    accommodationsModule,
+    bannersModule
   }
 });
