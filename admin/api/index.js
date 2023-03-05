@@ -12,8 +12,9 @@ require('./routes/accommodations/createAccommodation');
 // banners routes
 require('./commonMethods/getAllRecords')('/banners', 'banner');
 require('./commonMethods/deleteRecord')('/banners', 'banner');
-require('./routes/banners/updateBanner');
+require('./commonMethods/updateRecord')('/banners', 'banner');
 require('./routes/banners/createBanner');
+
 
 // reservations routes
 require('./commonMethods/getAllRecords')('/reservations', 'reservation');
@@ -29,7 +30,8 @@ require('./routes/users/createPermission');
 require('./routes/users/createAddress');
 require('./routes/users/login');
 
-
 // services routes
 require('./commonMethods/getAllRecords')('/services', 'service');
+require('./commonMethods/updateRecord')('/services', 'service');
+require('./commonMethods/deleteRecord')('/services', 'service');
 require('./routes/services/createService');

@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
                                                   WHERE user.id = ${req.body.userId} AND permission.id = 1`);
 
     if (!rows.length)
-      return res.status(401).json({ message: 'This user is not a admin.' });
+      return res.status(401).json({ message: 'access only for admin' });
   
     next();
   } catch (error) {
