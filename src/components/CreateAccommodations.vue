@@ -6,7 +6,7 @@
     </div>
 
     <div
-      v-for="item in accommodations()"
+      v-for="item in selectedAccommodations()"
       :key="item.id"
       class="cards__images"
       id="cards"
@@ -14,28 +14,26 @@
       <div class="cards__images__card">
         <img
           class="image"
-          :src="require(`../assets/images/${item.image}.jpg`)"
-          :alt="item.accommodation"
-          :title="item.accommodation"
+          :src="item.image"
+          :alt="item.name"
+          :title="item.name"
         />
 
         <div class="cards__images__card__info">
-          <h3>{{ item.accommodation }}</h3>
+          <h3>{{ item.name }}</h3>
           <p>{{ item.description }}</p>
-          <p>R$ {{ item.price.toFixed(2) }}</p>
+          <p>R$ {{ item.price }}</p>
 
           <div>
             <input
               v-model="reservation.id"
-              :id="item.idLabel"
+              :id="item.id"
               type="radio"
               name="quarto"
               :value="item.id"
               :checked="item.checked"
             />
-            <label :for="item.idLabel"
-              >Selecionar {{ item.accommodation }}</label
-            >
+            <label :for="item.id">Selecionar {{ item.name }}</label>
           </div>
         </div>
       </div>
@@ -46,11 +44,11 @@
 <script>
 export default {
   name: "CreateAccommodations",
-
   props: ["id"],
 
   data() {
     return {
+      quartos: [],
       // dbAccommodations
     };
   },
@@ -60,29 +58,41 @@ export default {
       return this.$store.state.reservation;
     },
 
-    dbAccommodations() {
-      return this.$store.getters.dbAccommodations;
+    accommodations() {
+      return this.$store.state.accommodationsModule.accommodations;
     },
+
+    // dbAccommodations() {
+    //   return this.$store.getters.dbAccommodations;
+    // },
   },
 
   methods: {
-    accommodations() {
-      const accommodations = [];
+    selectedAccommodations() {
+      const quartos = [];
       let limit = 3;
 
       if (this.id) {
-        accommodations.push(
-          this.dbAccommodations.find((item) => item.id == this.id)
+        quartos.push(
+          this.accommodations.find((item) => item.id == this.id)
         );
-        accommodations[0].checked = true;
+        quartos[0].checked = true;
         limit--;
       }
 
-      for (let i = 0; i < limit; i++)
-        if (this.id != i) accommodations.push(this.dbAccommodations[i]);
-
-      return accommodations;
+      for (let i = 0; i < limit; i++) {
+        if (this.id != i) {
+          quartos.push(this.accommodations[i]);
+        }
+      }
+      return quartos;
     },
+  },
+
+  mounted() {
+    this.$store.dispatch("accommodationsModule/getAccommodations");
+    this.selectedAccommodations();
+    // console.log(this.selectedAccommodations())
   },
 };
 </script>

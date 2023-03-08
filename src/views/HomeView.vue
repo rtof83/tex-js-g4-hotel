@@ -6,13 +6,13 @@
       <img
         id="imagem-fundo"
         class="imagem-header"
-        :src="getSorteio.image"
+        :src="banners[position].image"
         alt="imagem aleatória de capa"
       />
     </div>
 
     <div class="home__slogan">
-      <p id="texto">{{ getSorteio.slogan }}</p>
+      <p id="texto">{{ banners[position].slogan }}</p>
     </div>
 
     <div class="home__title">
@@ -91,7 +91,7 @@
             </router-link>
           </div>
           <div class="container__section2__cards__card">
-            <router-link to="/reservations">
+            <router-link to="/accommodations">
               <h3>Quartos</h3>
               <img src="@/assets/images/quarto.jpg" alt="quarto" />
             </router-link>
@@ -175,6 +175,7 @@ export default {
 
   data() {
     return {
+      position: 0,
       loginStorage: JSON.parse(localStorage.getItem("login")),
       reservationsStorage: JSON.parse(localStorage.getItem("reservations")),
     };
@@ -185,28 +186,41 @@ export default {
       return this.$store.state.login;
     },
 
-    dbBanners() {
-      return this.$store.getters.dbBanners;
+    // dbBanners() {
+    //   return this.$store.getters.dbBanners;
+    // },
+
+    banners() {
+      return this.$store.state.bannersModule.banners;
     },
 
-    getSorteio() {
-      return this.$store.state.sorteio;
-    },
+    // getSorteio() {
+    //   return this.$store.state.sorteio;
+    // },
   },
 
-  methods: {
-    // ================= aula dia 12/01/2023 =================
-    sorteio() {
-      // gerar número aleatório entre 0 e 4
-      const position = parseInt(Math.random() * 5);
+  // methods: {
+  //   sorteio() {
+  //     console.log(this.banners);
 
-      this.getSorteio.image = this.dbBanners[position].image;
-      this.getSorteio.slogan = this.dbBanners[position].slogan;
-    },
+  //     gerar número aleatório entre 0 e 4
+  //     this.position = parseInt(Math.random() * 5);
+
+  //     this.getSorteio.image = this.dbBanners[position].image;
+  //     this.getSorteio.slogan = this.dbBanners[position].slogan;
+
+  //     this.image = this.banners[position].image;
+  //     this.slogan = this.banners[position].slogan;
+  //   },
+  // },
+
+  beforeMount() {
+    this.$store.dispatch("bannersModule/getBanners");
   },
 
   mounted() {
-    this.sorteio();
+    this.position = parseInt(Math.random() * 5);
+    // this.sorteio();
 
     // Toggle display navbar ao rolar a página home
     const navMenu = document.querySelector(".nav_home");

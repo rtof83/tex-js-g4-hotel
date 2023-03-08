@@ -16,11 +16,13 @@ const bannersModule = {
   },
 
   actions: {
+    // get
     async getBanners({ commit }) {   
       const { data } = await api.get(`banners`);
       commit('setBanners', data);
     },
 
+    // post
     async addBanner({ dispatch }, data) {
       await api.post('banners', data)
         .then(() => {
