@@ -11,7 +11,7 @@
         <div class="container__content">
           <div class="container__content__foto-hotel">
             <img
-              src="../assets/images/hotel-externo.jpg"
+              src="@/assets/images/hotel-externo.jpg"
               alt="imagem do hotel"
               title="imagem do hotel"
               width="400"
@@ -49,15 +49,15 @@
         </div>
         <div class="quartos__images">
           <div
-            v-for="item in dbAccommodations"
+            v-for="item in accommodations"
             :key="item.id"
             class="quartos__images__card"
           >
             <div v-if="item.id < 3">
-              <div class="image" :id="`imagem${item.id + 1}`">
+              <div class="image" :id="item.id">
                 <router-link :to="`/reservations/${item.id}`">
                   <img
-                    :src="require(`../assets/images/${item.image}.jpg`)"
+                    :src="item.image"
                     :alt="item.accommodation"
                     :title="item.accommodation"
                   />
@@ -80,7 +80,7 @@
           <div class="experiencia__content">
             <div>
               <img
-                src="../assets/images/piscina_hotel.jpg"
+                src="@/assets/images/piscina_hotel.jpg"
                 alt="piscina do hotel"
                 title="piscina do hotel"
               />
@@ -109,7 +109,7 @@
             </div>
             <div>
               <img
-                src="../assets/images/academia_hotel.jpg"
+                src="@/assets/images/academia_hotel.jpg"
                 alt="academia do hotel"
                 title="academia do hotel"
               />
@@ -118,7 +118,7 @@
           <div class="experiencia__content">
             <div>
               <img
-                src="../assets/images/bar_hotel.jpg"
+                src="@/assets/images/bar_hotel.jpg"
                 alt="bar do hotel"
                 title="bar do hotel"
               />
@@ -145,7 +145,8 @@
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
-import dbAccommodations from "@/store/db/dbAccommodations";
+// import dbAccommodations from "@/store/db/dbAccommodations";
+
 export default {
   name: "AboutView.vue",
   components: {
@@ -154,8 +155,17 @@ export default {
   },
   data() {
     return {
-      dbAccommodations,
+      // dbAccommodations,
     };
+  },
+  computed: {
+    accommodations() {
+      return this.$store.state.accommodationsModule.accommodations;
+    },
+  },
+
+  mounted() {
+    this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 };
 </script>
@@ -164,17 +174,4 @@ export default {
 @import "@/assets/scss/sobre.scss";
 @import "@/assets/scss/header.scss";
 @import "@/assets/scss/footer.scss";
-
-// .image img {
-//   width: 400px;
-//   height: 250px;
-//   opacity: 1;
-//   margin: 0 auto 20px auto;
-//   transition: all 0.3s ease-in-out;
-//   cursor: pointer;
-// }
-
-// .image:hover {
-//   opacity: 0.7;
-// }
 </style>

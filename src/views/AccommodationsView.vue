@@ -23,19 +23,19 @@
       </article>
       <article class="products-container">
         <div
-          v-for="item in dbAccommodations"
+          v-for="item in accommodations"
           :key="item.id"
           class="products-container__card"
         >
           <router-link :to="`/accommodation/${item.id}`">
             <img
               class="products-container__card__product-image"
-              :src="require(`../assets/images/${item.image}.jpg`)"
-              :alt="item.accommodation"
+              :src="item.image"
+              :alt="item.name"
             />
           </router-link>
 
-          <h3>{{ item.accommodation }}</h3>
+          <h3>{{ item.name }}</h3>
           <router-link
             class="products-container__card__btn"
             :to="`/reservations/${item.id}`"
@@ -43,7 +43,7 @@
           >
         </div>
       </article>
-      <article>
+      <article v-if="accommodations.length > 0">
         <div>
           <h2 class="container__subtitle">Queridinho dos hóspedes</h2>
           <span class="container__detalhe"></span>
@@ -51,17 +51,14 @@
         <div class="container__content">
           <div class="container__content__text">
             <p>
-              Nossa principal acomodação, o quarto Presidencial Luxo possui
-              1.132 metros quadrados, design intimista com cores sóbrias e duas
-              suítes com banheira de hidromassagem para a sua inteira
-              disposição. Não deixe de conferir!
+              {{ accommodations[2].description }}
             </p>
           </div>
           <div class="container__content__image">
             <img
-              src="@/assets/images/SuítePresidencial.jpg"
-              alt="academia do hotel"
-              title="Suíte Presidencial"
+              :src="accommodations[8].image"
+              :alt="accommodations[8].name"
+              :title="accommodations[8].name"
               width="600"
             />
           </div>
@@ -76,7 +73,8 @@
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
-import dbAccommodations from "@/store/db/dbAccommodations";
+// import dbAccommodations from "@/store/db/dbAccommodations";
+
 export default {
   name: "AccommodationsView",
   components: {
@@ -85,8 +83,18 @@ export default {
   },
   data() {
     return {
-      dbAccommodations,
+      // dbAccommodations,
     };
+  },
+
+  computed: {
+    accommodations() {
+      return this.$store.state.accommodationsModule.accommodations;
+    },
+  },
+
+  mounted() {
+    this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 };
 </script>
