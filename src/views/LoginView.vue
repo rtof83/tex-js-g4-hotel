@@ -9,7 +9,7 @@
         <form>
           <label for="email">Email:</label>
           <input
-            v-model="login.email"
+            v-model="email"
             type="text"
             placeholder="Digite seu email"
             id="email"
@@ -18,7 +18,7 @@
 
           <label for="password">Senha:</label>
           <input
-            v-model="login.password"
+            v-model="password"
             type="password"
             placeholder="Digite sua senha"
             id="password"
@@ -51,7 +51,8 @@ export default {
 
   data() {
     return {
-      //
+      email: '',
+      password: ''
     };
   },
 
@@ -65,7 +66,7 @@ export default {
     },
 
     login() {
-      return this.$store.state.login;
+      return this.$store.state.loginModule.login;
     },
   },
 
@@ -76,16 +77,16 @@ export default {
 
     confirm() {
       // check blank
-      if (this.login.email === "" || this.login.password === "")
+      if (this.email === "" || this.password === "")
         return alert(
           "Atenção! Os campos usuário e senha devem ser preenchidos."
         );
 
-      const filteredEmail = this.removeQuotesSpaces(this.login.email);
+      const filteredEmail = this.removeQuotesSpaces(this.email);
       // removido item.password do método find abaixo
-      const result = this.users.find((item) => item.email === filteredEmail);
+      // const result = this.users.find((item) => item.email === filteredEmail);
 
-      if (!result) return alert("Atenção! Email ou senha inválidos.");
+      // if (!result) return alert("Atenção! Email ou senha inválidos.");
 
       // send to localStorage
       // this.dbLogin.user = result.user;
@@ -94,20 +95,22 @@ export default {
       //   JSON.stringify({ user: result.user, email: result.email })
       // );
 
+      this.$store.dispatch('loginModule/login', { email: filteredEmail, password: this.password });
+
       // redirect to home
-      if (result.permissionId === 2) {
+      if (this.login.permission === 'user') {
         window.location.href = "/";
       }
       // redirect to admin page
-      if (result.permissionId === 1) {
-        window.location.href = "/#/admin";
+      if (this.login.permission === 'admin') {
+        window.location.href = "/#/admin2";
       }
     },
   },
 
-  beforeMount() {
-    this.$store.dispatch("usersModule/getUsers");
-  },
+  // beforeMount() {
+  //   this.$store.dispatch("usersModule/getUsers");
+  // },
 };
 </script>
 

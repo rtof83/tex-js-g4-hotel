@@ -1,6 +1,7 @@
 <template>
   <header id="topo" class="home">
-    <UserPanel />
+
+    <UserPanel></UserPanel>
 
     <div class="home__background">
       <img

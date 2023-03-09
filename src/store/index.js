@@ -9,6 +9,7 @@ import { addDays, getFromDate } from "./getDate";
 import accommodationsModule from "./modules/accommodations";
 import bannersModule from "./modules/banners";
 import usersModule from "./modules/users";
+import loginModule from "./modules/login";
 
 export default createStore({
   state: {
@@ -112,5 +113,6 @@ export default createStore({
     accommodationsModule,
     bannersModule,
     usersModule,
-  },
+    loginModule
+  }
 });

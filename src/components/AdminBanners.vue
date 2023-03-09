@@ -34,6 +34,7 @@
       add() {
         if (!this.image || !this.slogan)
           return alert('Atenção! Todos os campos devem ser preenchidos.');
+          
         this.$store.dispatch('bannersModule/addBanner', { userId: 1, image: this.image, slogan: this.slogan });
         this.image = '';
         this.slogan = '';

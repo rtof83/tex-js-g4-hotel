@@ -1,21 +1,29 @@
 <template>
-  <div v-if="login.user" class="painel-usuario" id="painel">
-      <div id="user">Olá, {{ login.user }}!</div>
-      <div id="email">email: {{ login.email }}</div>
+  <div v-if="login.auth" class="painel-usuario" id="painel">
+      <div id="user">Olá, {{ login.name }}!</div>
+      <!-- <div id="email">email: {{ login.email }}</div> -->
       <div class="painel-usuario__painel-sair">
         <button @click="logout" id="clearStorage">Sair</button>
       </div>
+
+      <Countdown></Countdown>
     </div>
 </template>
 
 <script>
+  import Countdown from '@/components/Coundown';
+
   export default {
     name: 'UserPanel',
 
     methods: {
-    logout() {
-      this.$store.commit('initLogin')
-    },
+      logout() {
+        this.$store.commit('initLogin')
+      }
+  },
+
+  components: {
+    Countdown
   },
 
   data() {
@@ -27,9 +35,21 @@
 
   computed: {
     login() {
-      return this.$store.state.login
+      return this.$store.state.loginModule.login;
     }
   },
+
+  // watch: {
+  //   login: {
+  //     handler() {
+  //       Object.keys(dbProducts).forEach((key) => {
+  //         dbProducts[key].map(item => this.total += item.price * item.qty);
+  //       });
+  //     },
+
+  //     deep: true
+  //   }
+  // },
 
   mounted() {
     if (this.loginStorage) {
