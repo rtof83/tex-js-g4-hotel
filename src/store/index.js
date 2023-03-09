@@ -1,75 +1,85 @@
-import { createStore } from 'vuex'
-import dbAccommodations from './db/dbAccommodations';
-import dbServices from './db/dbServices';
-import dbLogin from './db/dbLogin';
-import dbBanners from './db/dbBanner';
-import dbProducts from './db/dbProducts';
-import { addDays, getFromDate } from './getDate';
+import { createStore } from "vuex";
+import dbAccommodations from "./db/dbAccommodations";
+import dbServices from "./db/dbServices";
+import dbLogin from "./db/dbLogin";
+import dbBanners from "./db/dbBanner";
+import dbProducts from "./db/dbProducts";
+import { addDays, getFromDate } from "./getDate";
 
-import accommodationsModule from './modules/accommodations';
-import bannersModule from './modules/banners';
+import accommodationsModule from "./modules/accommodations";
+import bannersModule from "./modules/banners";
+import usersModule from "./modules/users";
 
 export default createStore({
   state: {
     reservation: {
       id: 0,
-      accommodation: '',
-      checkin: '',
-      checkout: '',
+      accommodation: "",
+      checkin: "",
+      checkout: "",
       qty: 1,
       rates: 1,
       services: [],
-      coupon: '',
+      coupon: "",
       discount: 0,
       itemsBar: 0,
       total: 0,
     },
 
     login: {
-      user: '',
-      email: '',
-      password: ''
+      user: "",
+      email: "",
+      password: "",
+    },
+
+    user: {
+      name: "",
+      email: "",
+      password: "",
+      status: true,
+      lastLogin: "",
+      permissionId: 2,
     },
 
     modal: {
-      showServices: 'none',
-      showDetails: 'none'
+      showServices: "none",
+      showDetails: "none",
     },
 
     sorteio: {
-      image: '',
-      slogan: ''
+      image: "",
+      slogan: "",
     },
 
     discount: {
-      message: ''
-    }
+      message: "",
+    },
   },
 
   getters: {
-    getStorage: () => storage => {
+    getStorage: () => (storage) => {
       return JSON.parse(localStorage.getItem(storage));
     },
 
     dbServices: () => {
-      return dbServices
+      return dbServices;
     },
 
     dbAccommodations: () => {
-      return dbAccommodations
+      return dbAccommodations;
     },
 
     dbLogin: () => {
-      return dbLogin
+      return dbLogin;
     },
 
     dbProducts: () => {
-      return dbProducts
+      return dbProducts;
     },
 
     dbBanners: () => {
-      return dbBanners
-    }
+      return dbBanners;
+    },
   },
 
   mutations: {
@@ -84,23 +94,23 @@ export default createStore({
       state.reservation.services = [];
       state.reservation.itemsBar = 0;
 
-      localStorage.removeItem('coupon');
-      localStorage.removeItem('report');
+      localStorage.removeItem("coupon");
+      localStorage.removeItem("report");
     },
 
     initLogin: (state) => {
-      localStorage.removeItem('login');
-      state.login.user = '';
-      state.login.email = '';
-      state.login.password = '';
-    }
+      localStorage.removeItem("login");
+      state.login.user = "";
+      state.login.email = "";
+      state.login.password = "";
+    },
   },
 
-  actions: {
-  },
+  actions: {},
 
   modules: {
     accommodationsModule,
-    bannersModule
-  }
+    bannersModule,
+    usersModule,
+  },
 });

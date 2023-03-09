@@ -3,13 +3,24 @@
 
   <main>
     <div class="main">
-      <h1>Login</h1>
+      <h1>Cadastre-se!</h1>
+
+      <!-- <div>{{ users }}</div> -->
 
       <article class="main__login">
         <form>
+          <label for="name">Nome:</label>
+          <input
+            v-model="user.name"
+            type="text"
+            placeholder="Digite seu nome"
+            id="name"
+            name="name"
+          />
+
           <label for="email">Email:</label>
           <input
-            v-model="login.email"
+            v-model="user.email"
             type="text"
             placeholder="Digite seu email"
             id="email"
@@ -18,17 +29,14 @@
 
           <label for="password">Senha:</label>
           <input
-            v-model="login.password"
+            v-model="user.password"
             type="password"
             placeholder="Digite sua senha"
             id="password"
             name="password"
           />
 
-          <router-link to="/signup" class="main__login__esqueceu-senha"
-            >Esqueceu sua senha?</router-link
-          >
-          <button @click="confirm" type="button" id="login">Confirmar</button>
+          <button @click="confirm" type="button" id="signup">Cadastrar</button>
         </form>
       </article>
     </div>
@@ -42,7 +50,7 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 
 export default {
-  name: "LoginView",
+  name: "SignUpView",
 
   components: {
     HeaderComponent,
@@ -56,16 +64,12 @@ export default {
   },
 
   computed: {
-    // dbLogin() {
-    //   return this.$store.getters.dbLogin;
-    // },
-
-    users() {
+    allUsers() {
       return this.$store.state.usersModule.users;
     },
 
-    login() {
-      return this.$store.state.login;
+    user() {
+      return this.$store.state.user;
     },
   },
 
@@ -76,16 +80,23 @@ export default {
 
     confirm() {
       // check blank
-      if (this.login.email === "" || this.login.password === "")
+      if (
+        this.user.name === "" ||
+        this.user.email === "" ||
+        this.user.password === ""
+      )
         return alert(
           "Atenção! Os campos usuário e senha devem ser preenchidos."
         );
 
-      const filteredEmail = this.removeQuotesSpaces(this.login.email);
+      const filteredEmail = this.removeQuotesSpaces(this.user.email);
       // removido item.password do método find abaixo
-      const result = this.users.find((item) => item.email === filteredEmail);
+      const result = this.allUsers.find((item) => item.email === filteredEmail);
 
-      if (!result) return alert("Atenção! Email ou senha inválidos.");
+      if (result) return alert("Atenção! Email ou senha inválidos.");
+
+      // POST
+      this.$store.dispatch("usersModule/addUser", this.user);
 
       // send to localStorage
       // this.dbLogin.user = result.user;
@@ -95,11 +106,11 @@ export default {
       // );
 
       // redirect to home
-      if (result.permissionId === 2) {
+      if (this.user.permissionId === 2) {
         window.location.href = "/";
       }
       // redirect to admin page
-      if (result.permissionId === 1) {
+      if (this.user.permissionId === 1) {
         window.location.href = "/#/admin";
       }
     },
