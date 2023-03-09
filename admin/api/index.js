@@ -29,6 +29,7 @@ require('./routes/users/createUser');
 require('./routes/users/createPermission');
 require('./routes/users/createAddress');
 require('./routes/users/login');
+require('./routes/users/validate');
 
 // services routes
 require('./commonMethods/getAllRecords')('/services', 'service');
