@@ -448,7 +448,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"emaildiferente@email.com\",\n    \"password\": \"senhanormal\"\n}",
+							"raw": "{\n    \"email\": \"admin@email.com\",\n    \"password\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -477,7 +477,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"usuariosenha\",\n    \"email\": \"emaildiferente@email.com\",\n    \"password\": \"senhanormal\",\n    \"status\": true,\n    \"lastLogin\": \"2023-03-04 00:00:00\",\n    \"permissionId\": 1\n}",
+							"raw": "{\n    \"name\": \"user\",\n    \"email\": \"user@email.com\",\n    \"password\": \"pass\",\n    \"status\": 1,\n    \"permissionId\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -493,6 +493,36 @@
 							"port": "3000",
 							"path": [
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywicGVybWlzc2lvbiI6ImFkbWluIiwiaWF0IjoxNjc4Mzk4NTU2LCJleHAiOjE2NzgzOTkxNTZ9._F0dG0u7XdYqyjbJ1AN-iKwsSXFJEuD6Jxf6uxnbgTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"validate"
 							]
 						}
 					},
@@ -584,6 +614,24 @@
 							"path": [
 								"banners",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all banners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/banners",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"banners"
 							]
 						}
 					},
