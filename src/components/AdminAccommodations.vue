@@ -2,12 +2,55 @@
   <div class="content">
     <div class="panel">
       <h1>Cadastrar Acomodação</h1>
-      <!-- ... -->
-    </div>
-  </div>
 
-  <div v-for="item in accommodations" :key="item.id">
-    {{ ('000' + item.id).slice(-3) }} -> {{ item.name }}
+      <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Acomodação</th>
+              <th scope="col">Imagem</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Preço</th>
+              <th scope="col">Status</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          <tr v-for="item in accommodations" :key="item.id">
+
+            <template v-if="!item.page">
+
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.image }}</td>
+            <td>{{ item.description }}</td>
+            <td>R$ {{ item.price }}</td>
+            <td>{{ item.status }}</td>
+            
+            <td>
+              <div class="actions">
+                <div class="actions__item bi bi-pencil-fill"
+                     @mouseover="(e) => hovering(e, 'bi-pencil')"
+                     @mouseout="(e) => hovering(e, 'bi-pencil-fill')"
+                     @click="updateTaskName(item.id, item.name)">
+                </div>
+
+                <div class="actions__item bi bi-trash3-fill"
+                     @mouseover="(e) => hovering(e, 'bi-trash3')"
+                     @mouseout="(e) => hovering(e, 'bi-trash3-fill')"
+                     @click="deleteTask(item.id)">
+                </div>
+              </div>
+            </td>
+
+            </template>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -27,6 +70,10 @@
     },
 
     methods: {
+      hovering(e, action) {
+        e.target.classList.remove(e.target.classList[2]);
+        e.target.classList.add(action);
+      }
     },
 
     mounted() {

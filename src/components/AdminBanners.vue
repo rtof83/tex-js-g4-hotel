@@ -5,11 +5,51 @@
       <input v-model="image" type="text" placeholder="imagem" required>
       <input v-model="slogan" type="text" placeholder="slogan" required>
       <button @click="add">Salvar</button>
-    </div>
-  </div>
 
-  <div v-for="item in banners" :key="item.id">
-    {{ ('000' + item.id).slice(-3) }} -> {{ item.image }} -> {{ item.slogan }}
+      <hr>
+
+      <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Imagem</th>
+              <th scope="col">Slogan</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          <tr v-for="item in banners" :key="item.id">
+
+            <template v-if="!item.page">
+
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.image }}</td>
+            <td>{{ item.slogan }}</td>
+            
+            <td>
+              <div class="actions">
+                <div class="actions__item bi bi-pencil-fill"
+                     @mouseover="(e) => hovering(e, 'bi-pencil')"
+                     @mouseout="(e) => hovering(e, 'bi-pencil-fill')"
+                     @click="updateTaskName(item.id, item.name)">
+                </div>
+
+                <div class="actions__item bi bi-trash3-fill"
+                     @mouseover="(e) => hovering(e, 'bi-trash3')"
+                     @mouseout="(e) => hovering(e, 'bi-trash3-fill')"
+                     @click="deleteTask(item.id)">
+                </div>
+              </div>
+            </td>
+
+            </template>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -38,6 +78,11 @@
         this.$store.dispatch('bannersModule/addBanner', { userId: 1, image: this.image, slogan: this.slogan });
         this.image = '';
         this.slogan = '';
+      },
+
+      hovering(e, action) {
+        e.target.classList.remove(e.target.classList[2]);
+        e.target.classList.add(action);
       }
     },
 

@@ -50,4 +50,9 @@
   }
 </script>
 
-<style src="@/assets/scss/admin.scss" lang="scss" />
+<style lang="scss" scoped>
+  @import "@/assets/scss/admin.scss";
+
+  @import "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css";
+  @import "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css";
+</style>
