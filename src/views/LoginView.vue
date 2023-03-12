@@ -97,6 +97,13 @@ export default {
 
       this.$store.dispatch('loginModule/login', { email: filteredEmail, password: this.password });
 
+
+
+      // ----------------------------->>>>>>>>>>>>>
+      // api.defaults.headers.common = {'authorization': `Bearer ${userStorage.token}`};
+
+
+      
       // redirect to home
       if (this.login.permission === 'user') {
         window.location.href = "/";

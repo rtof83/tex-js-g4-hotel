@@ -33,9 +33,11 @@
             this.result = 'tempo esgotado';
             
             // setUser([]);
-            // localStorage.clear();
             // navigate('/');
+            
             this.login.auth = false;
+            localStorage.removeItem('login');
+            router.push['/login'];
           } else {
             this.result = minutes + "m " + seconds + "s";
           }

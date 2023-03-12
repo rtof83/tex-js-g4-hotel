@@ -21,6 +21,7 @@ const loginModule = {
       await api.post('users/login', login)
         .then(({ data }) => {
           commit('setLogin', data);
+          localStorage.setItem('login', JSON.stringify(data));
         })
         .catch(error => console.log(error));
     }
