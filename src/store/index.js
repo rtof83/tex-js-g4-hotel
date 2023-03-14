@@ -10,6 +10,7 @@ import accommodationsModule from "./modules/accommodations";
 import bannersModule from "./modules/banners";
 import usersModule from "./modules/users";
 import loginModule from "./modules/login";
+import reservationsModule from "./modules/reservations";
 
 export default createStore({
   state: {
@@ -113,6 +114,7 @@ export default createStore({
     accommodationsModule,
     bannersModule,
     usersModule,
-    loginModule
+    loginModule,
+    reservationsModule
   }
 });

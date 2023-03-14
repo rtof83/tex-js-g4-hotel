@@ -111,6 +111,10 @@ export default {
     dbAccommodations() {
       return this.$store.getters.dbAccommodations;
     },
+
+    login() {
+      return this.$store.state.loginModule.login;
+    }
   },
 
   mounted() {
@@ -150,6 +154,8 @@ export default {
 
       newReservation.push(myReservation);
       localStorage.setItem("reservations", JSON.stringify(newReservation));
+
+      this.$store.dispatch('reservationsModule/addReservation', myReservation);
     },
 
     confirmBook() {

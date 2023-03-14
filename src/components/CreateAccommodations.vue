@@ -6,7 +6,7 @@
     </div>
 
     <div
-      v-for="item in selectedAccommodations()"
+      v-for="item in quartos"
       :key="item.id"
       class="cards__images"
       id="cards"
@@ -69,31 +69,46 @@ export default {
 
   methods: {
     selectedAccommodations() {
-      const quartos = [];
+      this.$store.dispatch("accommodationsModule/getAccommodations");
+
+      // this.accommodations.map(item => {
+      //   if (item.id < 4) this.quartos.push(item);
+      // });
+
+      // this.quartos = (this.accommodations.filter(item => item.id < 4));
+
+      // const quartos = [];
       let limit = 3;
 
       if (this.id) {
-        quartos.push(
-          this.accommodations.find((item) => item.id == this.id)
-        );
-        quartos[0].checked = true;
+        this.quartos.push(this.accommodations.find((item) => item.id == this.id));
+        this.quartos[0].checked = true;
         limit--;
-      }
+      };
 
       for (let i = 0; i < limit; i++) {
         if (this.id != i) {
-          quartos.push(this.accommodations[i]);
+          this.quartos.push(this.accommodations[i]);
         }
-      }
-      return quartos;
-    },
+      };
+
+      // return quartos;
+    }
+  },
+
+  beforeMount() {
+    // this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
   mounted() {
-    this.$store.dispatch("accommodationsModule/getAccommodations");
+    // this.$store.dispatch("accommodationsModule/getAccommodations");
     this.selectedAccommodations();
     // console.log(this.selectedAccommodations())
   },
+
+  onUpdated() {
+    // this.selectedAccommodations();
+  }
 };
 </script>
 
