@@ -1,40 +1,57 @@
-import api from '../api';
+import api from "../api";
 
 const usersModule = {
   namespaced: true,
 
   state: {
-    users: []
+    users: [],
   },
 
   getters: {
-    users: state => state.users
+    users: (state) => state.users,
   },
 
   mutations: {
-    setUsers: (state, users) => state.users = users
+    setUsers: (state, users) => (state.users = users),
   },
 
   actions: {
     // get
-    async getUsers({ commit }) {   
+    async getUsers({ commit }) {
       const { data } = await api.get(`users`);
-      commit('setUsers', data);
+      commit("setUsers", data);
     },
 
     // post
     async addUser({ dispatch }, data) {
-      await api.post('users', data)
+      await api
+        .post("users", data)
         .then(() => {
-          dispatch('getUsers')
+          dispatch("getUsers");
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     },
 
     // delete
-    
+    async deleteUser({ dispatch }, id) {
+      await api
+        .delete(`users/${id}`)
+        .then(() => {
+          dispatch("getUsers");
+        })
+        .catch((error) => console.log(error));
+    },
+
     // put
-  }
-}
+    async updateUser({ dispatch }, { id, data }) {
+      await api
+        .put(`users/${id}`, data)
+        .then(() => {
+          dispatch("getUsers");
+        })
+        .catch((error) => console.log(error));
+    },
+  },
+};
 
 export default usersModule;
