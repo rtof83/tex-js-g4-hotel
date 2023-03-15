@@ -5,8 +5,6 @@
     <div class="main">
       <h1>Cadastre-se!</h1>
 
-      <!-- <div>{{ users }}</div> -->
-
       <article class="main__login">
         <form>
           <label for="name">Nome:</label>
@@ -98,21 +96,17 @@ export default {
       // POST
       this.$store.dispatch("usersModule/addUser", this.user);
 
-      // send to localStorage
-      // this.dbLogin.user = result.user;
-      // localStorage.setItem(
-      //   "login",
-      //   JSON.stringify({ user: result.user, email: result.email })
-      // );
+      // redirect to login page
+      window.location.href = "/#/login";
+      
+      // if (this.user.permissionId === 2) {
+      //   window.location.href = "/#/login";
+      // }
 
-      // redirect to home
-      if (this.user.permissionId === 2) {
-        window.location.href = "/";
-      }
       // redirect to admin page
-      if (this.user.permissionId === 1) {
-        window.location.href = "/#/admin";
-      }
+      // if (this.user.permissionId === 1) {
+      //   window.location.href = "/#/admin";
+      // }
     },
   },
 
@@ -126,4 +120,8 @@ export default {
 @import "@/assets/scss/login.scss";
 @import "@/assets/scss/header.scss";
 @import "@/assets/scss/footer.scss";
+
+#signup {
+  margin-top: 2rem;
+}
 </style>

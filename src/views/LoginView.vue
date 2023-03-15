@@ -51,8 +51,8 @@ export default {
 
   data() {
     return {
-      email: '',
-      password: ''
+      email: "",
+      password: "",
     };
   },
 
@@ -83,41 +83,39 @@ export default {
         );
 
       const filteredEmail = this.removeQuotesSpaces(this.email);
+
       // removido item.password do método find abaixo
-      // const result = this.users.find((item) => item.email === filteredEmail);
+      const result = this.users.find((item) => item.email === filteredEmail);
 
-      // if (!result) return alert("Atenção! Email ou senha inválidos.");
+      if (!result) return alert("Atenção! Email ou senha inválidos.");
 
-      // send to localStorage
-      // this.dbLogin.user = result.user;
-      // localStorage.setItem(
-      //   "login",
-      //   JSON.stringify({ user: result.user, email: result.email })
-      // );
+      // LOGIN
+      this.$store.dispatch("loginModule/login", {
+        email: filteredEmail,
+        password: this.password,
+      });
 
-      this.$store.dispatch('loginModule/login', { email: filteredEmail, password: this.password });
-
-
+      // redirect to my reservations
+        window.location.href = "/#/my-reservations";
 
       // ----------------------------->>>>>>>>>>>>>
       // api.defaults.headers.common = {'authorization': `Bearer ${userStorage.token}`};
 
-
-      
       // redirect to home
-      if (this.login.permission === 'user') {
-        window.location.href = "/";
-      }
+      // if (this.login.permission === "user") {
+      //   window.location.href = "/#/my-reservations";
+      // }
+
       // redirect to admin page
-      if (this.login.permission === 'admin') {
-        window.location.href = "/#/admin2";
-      }
+      // if (this.login.permission === "admin") {
+      //   window.location.href = "/#/admin2";
+      // }
     },
   },
 
-  // beforeMount() {
-  //   this.$store.dispatch("usersModule/getUsers");
-  // },
+  beforeMount() {
+    this.$store.dispatch("usersModule/getUsers");
+  },
 };
 </script>
 
