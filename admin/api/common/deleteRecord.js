@@ -1,15 +1,15 @@
 const { app } = require('../database/conn');
 const checkAdmin = require('../middlewares/checkAdmin');
 
-const deleteRecord = (path, table) => {
+const deleteRecord = (path, model) => {
   app.delete(`${path}/:id`, checkAdmin, async (req, res) => {
     try {
-      const [rows] = await global.connection.query(`SELECT * FROM ${table} WHERE id = ${req.params.id}`);
+      const result = await model.findByPk(req.params.id);
 
-      if (!rows.length)
+      if (!result)
         return res.status(422).json({ message: 'Record not found!' });
 
-      await global.connection.query(`DELETE FROM ${table} WHERE id = ${req.params.id}`);
+      await result.destroy();
         
       res.status(200).json({ message: 'Record deleted successfully' });
     } catch (error) {

@@ -35,9 +35,9 @@ const Address = conn.define('address', {
   }
 });
 
-// Permission.belongsTo(User, {
-//     constraint: true,
-//     foreignKey: 'permissionId'
-// });
+Address.belongsTo(User, {
+    constraint: true,
+    foreignKey: 'userId'
+});
 
 module.exports = Address;

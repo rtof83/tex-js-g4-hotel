@@ -1,32 +1,31 @@
-const { connect } = require("./database/conn");
-
-(async () => {
-  await connect();
-})();
+const Accommodation = require("./models/Accommodation");
 
 // accommodations routes
-require("./commonMethods/getAllRecords")("/accommodations", "accommodation");
+require("./common/getAllRecords")("/accommodations", Accommodation);
+require("./common/updateRecord")("/accommodations", Accommodation);
+require("./common/deleteRecord")("/accommodations", Accommodation);
+require("./common/createRecord")("/accommodations", Accommodation);
 require("./routes/accommodations/getAccommodationById");
-require("./routes/accommodations/createAccommodation");
+// require("./routes/accommodations/createAccommodation");
 
 // banners routes
-require("./commonMethods/getAllRecords")("/banners", "banner");
-require("./commonMethods/deleteRecord")("/banners", "banner");
-require("./commonMethods/updateRecord")("/banners", "banner");
+require("./common/getAllRecords")("/banners", "banner");
+require("./common/deleteRecord")("/banners", "banner");
+require("./common/updateRecord")("/banners", "banner");
 require("./routes/banners/createBanner");
 
 // reservations routes
-require("./commonMethods/getAllRecords")("/reservations", "reservation");
+require("./common/getAllRecords")("/reservations", "reservation");
 require("./routes/reservations/createReservation");
 require("./routes/reservations/createCoupon");
-require("./commonMethods/getAllRecords")(
+require("./common/getAllRecords")(
   "/reservations/services",
   "reservationServices"
 );
 require("./routes/reservations/createReservationServices");
 
 // users routes
-require("./commonMethods/getAllRecords")("/users", "user");
+require("./common/getAllRecords")("/users", "user");
 require("./routes/users/createUser");
 require("./routes/users/updateUser");
 require("./routes/users/deleteUser");
@@ -36,7 +35,7 @@ require("./routes/users/login");
 require("./routes/users/validate");
 
 // services routes
-require("./commonMethods/getAllRecords")("/services", "service");
-require("./commonMethods/updateRecord")("/services", "service");
-require("./commonMethods/deleteRecord")("/services", "service");
+require("./common/getAllRecords")("/services", "service");
+require("./common/updateRecord")("/services", "service");
+require("./common/deleteRecord")("/services", "service");
 require("./routes/services/createService");

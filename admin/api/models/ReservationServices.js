@@ -1,11 +1,10 @@
 const Sequelize = require('sequelize');
 const { conn } = require('../database/conn');
 
-const Accommodation = require('./Accommodation');
-const Coupon = require('./Coupon');
-const User = require('./User');
+const Reservation = require('./Reservation');
+const Service = require('./Service');
 
-const Reservation = conn.define('reservation', {
+const ReservationServices = conn.define('reservationServices', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -38,19 +37,14 @@ const Reservation = conn.define('reservation', {
   }
 });
 
-Reservation.belongsTo(Accommodation, {
+ReservationServices.belongsTo(Reservation, {
     constraint: true,
-    foreignKey: 'accommodationId'
+    foreignKey: 'reservationId'
 });
 
-Reservation.belongsTo(User, {
-    constraint: true,
-    foreignKey: 'userId'
+ReservationServices.belongsTo(Service, {
+  constraint: true,
+  foreignKey: 'serviceId'
 });
 
-Reservation.belongsTo(Coupon, {
-    constraint: true,
-    foreignKey: 'couponId'
-});
-
-module.exports = Reservation;
+module.exports = ReservationServices;

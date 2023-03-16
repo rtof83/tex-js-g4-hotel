@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { conn } = require('../database/conn');
 
-const Accommodation = conn.define('accommodation', {
+const Service = conn.define('service', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -9,21 +9,21 @@ const Accommodation = conn.define('accommodation', {
     primaryKey: true
   },
   name: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.STRING(80),
     allowNull: false
   },
   image: {
     type: Sequelize.STRING(100),
     allowNull: false
   },
-  description: {
-    type: Sequelize.STRING,
+  detail: {
+    type: Sequelize.STRING(100),
     allowNull: false
   },
   price: {
     type: Sequelize.DECIMAL(10,2),
-     allowNull: false
+    allowNull: false
   }
 });
 
-module.exports = Accommodation;
+module.exports = Service;
