@@ -26,7 +26,7 @@
           />
 
           <router-link to="/signup" class="main__login__esqueceu-senha"
-            >Esqueceu sua senha?</router-link
+            >Não tem cadastro?</router-link
           >
           <button @click="confirm" type="button" id="login">Confirmar</button>
         </form>
@@ -96,7 +96,7 @@ export default {
       });
 
       // redirect to my reservations
-        window.location.href = "/#/my-reservations";
+      window.location.href = "/#/my-reservations";
 
       // ----------------------------->>>>>>>>>>>>>
       // api.defaults.headers.common = {'authorization': `Bearer ${userStorage.token}`};

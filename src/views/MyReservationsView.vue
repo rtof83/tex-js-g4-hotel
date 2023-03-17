@@ -5,12 +5,9 @@
 
   <div>
     <h3>Usuário: {{ login.name }}</h3>
-    <p>{{ nameInput.name }}</p>
-    <form>
-      <label for="name">Nome:</label>
-      <input id="name" type="text" v-model="nameInput.name" />
-    </form>
-    <button @click="updateUser(login.id, nameInput)">Editar dados</button>
+    <button @click="showModal('showUserDetails')" id="UserDetails">
+      Editar dados
+    </button>
     <button @click="deleteUser(login.id)">Deletar usuário</button>
   </div>
 
@@ -44,12 +41,15 @@
   </div>
   <div v-else><h3>Usuário sem reservas.</h3></div>
 
+  <ModalUserDetails />
+
   <FooterComponent />
 </template>
 
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import ModalUserDetails from "../components/ModalUserDetails.vue";
 
 export default {
   name: "MyReservationsView",
@@ -57,32 +57,21 @@ export default {
   components: {
     HeaderComponent,
     FooterComponent,
+    ModalUserDetails,
   },
 
   data() {
     return {
       login: JSON.parse(localStorage.getItem("login")),
       reservations: JSON.parse(localStorage.getItem("reservations")),
-      nameInput: {
-        name: "",
-      },
     };
   },
 
-  methods: {
-    updateUser(id, data) {
-      this.$store.dispatch("usersModule/updateUser", { id, data });
-      alert("Nome alterado com sucesso!");
-    },
-
-    deleteUser(id) {
-      this.$store.dispatch("usersModule/deleteUser", id);
-      localStorage.removeItem("login");
-      window.location.href = "/#/login";
-    },
-  },
-
   computed: {
+    modal() {
+      return this.$store.state.modal;
+    },
+
     // myReservations() {
     //   const login = JSON.parse(localStorage.getItem("login"));
     //   const reservations = JSON.parse(localStorage.getItem("reservations"));
@@ -95,6 +84,18 @@ export default {
     //     return false;
     //   }
     // },
+  },
+
+  methods: {
+    showModal(modal) {
+      this.modal[modal] = "block";
+    },
+
+    deleteUser(id) {
+      this.$store.dispatch("usersModule/deleteUser", id);
+      localStorage.removeItem("login");
+      window.location.href = "/#/login";
+    },
   },
 };
 </script>
