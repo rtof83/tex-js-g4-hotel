@@ -46,6 +46,7 @@ export default createStore({
     modal: {
       showServices: "none",
       showDetails: "none",
+      showUserDetails: "none",
     },
 
     sorteio: {
@@ -115,6 +116,6 @@ export default createStore({
     bannersModule,
     usersModule,
     loginModule,
-    reservationsModule
-  }
+    reservationsModule,
+  },
 });

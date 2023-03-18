@@ -34,6 +34,65 @@
             name="password"
           />
 
+          <label for="cep">CEP:</label>
+          <input
+            type="text"
+            placeholder="Digite seu CEP"
+            id="cep"
+            name="cep"
+            @keypress="mascaraCEP"
+            @blur="viaCEP"
+            v-model="cep"
+          />
+
+          <label></label>
+          <input
+            type="text"
+            placeholder="Logradouro"
+            id="logradouro"
+            name="logradouro"
+            :value="logradouro('logradouro')"
+          />
+
+          <label></label>
+          <input type="number" placeholder="Número" id="numero" name="numero" />
+
+          <label></label>
+          <input
+            type="text"
+            placeholder="Complemento"
+            id="complemento"
+            name="complemento"
+            :value="logradouro('complemento')"
+          />
+
+          <label></label>
+          <input
+            type="text"
+            placeholder="Bairro"
+            id="bairro"
+            name="bairro"
+            :value="logradouro('bairro')"
+          />
+
+          <label></label>
+          <input
+            type="text"
+            placeholder="Cidade"
+            id="cidade"
+            name="cidade"
+            :value="logradouro('localidade')"
+          />
+
+          <label></label>
+          <input
+            type="text"
+            placeholder="UF"
+            id="uf"
+            name="uf"
+            :value="logradouro('uf')"
+          />
+
           <button @click="confirm" type="button" id="signup">Cadastrar</button>
         </form>
       </article>
@@ -46,6 +105,7 @@
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import axios from "axios";
 
 export default {
   name: "SignUpView",
@@ -57,7 +117,8 @@ export default {
 
   data() {
     return {
-      //
+      infoCep: "",
+      cep: "",
     };
   },
 
@@ -74,6 +135,60 @@ export default {
   methods: {
     removeQuotesSpaces(str) {
       return str.replaceAll("'", "").replaceAll('"', "").trim();
+    },
+
+    logradouro(item) {
+      return this.infoCep[item];
+    },
+
+    mascaraCEP() {
+      const mascara = "#####-###";
+      let qtdCEP = this.cep.length;
+      let outPut = mascara.substring(1, 0);
+      let info = mascara.substring(qtdCEP);
+      if (info.substring(0, 1) != outPut) {
+        this.cep += info.substring(0, 1);
+      }
+    },
+
+    limpaCEP(inputCep) {
+      return inputCep.replace(/^\s|\s+$/g, "");
+    },
+
+    verificaCEP() {
+      let lerCep = /^[0-9]{5}-[0-9]{3}$/;
+      this.cep = this.limpaCEP(this.cep);
+      if (this.cep.length > 0) {
+        if (lerCep.test(this.cep)) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    },
+
+    cepValido() {
+      let retornaCep = this.verificaCEP();
+      !retornaCep ? alert("CEP inválido!") : null;
+      return retornaCep;
+    },
+
+    viaCEP() {
+      this.cepValido();
+      if (this.cepValido()) {
+        try {
+          axios
+            .get(`https://viacep.com.br/ws/${this.cep}/json/`)
+            .then((response) => {
+              this.infoCep = response.data;
+            });
+          console.log(this.infoCep);
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
 
     confirm() {
@@ -98,7 +213,7 @@ export default {
 
       // redirect to login page
       window.location.href = "/#/login";
-      
+
       // if (this.user.permissionId === 2) {
       //   window.location.href = "/#/login";
       // }
@@ -123,5 +238,9 @@ export default {
 
 #signup {
   margin-top: 2rem;
+}
+
+.main {
+  height: 1300px;
 }
 </style>
