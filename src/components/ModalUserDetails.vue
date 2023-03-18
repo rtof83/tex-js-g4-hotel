@@ -2,12 +2,12 @@
   <div id="modalUserDetails" class="escolha__modal">
     <!-- Modal content -->
     <div class="escolha__modal__modal-content">
-      <span
+      <img
+        src="../../src/assets/images/close.png"
         @click="closeModal"
         id="closeModalUserDetails"
         class="escolha__modal__modal-content__close"
-        >&times;</span
-      >
+      />
       <div>
         <h2>Atualizar dados cadastrais</h2>
       </div>
@@ -17,9 +17,14 @@
           <label for="name">Nome: </label>
           <input id="name" type="text" v-model="nameInput.name" />
         </form>
-        <button @click="updateUser(login.id, nameInput)">
-          Salvar mudanças
-        </button>
+        <div class="escolha__modal__modal-content__div">
+          <button
+            class="escolha__modal__modal-content__div__btn"
+            @click="updateUser(login.id, nameInput)"
+          >
+            Salvar mudanças
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -80,5 +85,9 @@ export default {
 
 .escolha__modal {
   display: v-bind("modal.showUserDetails");
+
+  &__modal-content__div {
+    text-align: center;
+  }
 }
 </style>
