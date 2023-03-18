@@ -39,3 +39,7 @@ require("./common/getAllRecords")("/services", "service");
 require("./common/updateRecord")("/services", "service");
 require("./common/deleteRecord")("/services", "service");
 require("./routes/services/createService");
+
+// services
+require('./services/initialPermission')();
+require('./services/initialAdmin')();

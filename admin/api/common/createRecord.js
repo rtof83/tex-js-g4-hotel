@@ -4,7 +4,7 @@ const checkAdmin = require('../middlewares/checkAdmin');
 const createRecord = (path, model) => {
   app.post(path, checkAdmin, async (req, res) => {
     try {
-      // await model.create(req.body);
+      await model.create(req.body);
 
       res.status(201).json({ message: 'Record inserted successfully!' });
     } catch (error) {
