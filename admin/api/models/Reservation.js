@@ -17,7 +17,7 @@ const Reservation = conn.define('reservation', {
     allowNull: false
   },
   checkout: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATEONLY,
     allowNull: false
   },
   qty: {
@@ -25,8 +25,7 @@ const Reservation = conn.define('reservation', {
     allowNull: false
   },
   dateConfirm: {
-    type: Sequelize.DATETIME,
-    allowNull: false
+    type: Sequelize.DATE
   },
   subTotal: {
     type: Sequelize.DECIMAL(10,2),

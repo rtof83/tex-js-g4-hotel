@@ -1,13 +1,19 @@
 const { app } = require('../../database/conn');
 
+const Reservation = require('../../models/Reservation');
+const ReservationServices = require('../../models/ReservationServices');
+
 module.exports = app.post('/reservations', async (req, res) => {
   try {
-    await global.connection.query(`INSERT INTO reservation (checkin, checkout, qty, createdAt, subTotal, total, accommodationId, userId, couponId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
-      [req.body.checkin, req.body.checkout, req.body.qty, new Date(), req.body.subTotal, req.body.total, req.body.accommodationId, req.body.userId, req.body.couponId])
-      .then(async () => await global.connection.query(`UPDATE accommodation SET status = true WHERE id = ${req.body.accommodationId}`))
+    let lastId = 0;
+    await Reservation.create(req.body)
+      .then(result => lastId = result.id);
 
-    // if (!rows)
-    //   return res.status(422).json({ message: 'Record not found!' });
+    if (req.body.services.length) {
+      req.body.services.map(async (item) => {
+        await ReservationServices.create({ reservationId: lastId, serviceId: item })
+      });
+    };
       
     res.status(200).json({ message: 'Record created successfully' });
   } catch (error) {

@@ -10,30 +10,6 @@ const ReservationServices = conn.define('reservationServices', {
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
-  },
-  checkin: {
-    type: Sequelize.DATE,
-    allowNull: false
-  },
-  checkout: {
-    type: Sequelize.DATE,
-    allowNull: false
-  },
-  qty: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  dateConfirm: {
-    type: Sequelize.DATETIME,
-    allowNull: false
-  },
-  subTotal: {
-    type: Sequelize.DECIMAL(10,2),
-    allowNull: false
-  },
-  total: {
-    type: Sequelize.DECIMAL(10,2),
-    allowNull: false
   }
 });
 

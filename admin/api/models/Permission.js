@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 const { conn } = require('../database/conn');
 
-const User = require('./User');
-
 const Permission = conn.define('permission', {
   id: {
     type: Sequelize.INTEGER,

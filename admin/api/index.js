@@ -1,4 +1,6 @@
 const Accommodation = require("./models/Accommodation");
+const Service = require("./models/Service");
+const Banner = require("./models/Banner");
 
 // accommodations routes
 require("./common/getAllRecords")("/accommodations", Accommodation);
@@ -9,10 +11,10 @@ require("./routes/accommodations/getAccommodationById");
 // require("./routes/accommodations/createAccommodation");
 
 // banners routes
-require("./common/getAllRecords")("/banners", "banner");
-require("./common/deleteRecord")("/banners", "banner");
-require("./common/updateRecord")("/banners", "banner");
-require("./routes/banners/createBanner");
+require("./common/getAllRecords")("/banners", Banner);
+require("./common/updateRecord")("/banners", Banner);
+require("./common/deleteRecord")("/banners", Banner);
+require("./common/createRecord")("/banners", Banner);
 
 // reservations routes
 require("./common/getAllRecords")("/reservations", "reservation");
@@ -38,7 +40,8 @@ require("./routes/users/validate");
 require("./common/getAllRecords")("/services", "service");
 require("./common/updateRecord")("/services", "service");
 require("./common/deleteRecord")("/services", "service");
-require("./routes/services/createService");
+// require("./routes/services/createService");
+require("./common/createRecord")("/services", Service);
 
 // services
 require('./services/initialPermission')();
