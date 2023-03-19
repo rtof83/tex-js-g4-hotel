@@ -1,42 +1,48 @@
-const { connect } = require("./database/conn");
-
-(async () => {
-  await connect();
-})();
+const Accommodation = require("./models/Accommodation");
+const Service = require("./models/Service");
+const Banner = require("./models/Banner");
+const Contact = require("./models/Contact");
+const Reservation = require("./models/Reservation");
+const Permission = require("./models/Permission");
+const User = require("./models/User");
 
 // accommodations routes
-require("./commonMethods/getAllRecords")("/accommodations", "accommodation");
+require("./common/getAllRecords")("/accommodations", Accommodation);
+require("./common/updateRecord")("/accommodations", Accommodation);
+require("./common/deleteRecord")("/accommodations", Accommodation);
+require("./common/createRecord")("/accommodations", Accommodation);
 require("./routes/accommodations/getAccommodationById");
-require("./routes/accommodations/createAccommodation");
 
 // banners routes
-require("./commonMethods/getAllRecords")("/banners", "banner");
-require("./commonMethods/deleteRecord")("/banners", "banner");
-require("./commonMethods/updateRecord")("/banners", "banner");
-require("./routes/banners/createBanner");
+require("./common/getAllRecords")("/banners", Banner);
+require("./common/updateRecord")("/banners", Banner);
+require("./common/deleteRecord")("/banners", Banner);
+require("./common/createRecord")("/banners", Banner);
 
 // reservations routes
-require("./commonMethods/getAllRecords")("/reservations", "reservation");
+require("./common/getAllRecords")("/reservations", Reservation);
 require("./routes/reservations/createReservation");
 require("./routes/reservations/createCoupon");
-require("./commonMethods/getAllRecords")(
-  "/reservations/services",
-  "reservationServices"
-);
-require("./routes/reservations/createReservationServices");
 
 // users routes
-require("./commonMethods/getAllRecords")("/users", "user");
+require("./common/getAllRecords")("/users", User);
 require("./routes/users/createUser");
-require("./routes/users/updateUser");
-require("./routes/users/deleteUser");
-require("./routes/users/createPermission");
-require("./routes/users/createAddress");
+require("./common/updateRecord")("/users", User);
+require("./common/deleteRecord")("/users", User);
+require("./common/createRecord")("/users/permissions", Permission);
 require("./routes/users/login");
 require("./routes/users/validate");
 
 // services routes
-require("./commonMethods/getAllRecords")("/services", "service");
-require("./commonMethods/updateRecord")("/services", "service");
-require("./commonMethods/deleteRecord")("/services", "service");
-require("./routes/services/createService");
+require("./common/getAllRecords")("/services", Service);
+require("./common/updateRecord")("/services", Service);
+require("./common/deleteRecord")("/services", Service);
+require("./common/createRecord")("/services", Service);
+
+// contacts routes
+require("./common/getAllRecords")("/contacts", Contact);
+require("./common/createRecord")("/contacts", Contact);
+
+// services
+require('./services/initialPermission')();
+require('./services/initialAdmin')();

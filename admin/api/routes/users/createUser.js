@@ -1,16 +1,13 @@
 const { app } = require('../../database/conn');
-const bcrypt = require('bcrypt');
 
-const saltRounds = 10;
+const User = require('../../models/User');
 
 module.exports = app.post('/users', async (req, res) => {
   try {
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    req.body.password = await require('./hashPassword')(req.body.password);
 
-    await global.connection.query(`INSERT INTO user (name, email, password, status, permissionId) VALUES (?, ?, ?, ?, ?);`,
-      [req.body.name, req.body.email, hashedPassword, true, req.body.permissionId]);
-      
+    await User.create(req.body);
+
     res.status(200).json({ message: 'Record created successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });

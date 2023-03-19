@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 const { conn } = require('../database/conn');
 
-const Accommodation = conn.define('accommodation', {
+const Permission = require('./Permission');
+
+const User = conn.define('user', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -9,21 +11,29 @@ const Accommodation = conn.define('accommodation', {
     primaryKey: true
   },
   name: {
+    type: Sequelize.STRING(16),
+    allowNull: false
+  },
+  email: {
     type: Sequelize.STRING(100),
     allowNull: false
   },
-  image: {
+  password: {
     type: Sequelize.STRING(100),
     allowNull: false
   },
-  description: {
-    type: Sequelize.STRING,
+  status: {
+    type: Sequelize.BOOLEAN,
     allowNull: false
   },
-  price: {
-    type: Sequelize.DECIMAL(10,2),
-     allowNull: false
+  lastLogin: {
+    type: Sequelize.DATE
   }
 });
 
-module.exports = Accommodation;
+User.belongsTo(Permission, {
+    constraint: true,
+    foreignKey: 'permissionId'
+});
+
+module.exports = User;

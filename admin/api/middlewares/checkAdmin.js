@@ -1,15 +1,18 @@
+const User = require('../models/User');
+const checkValidate = require('./checkValidate');
+
 module.exports = async (req, res, next) => {
   try {
-    const [rows] = await global.connection.query(`SELECT user.name
-                                                  FROM user
-                                                  INNER JOIN permission
-                                                  ON permission.id = user.permissionId
-                                                  WHERE user.id = ${req.body.userId} AND permission.id = 1`);
+    const { error, decoded } = checkValidate(req);
 
-    if (!rows.length)
+    if (error)
+      return res.status(401).json(error);
+
+    if (decoded.permission === 1)
+      next();
+    else {
       return res.status(401).json({ message: 'access only for admin' });
-  
-    next();
+    };
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
