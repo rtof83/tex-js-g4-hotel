@@ -7,7 +7,10 @@
 
 /admin/api/node_modules
 /admin/api/.env
+/admin/api/package-lock.json
 /admin/api/database/model/*.bak
+
+/package-lock.json
 
 # local env files
 .env.local

@@ -3,6 +3,8 @@
 
   <h1>Minhas Reservas</h1>
 
+  {{ reservations }}
+
   <div>
     <h3>Usuário: {{ login.name }}</h3>
     <button @click="showModal('showUserDetails')" id="UserDetails">
@@ -23,7 +25,7 @@
       <p>Check in: {{ item.checkin }}</p>
       <p>Check out: {{ item.checkout }}</p>
 
-      <div v-if="item.services.length">
+      <!-- <div v-if="item.services.length">
         <br />
         <ul>
           Serviços adicionais:
@@ -32,11 +34,11 @@
           </li>
         </ul>
         <br />
-      </div>
+      </div> -->
 
-      <p v-if="item.coupon">Cupom: {{ item.coupon }}</p>
+      <!-- <p v-if="item.coupon">Cupom: {{ item.coupon }}</p>
       <p>Descontos aplicados: R$ {{ item.discount.toFixed(2) }}</p>
-      <p>Total: R$ {{ item.total.toFixed(2) }}</p>
+      <p>Total: R$ {{ item.total.toFixed(2) }}</p> -->
     </div>
   </div>
   <div v-else><h3>Usuário sem reservas.</h3></div>
@@ -62,14 +64,22 @@ export default {
 
   data() {
     return {
-      login: JSON.parse(localStorage.getItem("login")),
-      reservations: JSON.parse(localStorage.getItem("reservations")),
+      // login: JSON.parse(localStorage.getItem("login")),
+      // reservations: JSON.parse(localStorage.getItem("reservations")),
     };
   },
 
   computed: {
     modal() {
       return this.$store.state.modal;
+    },
+
+    login() {
+      return this.$store.state.loginModule.login;
+    },
+
+    reservations() {
+      return this.$store.state.reservationsModule.reservations;
     },
 
     // myReservations() {
@@ -97,6 +107,10 @@ export default {
       window.location.href = "/#/login";
     },
   },
+
+  mounted() {
+    this.$store.dispatch("reservationsModule/getReservationsByUser", this.login.id);
+  }
 };
 </script>
 
