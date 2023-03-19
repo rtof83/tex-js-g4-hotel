@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 const { conn } = require('../database/conn');
 
-// const User = require('./User');
-
 const Coupon = conn.define('coupon', {
   id: {
     type: Sequelize.INTEGER,
@@ -27,10 +25,5 @@ const Coupon = conn.define('coupon', {
     allowNull: false
   }
 });
-
-// Permission.belongsTo(User, {
-//     constraint: true,
-//     foreignKey: 'permissionId'
-// });
 
 module.exports = Coupon;
