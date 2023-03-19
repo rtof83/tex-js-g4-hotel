@@ -142,6 +142,16 @@
 				{
 					"name": "create accommodation",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicGVybWlzc2lvbiI6MSwiaWF0IjoxNjc5MjM2ODY3LCJleHAiOjE2NzkyMzc0Njd9.DLcnjGm-zGlnfhIr4U5W9n40Ru3mw3hMwv_uBqacGbo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -173,7 +183,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/accommodations/2",
+							"raw": "http://localhost:3000/accommodations/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -181,7 +191,46 @@
 							"port": "3000",
 							"path": [
 								"accommodations",
-								"2"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update accommodation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicGVybWlzc2lvbiI6MSwiaWF0IjoxNjc5MjQzMTI1fQ.zUZbUKX8PB08WiDLbJhJmpOk94mwdDCnx6WlD8EVOSQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"image32\",\r\n    \"image\": \"image\",\r\n    \"description\": \"slogan31\",\r\n    \"price\": 190\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/accommodations/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"accommodations",
+								"1"
 							]
 						}
 					},
@@ -192,35 +241,6 @@
 		{
 			"name": "reservations",
 			"item": [
-				{
-					"name": "create services",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"reservationId\": 1,\r\n    \"serviceId\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/reservations/services",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"reservations",
-								"services"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "create coupon",
 					"request": {
@@ -257,6 +277,37 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
+							"raw": "{\r\n    \"checkin\": \"2023-02-01\",\r\n    \"checkout\": \"2023-02-02\",\r\n    \"qty\": 4,\r\n    \"subTotal\": 100,\r\n    \"total\": 200,\r\n    \"accommodationId\": 1,\r\n    \"userId\": 1,\r\n    \"services\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/reservations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reservations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all reservations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
 							"raw": "{\r\n    \"checkin\": \"2023-02-01\",\r\n    \"checkout\": \"2023-02-02\",\r\n    \"qty\": 4,\r\n    \"subTotal\": 100,\r\n    \"total\": 200,\r\n    \"accommodationId\": 10,\r\n    \"userId\": 1\r\n}",
 							"options": {
 								"raw": {
@@ -277,6 +328,39 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get reservations by user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkin\": \"2023-02-01\",\r\n    \"checkout\": \"2023-02-02\",\r\n    \"qty\": 4,\r\n    \"subTotal\": 100,\r\n    \"total\": 200,\r\n    \"accommodationId\": 10,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/reservations/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reservations",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -286,11 +370,21 @@
 				{
 					"name": "create service",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicGVybWlzc2lvbiI6MSwiaWF0IjoxNjc5MjM3NzE1LCJleHAiOjE2NzkyMzgzMTV9.qnKo7h2h1iGI62Ahi6z5Xh3daV4LY0uk4Erk-DNodhw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"cafe\",\r\n    \"image\": \"http\",\r\n    \"detail\": \"asmnda,msn d,mans,dna,nms\",\r\n    \"price\": 5.0\r\n}",
+							"raw": "{\r\n    \"name\": \"cofre\",\r\n    \"image\": \"http\",\r\n    \"detail\": \"asmnda,msn d,mans,dna,nms\",\r\n    \"price\": 5.0\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -477,7 +571,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"user\",\n    \"email\": \"user@email.com\",\n    \"password\": \"pass\",\n    \"status\": 1,\n    \"permissionId\": 2\n}",
+							"raw": "{\n    \"name\": \"user\",\n    \"email\": \"user@email.com\",\n    \"password\": \"pass\",\n    \"status\": 1,\n    \"permissionId\": 2,\n    \"address\": {\n        \"streetName\": \"Rua Teste\",\n        \"streetNumber\": 100,\n        \"neighborhood\": \"Bairro Teste\",\n        \"city\": \"Cidade\",\n        \"state\": \"AA\",\n        \"postCode\": \"12345678\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
