@@ -23,6 +23,7 @@ require("./common/createRecord")("/banners", Banner);
 require("./common/getAllRecords")("/reservations", Reservation);
 require("./routes/reservations/createReservation");
 require("./routes/reservations/createCoupon");
+require("./routes/reservations/getReservationByUser");
 
 // users routes
 require("./common/getAllRecords")("/users", User);
