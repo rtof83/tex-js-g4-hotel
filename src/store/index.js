@@ -11,6 +11,7 @@ import bannersModule from "./modules/banners";
 import usersModule from "./modules/users";
 import loginModule from "./modules/login";
 import reservationsModule from "./modules/reservations";
+import contactsModule from "./modules/contacts";
 
 export default createStore({
   state: {
@@ -39,8 +40,24 @@ export default createStore({
       email: "",
       password: "",
       status: true,
-      lastLogin: "",
+      // lastLogin: "",
       permissionId: 2,
+      address: {
+        streetName: "",
+        streetNumber: "",
+        neighborhood: "",
+        city: "",
+        state: "",
+        postCode: "",
+      },
+    },
+
+    contact: {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
     },
 
     modal: {
@@ -117,5 +134,6 @@ export default createStore({
     usersModule,
     loginModule,
     reservationsModule,
+    contactsModule,
   },
 });

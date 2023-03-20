@@ -55,15 +55,12 @@
           />
 
           <label></label>
-          <input type="number" placeholder="Número" id="numero" name="numero" />
-
-          <label></label>
           <input
-            type="text"
-            placeholder="Complemento"
-            id="complemento"
-            name="complemento"
-            :value="logradouro('complemento')"
+            v-model="user.address.streetNumber"
+            type="number"
+            placeholder="Número"
+            id="numero"
+            name="numero"
           />
 
           <label></label>
@@ -184,7 +181,6 @@ export default {
             .then((response) => {
               this.infoCep = response.data;
             });
-          console.log(this.infoCep);
         } catch (error) {
           console.log(error);
         }
@@ -207,6 +203,12 @@ export default {
       const result = this.allUsers.find((item) => item.email === filteredEmail);
 
       if (result) return alert("Atenção! Email ou senha inválidos.");
+
+      this.user.address.streetName = this.infoCep.logradouro;
+      this.user.address.neighborhood = this.infoCep.bairro;
+      this.user.address.postCode = this.infoCep.cep;
+      this.user.address.state = this.infoCep.uf;
+      this.user.address.city = this.infoCep.localidade;
 
       // POST
       this.$store.dispatch("usersModule/addUser", this.user);

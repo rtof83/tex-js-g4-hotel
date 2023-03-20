@@ -49,11 +49,11 @@
         </div>
         <div class="quartos__images">
           <div
-            v-for="item in accommodations"
+            v-for="(item, index) in accommodations"
             :key="item.id"
             class="quartos__images__card"
           >
-            <div v-if="item.id < 3">
+            <div v-if="index < 3">
               <div class="image" :id="item.id">
                 <router-link :to="`/reservations/${item.id}`">
                   <img
