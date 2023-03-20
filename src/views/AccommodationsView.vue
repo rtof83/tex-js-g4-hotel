@@ -23,11 +23,11 @@
       </article>
       <article class="products-container">
         <div
-          v-for="item in accommodations"
+          v-for="(item, index) in accommodations"
           :key="item.id"
           class="products-container__card"
         >
-          <router-link :to="`/accommodation/${item.id}`">
+          <router-link :to="`/accommodation/${index}`">
             <img
               class="products-container__card__product-image"
               :src="item.image"

@@ -2,7 +2,6 @@
 @use "mixins" as mix;
 @use "extends";
 
-
 /* --------------  MAIN  ----------------  */
 .container {
   background-color: let.$branco;
@@ -61,7 +60,7 @@
   }
 
   &__content {
-    @extend %content;
+    display: flex;
     flex-direction: column;
     margin: 0;
 
