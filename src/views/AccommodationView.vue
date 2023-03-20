@@ -3,15 +3,12 @@
 
   <main class="container">
     <div>
-      <h2 class="container__subtitle">{{ accommodation.accommodation }}</h2>
+      <h2 class="container__subtitle">{{ accommodation.name }}</h2>
 
       <div class="container__content">
         <div class="container__content__room">
           <div class="container__content__room__image">
-            <img
-              :src="require(`../assets/images/${accommodation.image}.jpg`)"
-              :alt="accommodation.accommodation"
-            />
+            <img :src="accommodation.image" :alt="accommodation.name" />
           </div>
           <div class="container__content__room__text">
             <p>{{ accommodation.description }}</p>
@@ -81,8 +78,9 @@ import Comments from "@/components/Comments.js";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
+// import { toast } from "vue3-toastify";
+// import "vue3-toastify/dist/index.css";
+
 import vue3StarRatings from "vue3-star-ratings";
 
 export default {
@@ -106,7 +104,7 @@ export default {
     },
 
     accommodation() {
-      return this.$store.getters.dbAccommodations[this.id];
+      return this.$store.state.accommodationsModule.accommodations[this.id];
     },
 
     login() {
@@ -130,18 +128,19 @@ export default {
 
       this.comments.getComments(this.id);
 
-      this.notify();
+      // this.notify();
     },
 
-    notify() {
-      toast("comentário adicionado!", {
-        autoClose: 3000,
-      });
-    },
+    // notify() {
+    //   toast("comentário adicionado!", {
+    //     autoClose: 3000,
+    //   });
+    // },
   },
 
   mounted() {
     this.accommodationComments = this.comments.getComments(this.id);
+    this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
   components: {
