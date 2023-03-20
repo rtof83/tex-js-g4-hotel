@@ -5,8 +5,7 @@
     <div class="admin-content__side-nav">
       <a @click="banners">Banners</a>
       <a @click="accommodations">Acomodações</a>
-      <a>Clients</a>
-      <a>Contact</a>
+      <a @click="contacts">Contatos</a>
     </div>
 
     <div class="admin-content__main">
@@ -23,6 +22,7 @@
 <script>
   import AdminBanners from '@/components/AdminBanners.vue';
   import AdminAccommodations from '@/components/AdminAccommodations.vue';
+  import AdminContacts from '@/components/AdminContacts.vue';
 
   export default {
     name: 'AdminView',
@@ -35,7 +35,8 @@
 
     components: {
       AdminBanners,
-      AdminAccommodations
+      AdminAccommodations,
+      AdminContacts
     },
 
     methods: {
@@ -45,6 +46,10 @@
 
       accommodations() {
         this.component = AdminAccommodations
+      },
+
+      contacts() {
+        this.component = AdminContacts
       }
     }
   }

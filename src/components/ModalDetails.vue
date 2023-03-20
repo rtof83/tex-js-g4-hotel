@@ -50,9 +50,9 @@
           </div>
         </div>
         <!-- Consumo na tela de reservas ? -->
-        <div v-if="!reservation.itemsBar">
+        <!-- <div v-if="!reservation.itemsBar">
           <h3>Nenhum consumo</h3>
-        </div>
+        </div> -->
       </div>
 
       <div id="detailsSummary" class="escolha__modal__modal-content__resume">

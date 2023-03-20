@@ -95,7 +95,7 @@ export default {
           (service) => (sumServices += service.price)
         );
 
-        const report =  JSON.parse(localStorage.getItem('report'));
+        const report = JSON.parse(localStorage.getItem('report'));
         if (report) this.reservation.itemsBar = report.totalItems;
 
         this.reservation.rates =
