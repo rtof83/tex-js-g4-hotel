@@ -9,6 +9,7 @@
         <form action="/public" method="get">
           <label for="name">Nome:</label>
           <input
+            v-model="contact.name"
             type="text"
             placeholder="Digite seu nome completo"
             id="name"
@@ -18,6 +19,7 @@
 
           <label for="email">Email:</label>
           <input
+            v-model="contact.email"
             type="email"
             placeholder="Digite seu melhor email"
             id="email"
@@ -27,6 +29,7 @@
 
           <label for="phone">Telefone:</label>
           <input
+            v-model="contact.phone"
             type="tel"
             placeholder="Digite seu telefone"
             id="phone"
@@ -35,7 +38,7 @@
           />
 
           <label for="subject">Assunto:</label>
-          <select name="subject" id="subject">
+          <select v-model="contact.subject" name="subject" id="subject">
             <option value="CancelamentoDeReserva">
               Cancelamento de Reserva
             </option>
@@ -47,6 +50,7 @@
 
           <label for="message">Mensagem:</label>
           <textarea
+            v-model="contact.message"
             placeholder="Digite sua mensagem"
             name="message"
             id="message"
@@ -54,7 +58,7 @@
             rows="10"
           ></textarea>
 
-          <button>Confirmar</button>
+          <button @click="confirm" type="button">Confirmar</button>
         </form>
       </article>
     </div>
@@ -73,6 +77,36 @@ export default {
     HeaderComponent,
     FooterComponent,
   },
+
+  computed: {
+    contact() {
+      return this.$store.state.contact;
+    },
+  },
+
+  methods: {
+    confirm() {
+      // check blank
+      if (
+        this.contact.name === "" ||
+        this.contact.email === "" ||
+        this.contact.phone === "" ||
+        this.contact.subject === "" ||
+        this.contact.message === ""
+      )
+        return alert(
+          "Atenção! Os campos usuário e senha devem ser preenchidos."
+        );
+
+      // POST
+      this.$store.dispatch("contactsModule/addContact", this.contact);
+      alert("Mensagem enviada com sucesso!");
+    },
+  },
+
+  // beforeMount() {
+  //   this.$store.dispatch("contactsModule/getContacts");
+  // },
 };
 </script>
 
