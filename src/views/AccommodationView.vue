@@ -27,6 +27,7 @@
             placeholder="Digite seu nome completo"
             id="name"
             name="name"
+            v-model="name"
             required
           />
 
@@ -78,8 +79,8 @@ import Comments from "@/components/Comments.js";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 
-// import { toast } from "vue3-toastify";
-// import "vue3-toastify/dist/index.css";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 import vue3StarRatings from "vue3-star-ratings";
 
@@ -90,6 +91,8 @@ export default {
 
   data() {
     return {
+      login: JSON.parse(localStorage.getItem("login")),
+      name: "",
       comment: "",
       rating: 0,
       accommodationComments: [],
@@ -98,28 +101,33 @@ export default {
   },
 
   computed: {
-    message() {
-      const teste = new Teste();
-      return teste.message("testando");
-    },
+    // message() {
+    //   const teste = new Teste();
+    //   return teste.message("testando");
+    // },
 
     accommodation() {
       return this.$store.state.accommodationsModule.accommodations[this.id];
     },
 
-    login() {
-      return this.$store.state.login;
-    },
+    // login() {
+    //   // return this.$store.state.login;
+    //   return this.$store.state.loginModule.login;
+    // },
   },
 
   methods: {
-    confirmComment() {
+    confirmComment(e) {
+      e.preventDefault();
+      // checagem se usuário esta logado
+      if (!this.login) return alert("não existe usuário logado");
+
       // class
-      this.comments.checkLogin(this.login);
+      // this.comments.checkLogin(this.login);
 
       const newComment = {
         accommodationId: this.accommodation.id,
-        user: this.login.user,
+        user: this.name,
         comment: this.comment,
         rating: this.rating,
       };
@@ -128,18 +136,20 @@ export default {
 
       this.comments.getComments(this.id);
 
-      // this.notify();
+      this.notify();
     },
 
-    // notify() {
-    //   toast("comentário adicionado!", {
-    //     autoClose: 3000,
-    //   });
-    // },
+    notify() {
+      toast("comentário adicionado!", {
+        autoClose: 3000,
+      });
+    },
   },
 
   mounted() {
-    this.accommodationComments = this.comments.getComments(this.id);
+    this.accommodationComments = this.comments.getComments(
+      this.accommodation.id
+    );
     this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
