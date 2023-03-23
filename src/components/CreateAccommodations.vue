@@ -49,7 +49,6 @@ export default {
   data() {
     return {
       selectedAccommodations: [],
-      // dbAccommodations
     };
   },
 
@@ -60,11 +59,7 @@ export default {
 
     accommodations() {
       return this.$store.state.accommodationsModule.accommodations;
-    },
-
-    // dbAccommodations() {
-    //   return this.$store.getters.dbAccommodations;
-    // },
+    }
   },
 
   watch: {

@@ -2,9 +2,6 @@
   <HeaderComponent />
 
   <main>
-
-    {{ reservation }}
-
     <section class="container">
       <article>
         <h2>Minha Reserva</h2>
@@ -37,7 +34,6 @@
         </form>
       </article>
 
-      <!-- <CreateAccommodations v-bind:id="id" /> -->
       <CreateAccommodations :id="id" />
 
       <Booking />
@@ -133,18 +129,6 @@ export default {
   },
 
   mounted() {
-    // const bookingStorage = JSON.parse(localStorage.getItem("booking"));
-
-    // if (!bookingStorage) {
-    //   this.init();
-    // } else {
-    //   this.reservation.id = bookingStorage.id;
-    //   this.reservation.checkin = bookingStorage.checkin;
-    //   this.reservation.checkout = bookingStorage.checkout;
-    //   this.reservation.qty = bookingStorage.qty;
-    //   this.reservation.services = bookingStorage.services;
-    // };
-
     this.init();
   }
 };
