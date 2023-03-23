@@ -13,7 +13,7 @@ const Reservation = conn.define('reservation', {
     primaryKey: true
   },
   checkin: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATEONLY,
     allowNull: false
   },
   checkout: {

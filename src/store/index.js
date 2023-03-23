@@ -17,6 +17,7 @@ export default createStore({
   state: {
     reservation: {
       id: 0,
+      accommodationId: 0,
       accommodation: "",
       checkin: "",
       checkout: "",
@@ -104,7 +105,7 @@ export default createStore({
 
   mutations: {
     initReservation: (state) => {
-      state.reservation.id = 0;
+      // state.reservation.accommodationId = accommodationId;
 
       const date = new Date();
       state.reservation.checkin = getFromDate(date, true);
@@ -126,7 +127,8 @@ export default createStore({
     },
   },
 
-  actions: {},
+  actions: {
+  },
 
   modules: {
     accommodationsModule,
