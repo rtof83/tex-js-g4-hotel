@@ -361,6 +361,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get reservation by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkin\": \"2023-02-01\",\r\n    \"checkout\": \"2023-02-02\",\r\n    \"qty\": 4,\r\n    \"subTotal\": 100,\r\n    \"total\": 200,\r\n    \"accommodationId\": 10,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/reservations/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reservations",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -621,6 +653,58 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user\",\n    \"email\": \"user@email.com\",\n    \"password\": \"pass\",\n    \"status\": 1,\n    \"permissionId\": 2,\n    \"address\": {\n        \"streetName\": \"Rua Teste\",\n        \"streetNumber\": 100,\n        \"neighborhood\": \"Bairro Teste\",\n        \"city\": \"Cidade\",\n        \"state\": \"AA\",\n        \"postCode\": \"12345678\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -726,6 +810,70 @@
 							"port": "3000",
 							"path": [
 								"banners"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contacts",
+			"item": [
+				{
+					"name": "get all contacts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkin\": \"2023-02-01\",\r\n    \"checkout\": \"2023-02-02\",\r\n    \"qty\": 4,\r\n    \"subTotal\": 100,\r\n    \"total\": 200,\r\n    \"accommodationId\": 10,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"user\",\r\n    \"email\": \"user@email.com\",\r\n    \"phone\": \"123456789\",\r\n    \"subject\": \"assunto\",\r\n    \"message\": \"mensagem teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contacts"
 							]
 						}
 					},

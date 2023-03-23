@@ -15,7 +15,7 @@ module.exports = app.get('/reservations/user/:user', async (req, res) => {
         },
         {
           model: User,
-          attributes: ['name']
+          attributes: ['name', 'email']
         },
         {
           model: Coupon,
