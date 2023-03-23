@@ -6,7 +6,7 @@
     </div>
 
     <div
-      v-for="item in quartos"
+      v-for="item in selectedAccommodations"
       :key="item.id"
       class="cards__images"
       id="cards"
@@ -26,7 +26,7 @@
 
           <div>
             <input
-              v-model="reservation.id"
+              v-model="reservation.accommodationId"
               :id="item.id"
               type="radio"
               name="quarto"
@@ -48,7 +48,7 @@ export default {
 
   data() {
     return {
-      quartos: [],
+      selectedAccommodations: [],
       // dbAccommodations
     };
   },
@@ -67,47 +67,42 @@ export default {
     // },
   },
 
-  methods: {
-    selectedAccommodations() {
-      this.$store.dispatch("accommodationsModule/getAccommodations");
-
-      // this.accommodations.map(item => {
-      //   if (item.id < 4) this.quartos.push(item);
-      // });
-
-      // this.quartos = (this.accommodations.filter(item => item.id < 4));
-
-      // const quartos = [];
+  watch: {
+    accommodations() {
       let limit = 3;
 
       if (this.id) {
-        this.quartos.push(this.accommodations.find((item) => item.id == this.id));
-        this.quartos[0].checked = true;
+        this.selectedAccommodations.push(this.accommodations.find((item) => item.id == this.id));
+        this.selectedAccommodations[0].checked = true;
         limit--;
       };
 
       for (let i = 0; i < limit; i++) {
         if (this.id != i) {
-          this.quartos.push(this.accommodations[i]);
+          this.selectedAccommodations.push(this.accommodations[i]);
         }
       };
-
-      // return quartos;
     }
   },
 
+  methods: {
+  },
+
   beforeMount() {
-    // this.$store.dispatch("accommodationsModule/getAccommodations");
+    this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
   mounted() {
-    // this.$store.dispatch("accommodationsModule/getAccommodations");
-    this.selectedAccommodations();
-    // console.log(this.selectedAccommodations())
-  },
+    const bookingStorage = JSON.parse(localStorage.getItem('booking'));
 
-  onUpdated() {
-    // this.selectedAccommodations();
+    if (bookingStorage) {
+      this.reservation.accommodationId = bookingStorage.accommodationId;
+      this.reservation.accommodation = bookingStorage.accommodation;
+      this.reservation.checkin = bookingStorage.checkin;
+      this.reservation.checkout = bookingStorage.checkout;
+      this.reservation.qty = bookingStorage.qty;
+      this.reservation.services = bookingStorage.services;
+    };
   }
 };
 </script>

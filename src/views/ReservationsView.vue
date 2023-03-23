@@ -2,6 +2,9 @@
   <HeaderComponent />
 
   <main>
+
+    {{ reservation }}
+
     <section class="container">
       <article>
         <h2>Minha Reserva</h2>
@@ -34,7 +37,8 @@
         </form>
       </article>
 
-      <CreateAccommodations v-bind:id="id" />
+      <!-- <CreateAccommodations v-bind:id="id" /> -->
+      <CreateAccommodations :id="id" />
 
       <Booking />
     </section>
@@ -67,14 +71,18 @@ export default {
       return this.$store.state.reservation;
     },
 
-    dbAccommodations() {
-      return this.$store.getters.dbAccommodations;
+    accommodations() {
+      return this.$store.state.accommodationsModule.accommodations;
     },
+
+    services() {
+      return this.$store.state.servicesModule.services;
+    }
   },
 
   watch: {
     reservation: {
-      handler() {
+      async handler() {
         // validate date
         if (this.reservation.checkout <= this.reservation.checkin) {
           alert(
@@ -87,9 +95,9 @@ export default {
           );
         }
 
-        this.reservation.accommodation =
-          this.dbAccommodations[this.reservation.id].accommodation;
-
+        const accommodation = await this.accommodations.find(item => item.id === this.reservation.accommodationId);
+        this.reservation.accommodation = accommodation.name;
+          
         let sumServices = 0;
         this.reservation.services.map(
           (service) => (sumServices += service.price)
@@ -107,7 +115,7 @@ export default {
           sumServices +
           this.reservation.rates *
             this.reservation.qty *
-            this.dbAccommodations[this.reservation.id].price -
+            accommodation.price -
           this.reservation.discount;
 
         // set to localStorage
@@ -115,7 +123,7 @@ export default {
       },
 
       deep: true,
-    },
+    }
   },
 
   methods: {
@@ -125,18 +133,20 @@ export default {
   },
 
   mounted() {
-    const bookingStorage = JSON.parse(localStorage.getItem("booking"));
+    // const bookingStorage = JSON.parse(localStorage.getItem("booking"));
 
-    if (!bookingStorage) {
-      this.init();
-    } else {
-      this.reservation.id = bookingStorage.id;
-      this.reservation.checkin = bookingStorage.checkin;
-      this.reservation.checkout = bookingStorage.checkout;
-      this.reservation.qty = bookingStorage.qty;
-      this.reservation.services = bookingStorage.services;
-    }
-  },
+    // if (!bookingStorage) {
+    //   this.init();
+    // } else {
+    //   this.reservation.id = bookingStorage.id;
+    //   this.reservation.checkin = bookingStorage.checkin;
+    //   this.reservation.checkout = bookingStorage.checkout;
+    //   this.reservation.qty = bookingStorage.qty;
+    //   this.reservation.services = bookingStorage.services;
+    // };
+
+    this.init();
+  }
 };
 </script>
 
