@@ -40,13 +40,13 @@
             rows="10"
             v-model="comment"
           ></textarea>
-
-          <vue3-star-ratings v-model="rating" />
-
-          <button class="form__content__btn" @click="confirmComment">
-            Confirmar
-          </button>
         </form>
+
+        <vue3-star-ratings v-model="rating" />
+
+        <button class="form__content__btn" @click="confirmComment">
+          Confirmar
+        </button>
       </div>
     </div>
 
@@ -101,11 +101,6 @@ export default {
   },
 
   computed: {
-    // message() {
-    //   const teste = new Teste();
-    //   return teste.message("testando");
-    // },
-
     accommodation() {
       return this.$store.state.accommodationsModule.accommodations[this.id];
     },
@@ -117,10 +112,11 @@ export default {
   },
 
   methods: {
-    confirmComment(e) {
-      e.preventDefault();
-      // checagem se usuário esta logado
-      if (!this.login) return alert("não existe usuário logado");
+    confirmComment() {
+      // checagem de usuário logado
+      if (!this.login) {
+        return this.NotLoggedIn();
+      }
 
       // class
       // this.comments.checkLogin(this.login);
@@ -133,9 +129,7 @@ export default {
       };
 
       this.comments.insertComment(newComment);
-
       this.comments.getComments(this.id);
-
       this.notify();
     },
 
@@ -144,13 +138,22 @@ export default {
         autoClose: 3000,
       });
     },
+
+    NotLoggedIn() {
+      toast("Não existe usuário logado!", {
+        autoClose: 3000,
+      });
+    },
+  },
+
+  beforeMount() {
+    this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
   mounted() {
     this.accommodationComments = this.comments.getComments(
       this.accommodation.id
     );
-    this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
   components: {
