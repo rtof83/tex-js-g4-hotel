@@ -1,6 +1,9 @@
 <template>
   <HeaderComponent />
 
+  user 2 --->>>
+  {{ user }}
+
   <main>
     <section class="container">
       <article>
@@ -162,10 +165,14 @@ export default {
     accommodations() {
       return this.$store.state.accommodationsModule.accommodations;
     },
+    user() {
+      return this.$store.state.usersModule.users;
+    }
   },
 
   mounted() {
     this.$store.dispatch("accommodationsModule/getAccommodations");
+    this.$store.dispatch("usersModule/getUserById", 2);
   },
 };
 </script>

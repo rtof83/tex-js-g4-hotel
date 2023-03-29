@@ -28,6 +28,7 @@ require("./routes/reservations/getReservationById");
 
 // users routes
 require("./common/getAllRecords")("/users", User);
+require("./common/getRecordById")("/users", User);
 require("./routes/users/createUser");
 require("./common/updateRecord")("/users", User);
 require("./common/deleteRecord")("/users", User);

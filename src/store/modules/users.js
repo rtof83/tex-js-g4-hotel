@@ -22,6 +22,11 @@ const usersModule = {
       commit("setUsers", data);
     },
 
+    async getUserById({ commit }, id) {
+      const { data } = await api.get(`users/${id}`);
+      commit("setUsers", data);
+    },
+
     // post
     async addUser({ dispatch }, data) {
       await api
