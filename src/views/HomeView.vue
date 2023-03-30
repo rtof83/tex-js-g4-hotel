@@ -1,6 +1,5 @@
 <template>
   <header id="topo" class="home">
-
     <UserPanel></UserPanel>
 
     <div class="home__background">
@@ -150,11 +149,11 @@
           </ul>
         </div>
         <div class="container__local__button">
-          <a href="/public/reservas.html"
-            ><button class="container__local__button__btn">
+          <router-link to="/reservations">
+            <button class="container__local__button__btn">
               Reserve agora mesmo!
-            </button></a
-          >
+            </button>
+          </router-link>
         </div>
       </article>
     </section>

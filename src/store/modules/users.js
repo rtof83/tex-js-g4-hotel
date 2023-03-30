@@ -16,9 +16,15 @@ const usersModule = {
   },
 
   actions: {
-    // get
+    // get all
     async getUsers({ commit }) {
       const { data } = await api.get(`users`);
+      commit("setUsers", data);
+    },
+
+    // get by id
+    async getUserById({ commit }, id) {
+      const { data } = await api.get(`users/${id}`);
       commit("setUsers", data);
     },
 
