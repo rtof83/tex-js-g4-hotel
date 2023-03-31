@@ -3,17 +3,17 @@
 
   <h1>Minhas Reservas</h1>
 
-  {{ reservations }}
+  {{ user }}
 
   <div>
-    <h3>Usuário: {{ login.name }}</h3>
+    <h3>Usuário: {{ user[0].name }}</h3>
     <button @click="showModal('showUserDetails')" id="UserDetails">
       Editar dados
     </button>
-    <button @click="deleteUser(login.id)">Deletar usuário</button>
+    <button @click="deleteUser(user[0].id)">Deletar usuário</button>
   </div>
 
-  <div v-if="reservations">
+  <div v-if="!reservations">
     <div
       v-for="item in reservations"
       :id="item.idReservation"
@@ -64,7 +64,7 @@ export default {
 
   data() {
     return {
-      // login: JSON.parse(localStorage.getItem("login")),
+      login: JSON.parse(localStorage.getItem("login")),
       // reservations: JSON.parse(localStorage.getItem("reservations")),
     };
   },
@@ -74,8 +74,12 @@ export default {
       return this.$store.state.modal;
     },
 
-    login() {
-      return this.$store.state.loginModule.login;
+    // login() {
+    //   return this.$store.state.loginModule.login;
+    // },
+
+    user() {
+      return this.$store.state.usersModule.users;
     },
 
     reservations() {
@@ -108,9 +112,16 @@ export default {
     },
   },
 
-  mounted() {
-    this.$store.dispatch("reservationsModule/getReservationsByUser", this.login.id);
-  }
+  beforeMount() {
+    this.$store.dispatch("usersModule/getUserById", 14);
+  },
+
+  // mounted() {
+  //   this.$store.dispatch(
+  //     "reservationsModule/getReservationsByUser",
+  //     this.login.id
+  //   );
+  // },
 };
 </script>
 

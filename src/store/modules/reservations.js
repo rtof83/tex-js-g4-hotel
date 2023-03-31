@@ -22,8 +22,8 @@ const reservationsModule = {
       commit('setReservations', data);
     },
 
+    // get by user
     async getReservationsByUser({ commit }, user) { 
-      console.log(26, user);  
       const { data } = await api.get(`reservations/user/${user}`);
       commit('setReservations', data);
     },
