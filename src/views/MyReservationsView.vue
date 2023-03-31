@@ -112,8 +112,8 @@ export default {
     },
   },
 
-  beforeMounted() {
-    this.$store.dispatch("usersModule/getUserById", login.id);
+  beforeMount() {
+    this.$store.dispatch("usersModule/getUserById", 14);
   },
 
   // mounted() {

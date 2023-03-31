@@ -1,9 +1,10 @@
 const { app } = require("../database/conn");
 // const checkAdmin = require("../middlewares/checkAdmin");
-const checkValidate = require("../middlewares/checkValidate");
+// const checkValidate = require("../middlewares/checkValidate");
+const isAuth = require("../middlewares/isAuth");
 
 const updateRecord = (path, model) => {
-  app.put(`${path}/:id`, checkValidate, async (req, res) => {
+  app.put(`${path}/:id`, isAuth, async (req, res) => {
     try {
       const result = await model.findByPk(req.params.id);
 
