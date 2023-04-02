@@ -1,9 +1,9 @@
 <template>
-  <div v-if="login.auth" class="painel-usuario" id="painel">
-      <div id="user">Olá, {{ login.name }}!</div>
-      <!-- <div id="email">email: {{ login.email }}</div> -->
+  <div v-if="validate.id" class="painel-usuario" id="painel">
+      <div id="user">Olá, {{ validate.name }}!</div>
+      <div id="email">email: {{ validate.email }}</div>
       <div class="painel-usuario__painel-sair">
-        <button @click="logout" id="clearStorage">Sair</button>
+      <button @click="logout" id="clearStorage">Sair</button>
       </div>
 
       <Countdown></Countdown>
@@ -11,32 +11,27 @@
 </template>
 
 <script>
-  import Countdown from '@/components/Coundown';
+  import Countdown from '@/components/Countdown';
+  import router from '@/router';
 
   export default {
     name: 'UserPanel',
 
+    components: {
+      Countdown
+    },
+
+    computed: {
+      validate() {
+        return this.$store.state.loginModule.validate;
+      }
+    },
+
     methods: {
       logout() {
-        this.$store.commit('initLogin')
+        this.$store.commit('logout');
+        router.push('/');
       }
-  },
-
-  components: {
-    Countdown
-  },
-
-  data() {
-    return {
-      loginStorage: JSON.parse(localStorage.getItem('login')),
-      reservationsStorage: JSON.parse(localStorage.getItem('reservations'))
-    }
-  },
-
-  computed: {
-    login() {
-      return this.$store.state.loginModule.login;
-    }
   },
 
   // watch: {
@@ -50,13 +45,6 @@
   //     deep: true
   //   }
   // },
-
-  mounted() {
-    if (this.loginStorage) {
-      this.login.user = this.loginStorage.user;
-      this.login.email = this.loginStorage.email;
-    };
-  }
 }
 </script>
 

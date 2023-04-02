@@ -32,8 +32,22 @@ const bannersModule = {
     },
 
     // delete
+      async deleteBanner({ dispatch }, id) {
+      await api.delete(`banners/${id}`)
+        .then(() => {
+          dispatch('getBanners')
+        })
+        .catch(error => console.log(error));
+    },
     
     // put
+    async updateBanner({ dispatch }, data) {
+      await api.put(`banners/${data.id}`, data)
+        .then(() => {
+          dispatch('getBanners')
+        })
+        .catch(error => console.log(error));
+    }
   }
 }
 

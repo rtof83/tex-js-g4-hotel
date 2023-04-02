@@ -1,5 +1,7 @@
 <template>
-  <HeaderComponent />
+  <div v-if="permission !== 'admin'">
+    <HeaderComponent />
+  </div>
 
   <main>
     <div class="main">
@@ -14,6 +16,7 @@
             placeholder="Digite seu email"
             id="email"
             name="email"
+            @keydown.enter="confirm"
           />
 
           <label for="password">Senha:</label>
@@ -23,26 +26,34 @@
             placeholder="Digite sua senha"
             id="password"
             name="password"
+            @keydown.enter="confirm"
           />
 
-          <router-link to="/signup" class="main__login__esqueceu-senha"
+          <router-link v-if="permission !== 'admin'" to="/signup" class="main__login__esqueceu-senha"
             >Não tem cadastro?</router-link
           >
+          <div v-else><br></div>
+
           <button @click="confirm" type="button" id="login">Confirmar</button>
         </form>
       </article>
     </div>
   </main>
 
-  <FooterComponent />
+  <div v-if="permission !== 'admin'">
+    <FooterComponent />
+  </div>
 </template>
 
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import router from "@/router";
 
 export default {
   name: "LoginView",
+
+  props: ['permission'],
 
   components: {
     HeaderComponent,
@@ -57,14 +68,6 @@ export default {
   },
 
   computed: {
-    // dbLogin() {
-    //   return this.$store.getters.dbLogin;
-    // },
-
-    users() {
-      return this.$store.state.usersModule.users;
-    },
-
     login() {
       return this.$store.state.loginModule.login;
     },
@@ -75,7 +78,7 @@ export default {
       return str.replaceAll("'", "").replaceAll('"', "").trim();
     },
 
-    confirm() {
+    async confirm() {
       // check blank
       if (this.email === "" || this.password === "")
         return alert(
@@ -85,24 +88,33 @@ export default {
       const filteredEmail = this.removeQuotesSpaces(this.email);
 
       // removido item.password do método find abaixo
-      const result = this.users.find((item) => item.email === filteredEmail);
+      // const result = this.users.find((item) => item.email === filteredEmail);
 
-      if (!result) return alert("Atenção! Email ou senha inválidos.");
+      // if (!result) return alert("Atenção! Email ou senha inválidos.");
 
       // LOGIN
-      this.$store.dispatch("loginModule/login", {
+      await this.$store.dispatch("loginModule/login", {
         email: filteredEmail,
         password: this.password,
       });
 
+      if (this.login === 401)
+        return alert("Atenção! Email ou senha inválidos.");
+
+      this.email = '';
+      this.password = '';
+
       // redirect to my reservations
-      window.location.href = "/#/my-reservations";
+      if (this.login.user.permissionId === 2)
+        router.push('/my-reservations');
+        // window.location.href = "/#/my-reservations";
 
-      // ----------------------------->>>>>>>>>>>>>
-      // api.defaults.headers.common = {'authorization': `Bearer ${userStorage.token}`};
+      // redirect to admin
+      if (this.login.user.permissionId === 1)
+        router.push('/admin2');
 
-      // redirect to home
-      // if (this.login.permission === "user") {
+      // redirect to my reservations
+      // if (this.login[0].permissionId === 2) {
       //   window.location.href = "/#/my-reservations";
       // }
 
@@ -114,7 +126,7 @@ export default {
   },
 
   beforeMount() {
-    this.$store.dispatch("usersModule/getUsers");
+    // this.$store.dispatch("usersModule/getUsers");
   },
 };
 </script>

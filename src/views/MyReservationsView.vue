@@ -3,10 +3,8 @@
 
   <h1>Minhas Reservas</h1>
 
-  {{ user }}
-
   <div>
-    <h3>Usuário: {{ user[0].name }}</h3>
+    <h3>Usuário: {{ validate.name }}</h3>
     <button @click="showModal('showUserDetails')" id="UserDetails">
       Editar dados
     </button>
@@ -52,6 +50,7 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import ModalUserDetails from "../components/ModalUserDetails.vue";
+import router from "@/router";
 
 export default {
   name: "MyReservationsView",
@@ -64,7 +63,7 @@ export default {
 
   data() {
     return {
-      login: JSON.parse(localStorage.getItem("login")),
+      // login: JSON.parse(localStorage.getItem("login")),
       // reservations: JSON.parse(localStorage.getItem("reservations")),
     };
   },
@@ -74,9 +73,9 @@ export default {
       return this.$store.state.modal;
     },
 
-    // login() {
-    //   return this.$store.state.loginModule.login;
-    // },
+    validate() {
+      return this.$store.state.loginModule.validate;
+    },
 
     user() {
       return this.$store.state.usersModule.users;
@@ -108,12 +107,12 @@ export default {
     deleteUser(id) {
       this.$store.dispatch("usersModule/deleteUser", id);
       localStorage.removeItem("login");
-      window.location.href = "/#/login";
+      router.push("/login");
     },
   },
 
   beforeMount() {
-    this.$store.dispatch("usersModule/getUserById", 14);
+    this.$store.dispatch("usersModule/getUserById", this.validate.id);
   },
 
   // mounted() {

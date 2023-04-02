@@ -3,6 +3,8 @@
 </template>
 
 <script>
+  import router from '@/router';
+
   export default {
     name: 'Countdown',
 
@@ -14,6 +16,10 @@
     },
 
     computed: {
+      validate() {
+        return this.$store.state.loginModule.validate;
+      },
+
       login() {
         return this.$store.state.loginModule.login;
       }
@@ -25,6 +31,7 @@
           const now = new Date().getTime();
           const distance = this.countdownDate - now;
 
+          let hours = Math.floor((distance % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
           let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -32,22 +39,17 @@
             clearInterval(this.count);
             this.result = 'tempo esgotado';
             
-            // setUser([]);
-            // navigate('/');
-            
-            this.login.auth = false;
-            localStorage.removeItem('login');
-            router.push['/login'];
+            this.$store.commit('logout');
+            router.push('/login');
           } else {
-            this.result = minutes + "m " + seconds + "s";
+            this.result = hours + 'h ' + minutes + 'm ' + seconds + 's';
           }
         }, 1000);
       }
     },
 
     mounted() {
-      this.$store.dispatch("loginModule/login");
-      this.countdownDate = new Date(this.login.exp * 1000).getTime();
+      this.countdownDate = new Date(this.validate.exp * 1000).getTime();
       this.count();
     }
   }

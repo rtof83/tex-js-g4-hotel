@@ -19,7 +19,7 @@
       <li><router-link to="/about">O Hotel</router-link></li>
       <li><router-link to="/accommodations">Quartos</router-link></li>
       <li><router-link to="/reservations">Reservas</router-link></li>
-      <li v-if="login.auth"><router-link to="/my-reservations">Minhas Reservas</router-link></li>
+      <li v-if="validate.id"><router-link to="/my-reservations">Minhas Reservas</router-link></li>
       <li><router-link to="/contact">Contato</router-link></li>
       <li><router-link to="/login">Login</router-link></li>
     </ul>
@@ -45,6 +45,21 @@ export default {
   computed: {
     login() {
       return this.$store.state.loginModule.login
+    },
+
+    validate() {
+      return this.$store.state.loginModule.validate
+    }
+  },
+
+  methods: {
+    checkValidate() {
+      if (!this.validate.id) {
+        const login = JSON.parse(localStorage.getItem('login'));
+
+        if (login && login.token)
+          this.$store.dispatch('loginModule/validate', login.token)
+      };
     }
   },
 
@@ -58,8 +73,10 @@ export default {
         navMenu.style.display = "none";
       } else {
         navMenu.style.display = "block";
-      }
+      };
     });
+
+    this.checkValidate();
   },
 };
 </script>

@@ -6,13 +6,13 @@
       <img
         id="imagem-fundo"
         class="imagem-header"
-        :src="banners[position].image"
+        :src="banner"
         alt="imagem aleatória de capa"
       />
     </div>
 
     <div class="home__slogan">
-      <p id="texto">{{ banners[position].slogan }}</p>
+      <p id="texto">{{ slogan }}</p>
     </div>
 
     <div class="home__title">
@@ -34,9 +34,7 @@
       <li><router-link to="/about">O Hotel</router-link></li>
       <li><router-link to="/accommodations">Quartos</router-link></li>
       <li><router-link to="/reservations">Reservas</router-link></li>
-      <li v-if="login.user && reservationsStorage">
-        <router-link to="/my-reservations">Minhas Reservas</router-link>
-      </li>
+      <li v-if="validate.id"><router-link to="/my-reservations">Minhas Reservas</router-link></li>
       <li><router-link to="/contact">Contato</router-link></li>
       <li><router-link to="/login">Login</router-link></li>
     </ul>
@@ -175,15 +173,16 @@ export default {
 
   data() {
     return {
-      position: 0,
-      loginStorage: JSON.parse(localStorage.getItem("login")),
-      reservationsStorage: JSON.parse(localStorage.getItem("reservations")),
+      banner: '',
+      slogan: ''
+      // loginStorage: JSON.parse(localStorage.getItem("login")),
+      // reservationsStorage: JSON.parse(localStorage.getItem("reservations")),
     };
   },
 
   computed: {
-    login() {
-      return this.$store.state.login;
+    validate() {
+      return this.$store.state.loginModule.validate
     },
 
     // dbBanners() {
@@ -214,14 +213,20 @@ export default {
   //   },
   // },
 
-  beforeMount() {
-    this.$store.dispatch("bannersModule/getBanners");
+  async beforeMount() {
+    const position = parseInt(Math.random() * 5);
+
+    await this.$store.dispatch("bannersModule/getBanners");
+    if (this.banners) {
+      this.banner = this.banners[position].image;
+      this.slogan = this.banners[position].slogan;
+    } else {
+      this.banner = 'https://cdn.wallpapersafari.com/35/90/BrmIE3.jpg';
+      this.slohan = 'Seremos sempre o seu hotel preferido!';
+    };
   },
 
   mounted() {
-    this.position = parseInt(Math.random() * 5);
-    // this.sorteio();
-
     // Toggle display navbar ao rolar a página home
     const navMenu = document.querySelector(".nav_home");
     window.addEventListener("scroll", function (event) {

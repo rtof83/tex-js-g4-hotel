@@ -119,12 +119,12 @@ export default createStore({
       localStorage.removeItem("report");
     },
 
-    initLogin: (state) => {
-      localStorage.removeItem("login");
-      state.login.user = "";
-      state.login.email = "";
-      state.login.password = "";
-    },
+    logout: () => {
+      localStorage.removeItem('login');
+      loginModule.state.validate.id = '';
+      loginModule.state.validate.name = '';
+      loginModule.state.validate.email = '';
+    }
   },
 
   actions: {
