@@ -3,7 +3,10 @@
 
   <main>
     <div class="main">
-      <h1>Contato</h1>
+      <div>
+        <h2 class="main__subtitle">Contato</h2>
+        <span class="main__detalhe"></span>
+      </div>
 
       <article class="main__login">
         <form action="/public" method="get">

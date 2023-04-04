@@ -5,7 +5,10 @@
 
   <main>
     <div class="main">
-      <h1>Login</h1>
+      <div>
+        <h2 class="main__subtitle">Login</h2>
+        <span class="main__detalhe"></span>
+      </div>
 
       <article class="main__login">
         <form>

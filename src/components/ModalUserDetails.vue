@@ -9,14 +9,14 @@
         class="escolha__modal__modal-content__close"
       />
       <div>
-        <h1>Atualizar dados cadastrais</h1>
+        <h2>Atualizar dados cadastrais</h2>
       </div>
 
       <div>
         <form>
           <label for="name">Nome: </label>
           <input
-            v-model="login.name"
+            v-model="login.user.name"
             type="text"
             placeholder="Digite seu nome"
             id="name"
@@ -26,7 +26,7 @@
         <div class="escolha__modal__modal-content__div">
           <button
             class="escolha__modal__modal-content__div__btn"
-            @click="updateUser(login.id, login.name)"
+            @click="updateUser(login.user.id, login.user.name)"
           >
             Salvar mudanças
           </button>
@@ -37,6 +37,9 @@
 </template>
 
 <script>
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+
 export default {
   name: "ModalUserDetails",
 
@@ -65,15 +68,21 @@ export default {
       this.modal.showUserDetails = "none";
     },
 
+    notify() {
+      toast("Nome alterado com sucesso!", {
+        autoClose: 3000,
+      });
+    },
+
     onClick(e) {
       const modal = document.getElementById("modalUserDetails");
       if (e.target === modal) this.closeModal();
     },
 
-    updateUser(id, data) {
-      this.$store.dispatch("usersModule/updateUser", { id, data });
+    updateUser(id, name) {
+      this.$store.dispatch("usersModule/updateUser", { id, name });
       this.closeModal();
-      alert("Nome alterado com sucesso!");
+      this.notify();
     },
   },
 };
@@ -85,8 +94,29 @@ export default {
 .escolha__modal {
   display: v-bind("modal.showUserDetails");
 
-  &__modal-content__div {
-    text-align: center;
+  &__modal-content {
+    & h1 {
+      text-align: center;
+    }
+
+    & form {
+      font-weight: bold;
+      font-size: 1.2rem;
+
+      & input {
+        padding-left: 0.5rem;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+
+    &__div {
+      text-align: center;
+      
+      &__btn {
+        font-size: 1rem;
+      }
+    }
   }
 }
 </style>

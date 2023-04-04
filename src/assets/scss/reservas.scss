@@ -2,7 +2,6 @@
 @use "mixins" as mix;
 @use "extends";
 
-
 /* --------------  MAIN  ----------------  */
 .container {
   background-color: let.$branco;
@@ -13,81 +12,36 @@
   margin: 40px auto 0 auto;
   width: 80vw;
 
+  &__subtitle {
+    @extend %subtitle;
+    margin-bottom: 0.5rem;
+  }
+
+  &__detalhe {
+    @extend %detalhe;
+  }
+
   & h2 {
-    font-size: 3rem;
     line-height: 1.5;
   }
 
-  h3 {
-    font-size: 2rem;
-    text-align: left;
+  & p {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
   }
 
   &__form {
     display: flex;
     margin: 10px 0 30px 0;
     gap: 40px;
+    justify-content: center;
 
     & input,
     & label {
       font-size: 1.2rem;
       font-weight: bold;
       padding-left: 5px;
-    }
-  }
-}
-
-.cards {
-  background-color: let.$branco;
-  color: let.$text;
-  width: 80%;
-
-  &__detalhe {
-    display: block;
-    width: 30%;
-    height: 0.4vh;
-    margin-bottom: let.$m2;
-    background-color: let.$text;
-  }
-
-  &__images {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
-
-    & div {
-      display: flex;
-      margin-bottom: 10px;
-    }
-
-    &__card {
-      width: 65vw;
-      border: 2px solid white;
-
-      &:hover {
-        border: 2px solid green;
-      }
-
-      &__info {
-        flex-direction: column;
-        padding: 0 0 0 30px;
-
-        & p {
-          padding: 0 0 10px 0;
-          text-align: left;
-
-          &:nth-child(3) {
-            font-weight: bold;
-          }
-        }
-
-        & input,
-        & label {
-          font-size: 1.2rem;
-          font-weight: bold;
-          padding-left: 5px;
-        }
-      }
     }
   }
 }
@@ -108,17 +62,6 @@
       gap: 15px;
     }
   }
-
-  .cards {
-    &__images {
-      & div {
-        & img {
-          width: 300px;
-          height: 200px;
-        }
-      }
-    }
-  }
 }
 
 /* TABLET PORTRAIT */
@@ -126,25 +69,6 @@
   .container {
     &__form {
       gap: 5px;
-    }
-  }
-
-  .cards {
-    &__images {
-      &__card {
-        &__info {
-          & p {
-            font-size: 1rem;
-          }
-        }
-        width: 57vw;
-      }
-      & div {
-        & img {
-          width: 200px;
-          height: 150px;
-        }
-      }
     }
   }
 }
@@ -157,47 +81,6 @@
 
       & div {
         margin-bottom: 10px;
-      }
-    }
-  }
-
-  .cards {
-    margin-bottom: -7rem;
-
-    & div {
-      & h3 {
-        text-align: center;
-      }
-    }
-
-    &__detalhe {
-      display: block;
-      width: 30%;
-      height: 0.4vh;
-      margin-left: 34%;
-      margin-top: -1%;
-    }
-
-    &__images {
-      align-items: center;
-
-      &__card {
-        display: flex;
-        flex-direction: column;
-        width: 100vw;
-
-        &__info {
-          & h3 {
-            text-align: center;
-            justify-content: center;
-          }
-        }
-        width: 80vw;
-      }
-      & div {
-        text-align: center;
-        justify-content: center;
-        align-items: center;
       }
     }
   }
@@ -214,59 +97,6 @@
 
       & div {
         margin-bottom: 10px;
-      }
-    }
-  }
-
-  .cards {
-    margin-bottom: -10rem;
-
-    & div {
-      & h3 {
-        text-align: center;
-      }
-    }
-
-    &__detalhe {
-      display: block;
-      width: 70%;
-      height: 0.4vh;
-      margin-left: 14%;
-      margin-top: -1%;
-    }
-
-    &__images {
-      align-items: center;
-
-      & div {
-        display: flex;
-        margin-bottom: 20px;
-        align-items: center;
-
-        & img {
-          width: 300px;
-          height: 180px;
-        }
-      }
-
-      &__card {
-        display: flex;
-        flex-direction: column;
-        width: 95vw;
-
-        &:hover {
-          border: 2px solid green;
-        }
-
-        &__info {
-          flex-direction: column;
-          padding: 0 0 0 30px;
-
-          & h3 {
-            text-align: center;
-            justify-content: center;
-          }
-        }
       }
     }
   }

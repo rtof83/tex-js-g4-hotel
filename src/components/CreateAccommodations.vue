@@ -59,7 +59,7 @@ export default {
 
     accommodations() {
       return this.$store.state.accommodationsModule.accommodations;
-    }
+    },
   },
 
   watch: {
@@ -67,28 +67,29 @@ export default {
       let limit = 3;
 
       if (this.id) {
-        this.selectedAccommodations.push(this.accommodations.find((item) => item.id == this.id));
+        this.selectedAccommodations.push(
+          this.accommodations.find((item) => item.id == this.id)
+        );
         this.selectedAccommodations[0].checked = true;
         limit--;
-      };
+      }
 
       for (let i = 0; i < limit; i++) {
         if (this.id != i) {
           this.selectedAccommodations.push(this.accommodations[i]);
         }
-      };
-    }
+      }
+    },
   },
 
-  methods: {
-  },
+  methods: {},
 
   beforeMount() {
     this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
   mounted() {
-    const bookingStorage = JSON.parse(localStorage.getItem('booking'));
+    const bookingStorage = JSON.parse(localStorage.getItem("booking"));
 
     if (bookingStorage) {
       this.reservation.accommodationId = bookingStorage.accommodationId;
@@ -97,14 +98,11 @@ export default {
       this.reservation.checkout = bookingStorage.checkout;
       this.reservation.qty = bookingStorage.qty;
       this.reservation.services = bookingStorage.services;
-    };
-  }
+    }
+  },
 };
 </script>
 
-<style scoped>
-.image {
-  width: 400px;
-  height: 280px;
-}
+<style lang="scss" scoped>
+@import "@/assets/scss/create-accomodations.scss";
 </style>

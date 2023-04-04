@@ -49,9 +49,9 @@ const usersModule = {
     },
 
     // put
-    async updateUser({ dispatch }, { id, data }) {
+    async updateUser({ dispatch }, data ) {
       await api
-        .put(`users/${id}`, data)
+        .put(`users/${data.id}`, data)
         .then(() => {
           dispatch("getUsers");
         })

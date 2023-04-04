@@ -1,0 +1,154 @@
+/* --------------  MAIN  ----------------  */
+.cards {
+  background-color: #fff;
+  color: #000;
+  width: 80%;
+}
+.cards h3 {
+  font-size: 2rem;
+  text-align: left;
+}
+.cards__detalhe {
+  display: block;
+  width: 30%;
+  height: 0.4vh;
+  margin-bottom: 2rem;
+  background-color: #000;
+}
+.cards__images {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+.cards__images div {
+  display: flex;
+  margin-bottom: 10px;
+}
+.cards__images__card {
+  width: 65vw;
+  border: 2px solid white;
+}
+.cards__images__card:hover {
+  border: 2px solid green;
+}
+.cards__images__card img {
+  width: 400px;
+  height: 280px;
+}
+.cards__images__card__info {
+  flex-direction: column;
+  padding: 0 0 0 30px;
+}
+.cards__images__card__info p {
+  padding: 0 0 10px 0;
+  text-align: left;
+}
+.cards__images__card__info p:nth-child(3) {
+  font-weight: bold;
+}
+.cards__images__card__info input, .cards__images__card__info label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+/* TABLET LANDSCAPE */
+@media (max-width: 1194px) and (orientation: landscape) {
+  .cards__images div img {
+    width: 300px;
+    height: 200px;
+  }
+}
+/* TABLET PORTRAIT */
+@media (max-width: 1024px) and (orientation: portrait) {
+  .cards__images__card {
+    width: 57vw;
+  }
+  .cards__images__card__info p {
+    font-size: 1rem;
+  }
+  .cards__images div img {
+    width: 200px;
+    height: 150px;
+  }
+}
+/* MOBILE LANDSCAPE */
+@media (max-width: 915px) and (orientation: landscape) {
+  .cards {
+    margin-bottom: -7rem;
+  }
+  .cards div h3 {
+    text-align: center;
+  }
+  .cards__detalhe {
+    display: block;
+    width: 30%;
+    height: 0.4vh;
+    margin-left: 34%;
+    margin-top: -1%;
+  }
+  .cards__images {
+    align-items: center;
+  }
+  .cards__images__card {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    width: 80vw;
+  }
+  .cards__images__card__info h3 {
+    text-align: center;
+    justify-content: center;
+  }
+  .cards__images div {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+}
+/* MOBILE PORTRAIT */
+@media (max-width: 414px) and (orientation: portrait) {
+  .cards {
+    margin: 40px auto 0 auto;
+  }
+  .cards div h3 {
+    text-align: center;
+  }
+  .cards__detalhe {
+    display: block;
+    width: 70%;
+    height: 0.4vh;
+    margin-left: 14%;
+    margin-top: -1%;
+  }
+  .cards__images {
+    align-items: center;
+  }
+  .cards__images div {
+    display: flex;
+    align-items: center;
+  }
+  .cards__images div img {
+    width: 300px;
+    height: 180px;
+  }
+  .cards__images__card {
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+  }
+  .cards__images__card:hover {
+    border: 2px solid green;
+  }
+  .cards__images__card__info {
+    flex-direction: column;
+    padding: 0 5px 0 15px;
+  }
+  .cards__images__card__info h3 {
+    text-align: center;
+    justify-content: center;
+    font-size: 1.6rem;
+  }
+}
+
+/*# sourceMappingURL=create-accomodations.css.map */

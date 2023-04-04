@@ -1,29 +1,42 @@
 <template>
   <HeaderComponent />
 
-  <h1>Minhas Reservas</h1>
+  <main>
+    <section class="container">
+      <article>
+        <div>
+          <h2 class="container__subtitle">Minhas Reservas</h2>
+          <span class="container__detalhe"></span>
+        </div>
+        <div class="container__user-info">
+          <h3>
+            Bem vindo,
+            <span> {{ validate.name }} </span>! O que deseja fazer?
+          </h3>
+          <div class="container__user-info__buttons">
+            <button @click="showModal('showUserDetails')" id="UserDetails">
+              Editar nome
+            </button>
+            <button @click="deleteUser(validate.id)">Deletar conta</button>
+          </div>
+        </div>
+      </article>
 
-  <div>
-    <h3>Usuário: {{ validate.name }}</h3>
-    <button @click="showModal('showUserDetails')" id="UserDetails">
-      Editar dados
-    </button>
-    <button @click="deleteUser(user[0].id)">Deletar usuário</button>
-  </div>
+      <article>
+        <div class="container__user-reservations">
+          <div v-if="!reservations">
+            <div
+              v-for="item in reservations"
+              :id="item.idReservation"
+              :key="item.id"
+              class="my-reservations"
+            >
+              <p>ID Reserva: {{ item.idReservation }}</p>
+              <p>Quarto: {{ item.accommodation }}</p>
+              <p>Check in: {{ item.checkin }}</p>
+              <p>Check out: {{ item.checkout }}</p>
 
-  <div v-if="!reservations">
-    <div
-      v-for="item in reservations"
-      :id="item.idReservation"
-      :key="item.id"
-      class="my-reservations"
-    >
-      <p>ID Reserva: {{ item.idReservation }}</p>
-      <p>Quarto: {{ item.accommodation }}</p>
-      <p>Check in: {{ item.checkin }}</p>
-      <p>Check out: {{ item.checkout }}</p>
-
-      <!-- <div v-if="item.services.length">
+              <!-- <div v-if="item.services.length">
         <br />
         <ul>
           Serviços adicionais:
@@ -34,14 +47,30 @@
         <br />
       </div> -->
 
-      <!-- <p v-if="item.coupon">Cupom: {{ item.coupon }}</p>
+              <!-- <p v-if="item.coupon">Cupom: {{ item.coupon }}</p>
       <p>Descontos aplicados: R$ {{ item.discount.toFixed(2) }}</p>
       <p>Total: R$ {{ item.total.toFixed(2) }}</p> -->
-    </div>
-  </div>
-  <div v-else><h3>Usuário sem reservas.</h3></div>
+            </div>
+          </div>
+          <div class="container__user-reservations__else" v-else>
+            <div>
+              <h3>
+                Parece que você ainda não tem reservas. Faça uma agora mesmo!
+              </h3>
+              <img src="../../src/assets/images/funny-dog.jpg" />
+            </div>
+            <div>
+              <router-link to="/reservations">
+                <button>Ir para reservas.</button>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </article>
 
-  <ModalUserDetails />
+      <ModalUserDetails />
+    </section>
+  </main>
 
   <FooterComponent />
 </template>
@@ -77,9 +106,9 @@ export default {
       return this.$store.state.loginModule.validate;
     },
 
-    user() {
-      return this.$store.state.usersModule.users;
-    },
+    // user() {
+    //   return this.$store.state.usersModule.users;
+    // },
 
     reservations() {
       return this.$store.state.reservationsModule.reservations;
@@ -124,8 +153,8 @@ export default {
 };
 </script>
 
-<style>
-.my-reservations {
-  margin: 0 2rem 2rem;
-}
+<style lang="scss" scoped>
+@import "@/assets/scss/myreservations.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 </style>
