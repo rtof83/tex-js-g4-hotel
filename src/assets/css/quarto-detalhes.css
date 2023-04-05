@@ -2,7 +2,7 @@
   text-transform: uppercase;
 }
 
-.container__content__room, .form__subtitle, .container__subtitle {
+.container__content__room, .form__subtitle, .no-comments__subtitle, .container__subtitle {
   text-align: center;
 }
 
@@ -27,11 +27,19 @@
   margin: 40px auto 0 auto;
   width: 80vw;
 }
+.container__detalhe {
+  display: block;
+  width: 17%;
+  height: 0.4vh;
+  margin-left: 41.5%;
+  margin-top: -1%;
+  background-color: #f1eab9;
+}
 .container__content__room {
   width: 100vw;
 }
 .container__content__room img {
-  width: 50%;
+  width: 60%;
 }
 .container__image {
   display: flex;
@@ -121,6 +129,20 @@
   margin-left: 4rem;
 }
 
+.no-comments {
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 70vw;
+}
+.no-comments__subtitle {
+  font-size: 1.7rem;
+  margin: 2rem 0 3rem 0;
+}
+
 /* --------------  RESPONSIVIDADE ----------------  */
 /* TABLET LANDSCAPE */
 @media (max-width: 1194px) and (orientation: landscape) {
@@ -133,6 +155,14 @@
 }
 /* MOBILE PORTRAIT */
 @media (max-width: 414px) and (orientation: portrait) {
+  .container__detalhe {
+    width: 50%;
+    margin-left: 25%;
+    margin-top: -5.5%;
+  }
+  .container__content__room img {
+    width: 100%;
+  }
   .comments {
     width: 100%;
   }

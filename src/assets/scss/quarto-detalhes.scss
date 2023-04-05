@@ -16,6 +16,15 @@
     @extend %subtitle;
   }
 
+  &__detalhe {
+    display: block;
+    width: 17%;
+    height: 0.4vh;
+    margin-left: 41.5%;
+    margin-top: -1%;
+    background-color: let.$background;
+  }
+
   &__content {
     @extend %content;
 
@@ -24,7 +33,7 @@
       width: let.$width;
 
       & img {
-        width: 50%;
+        width: 60%;
       }
     }
   }
@@ -131,6 +140,22 @@
   }
 }
 
+.no-comments {
+  background-color: let.$branco;
+  color: let.$text;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 70vw;
+
+  &__subtitle {
+    @extend %text-align-center;
+    font-size: 1.7rem;
+    margin: 2rem 0 3rem 0;
+  }
+}
+
 /* --------------  RESPONSIVIDADE ----------------  */
 /* TABLET LANDSCAPE */
 @media (max-width: 1194px) and (orientation: landscape) {
@@ -150,6 +175,21 @@
 
 /* MOBILE PORTRAIT */
 @media (max-width: 414px) and (orientation: portrait) {
+  .container {
+    &__detalhe {
+      width: 50%;
+      margin-left: 25%;
+      margin-top: -5.5%;
+    }
+
+    &__content {
+      &__room {
+        & img {
+          width: 100%;
+        }
+      }
+    }
+  }
   .comments {
     width: 100%;
   }
