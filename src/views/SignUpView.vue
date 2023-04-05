@@ -3,7 +3,10 @@
 
   <main>
     <div class="main">
-      <h1>Cadastre-se!</h1>
+      <div>
+        <h2 class="main__subtitle">Cadastre-se</h2>
+        <span class="main__detalhe"></span>
+      </div>
 
       <article class="main__login">
         <form>
@@ -244,5 +247,11 @@ export default {
 
 .main {
   height: 1300px;
+}
+/* --------------  RESPONSIVIDADE ----------------  */
+@media (max-width: 414px) and (orientation: portrait) {
+  .main {
+    height: 1100px;
+  }
 }
 </style>

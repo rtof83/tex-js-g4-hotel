@@ -5,7 +5,7 @@
     <section class="container">
       <article>
         <div>
-          <h2 class="container__subtitle">Nossas Acomodações</h2>
+          <h2 class="container__subtitle">Nossos Quartos</h2>
           <span class="container__detalhe"></span>
         </div>
         <div class="container__text">

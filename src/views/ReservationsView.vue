@@ -4,8 +4,12 @@
   <main>
     <section class="container">
       <article>
-        <h2>Minha Reserva</h2>
-        <p>Forneça a data de entrada, saída e quantidade de pessoas:</p>
+        <div>
+          <h2 class="container__subtitle">Faça sua Reserva!</h2>
+          <span class="container__detalhe"></span>
+          <p>Forneça a data de entrada, saída e quantidade de pessoas:</p>
+        </div>
+
         <form class="container__form">
           <div>
             <label for="checkin">Check-in:</label>
@@ -35,7 +39,6 @@
       </article>
 
       <CreateAccommodations :id="id" />
-
       <Booking />
     </section>
   </main>
@@ -73,7 +76,7 @@ export default {
 
     services() {
       return this.$store.state.servicesModule.services;
-    }
+    },
   },
 
   watch: {
@@ -91,15 +94,17 @@ export default {
           );
         }
 
-        const accommodation = await this.accommodations.find(item => item.id === this.reservation.accommodationId);
+        const accommodation = await this.accommodations.find(
+          (item) => item.id === this.reservation.accommodationId
+        );
         this.reservation.accommodation = accommodation.name;
-          
+
         let sumServices = 0;
         this.reservation.services.map(
           (service) => (sumServices += service.price)
         );
 
-        const report = JSON.parse(localStorage.getItem('report'));
+        const report = JSON.parse(localStorage.getItem("report"));
         if (report) this.reservation.itemsBar = report.totalItems;
 
         this.reservation.rates =
@@ -109,9 +114,7 @@ export default {
         this.reservation.total =
           this.reservation.itemsBar +
           sumServices +
-          this.reservation.rates *
-            this.reservation.qty *
-            accommodation.price -
+          this.reservation.rates * this.reservation.qty * accommodation.price -
           this.reservation.discount;
 
         // set to localStorage
@@ -119,7 +122,7 @@ export default {
       },
 
       deep: true,
-    }
+    },
   },
 
   methods: {
@@ -130,7 +133,7 @@ export default {
 
   mounted() {
     this.init();
-  }
+  },
 };
 </script>
 

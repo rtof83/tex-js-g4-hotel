@@ -2,7 +2,6 @@
 @use "mixins" as mix;
 @use "extends";
 
-
 /* --------------  MAIN  ----------------  */
 // SEÇÃO NOSSAS ACOMODAÇÕES E PRODUTO EM DESTAQUE
 .container {
@@ -168,6 +167,11 @@
 
     &__card {
       margin-bottom: 3rem;
+
+      & img {
+        width: 360px;
+        height: 200px;
+      }
     }
 
     &__card:last-child {

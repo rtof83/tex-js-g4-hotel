@@ -1,0 +1,97 @@
+.container__subtitle {
+  text-transform: uppercase;
+}
+
+.container__subtitle {
+  text-align: center;
+}
+
+.container__detalhe {
+  display: block;
+  width: 15%;
+  height: 0.4vh;
+  margin-left: 42.5%;
+  margin-top: -1.5%;
+  background-color: #f1eab9;
+}
+
+.container__subtitle {
+  font-size: 2rem;
+  padding: 20px 0;
+}
+
+/* --------------  MAIN  ----------------  */
+.container {
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 0 auto;
+  width: 80vw;
+}
+.container__subtitle {
+  margin-bottom: 0.5rem;
+}
+.container h2 {
+  line-height: 1.5;
+}
+.container p {
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+.container__form {
+  display: flex;
+  margin: 10px 0 30px 0;
+  gap: 40px;
+  justify-content: center;
+}
+.container__form input, .container__form label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+/* --------------  RESPONSIVIDADE ----------------  */
+@media (max-width: 1580px) and (orientation: landscape) {
+  .container__form {
+    gap: 20px;
+  }
+}
+/* TABLET LANDSCAPE */
+@media (max-width: 1194px) and (orientation: landscape) {
+  .container__form {
+    gap: 15px;
+  }
+}
+/* TABLET PORTRAIT */
+@media (max-width: 1024px) and (orientation: portrait) {
+  .container__form {
+    gap: 5px;
+  }
+}
+/* MOBILE LANDSCAPE */
+@media (max-width: 915px) and (orientation: landscape) {
+  .container__form {
+    gap: 0px;
+  }
+  .container__form div {
+    margin-bottom: 10px;
+  }
+}
+/* MOBILE PORTRAIT */
+@media (max-width: 414px) and (orientation: portrait) {
+  .container {
+    padding: 0 10px;
+  }
+  .container__form {
+    display: block;
+    margin: 0;
+  }
+  .container__form div {
+    margin-bottom: 10px;
+  }
+}
+
+/*# sourceMappingURL=reservas.css.map */
