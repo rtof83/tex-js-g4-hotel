@@ -3,8 +3,10 @@
 
   <main class="container">
     <div>
-      <h2 class="container__subtitle">{{ accommodation.name }}</h2>
-
+      <div>
+        <h2 class="container__subtitle">{{ accommodation.name }}</h2>
+        <span class="container__detalhe"></span>
+      </div>
       <div class="container__content">
         <div class="container__content__room">
           <div class="container__content__room__image">
@@ -50,23 +52,35 @@
       </div>
     </div>
 
-    <div
-      class="comments"
-      v-for="item in accommodationComments"
-      :key="item.accommodationId"
-    >
-      <div class="comments__user">
-        <img src="../assets/images/avatar.jpg" alt="default avatar" />
-        <p><span>Usuário:</span> {{ item.user }}</p>
+    <div>
+      <div v-if="accommodationComments.length > 0">
+        <div
+          class="comments"
+          v-for="item in accommodationComments"
+          :key="item.accommodationId"
+        >
+          <div class="comments__user">
+            <img src="../assets/images/avatar.jpg" alt="default avatar" />
+            <p><span>Nome:</span> {{ item.user }}</p>
+          </div>
+          <div class="comments__rating">
+            <p><span>Comentário:</span> {{ item.comment }}</p>
+            <p v-if="item.rating < 0.5"><span>Nota:</span> ☆ ☆ ☆ ☆ ☆</p>
+            <p v-else-if="item.rating < 1.5"><span>Nota:</span> ★ ☆ ☆ ☆ ☆</p>
+            <p v-else-if="item.rating < 2.5"><span>Nota:</span> ★ ★ ☆ ☆ ☆</p>
+            <p v-else-if="item.rating < 3.5"><span>Nota:</span> ★ ★ ★ ☆ ☆</p>
+            <p v-else-if="item.rating < 4.5"><span>Nota:</span> ★ ★ ★ ★ ☆</p>
+            <p v-else><span>Nota:</span> ★ ★ ★ ★ ★</p>
+          </div>
+        </div>
       </div>
-      <div class="comments__rating">
-        <p><span>Comentário:</span> {{ item.comment }}</p>
-        <p v-if="item.rating < 0.5"><span>Nota:</span> ☆ ☆ ☆ ☆ ☆</p>
-        <p v-else-if="item.rating < 1.5"><span>Nota:</span> ★ ☆ ☆ ☆ ☆</p>
-        <p v-else-if="item.rating < 2.5"><span>Nota:</span> ★ ★ ☆ ☆ ☆</p>
-        <p v-else-if="item.rating < 3.5"><span>Nota:</span> ★ ★ ★ ☆ ☆</p>
-        <p v-else-if="item.rating < 4.5"><span>Nota:</span> ★ ★ ★ ★ ☆</p>
-        <p v-else><span>Nota:</span> ★ ★ ★ ★ ★</p>
+      <div class="no-comments" v-else>
+        <div>
+          <h3 class="no-comments__subtitle">
+            Este quarto ainda não têm comentários. Faça um agora
+            mesmo e seja o primeiro!
+          </h3>
+        </div>
       </div>
     </div>
   </main>
@@ -164,7 +178,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/scss/quarto-detalhes.scss";
 @import "@/assets/scss/header.scss";
 @import "@/assets/scss/footer.scss";

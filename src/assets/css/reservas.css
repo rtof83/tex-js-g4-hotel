@@ -6,15 +6,6 @@
   text-align: center;
 }
 
-.container__detalhe {
-  display: block;
-  width: 15%;
-  height: 0.4vh;
-  margin-left: 42.5%;
-  margin-top: -1.5%;
-  background-color: #f1eab9;
-}
-
 .container__subtitle {
   font-size: 2rem;
   padding: 20px 0;
@@ -32,6 +23,14 @@
 }
 .container__subtitle {
   margin-bottom: 0.5rem;
+}
+.container__detalhe {
+  display: block;
+  width: 17%;
+  height: 0.4vh;
+  margin-left: 41.5%;
+  margin-top: -1%;
+  background-color: #f1eab9;
 }
 .container h2 {
   line-height: 1.5;
@@ -84,6 +83,11 @@
 @media (max-width: 414px) and (orientation: portrait) {
   .container {
     padding: 0 10px;
+  }
+  .container__detalhe {
+    width: 60%;
+    margin-left: 20%;
+    margin-top: -5.5%;
   }
   .container__form {
     display: block;

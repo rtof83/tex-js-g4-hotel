@@ -18,7 +18,12 @@
   }
 
   &__detalhe {
-    @extend %detalhe;
+    display: block;
+    width: 17%;
+    height: 0.4vh;
+    margin-left: 41.5%;
+    margin-top: -1%;
+    background-color: let.$background;
   }
 
   &__text {
@@ -185,6 +190,7 @@
     &__detalhe {
       width: 45%;
       margin-left: 27%;
+      margin-top: -5.5%;
     }
 
     &__text p {

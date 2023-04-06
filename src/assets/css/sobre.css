@@ -6,15 +6,6 @@
   text-align: center;
 }
 
-.container__detalhe, .experiencia__detalhe {
-  display: block;
-  width: 15%;
-  height: 0.4vh;
-  margin-left: 42.5%;
-  margin-top: -1.5%;
-  background-color: #f1eab9;
-}
-
 .container__subtitle, .quartos__subtitle, .experiencia__subtitle {
   font-size: 2rem;
   padding: 20px 0;
@@ -29,6 +20,14 @@
   flex-direction: column;
   margin: 40px auto 0 auto;
   width: 80vw;
+}
+.container__detalhe {
+  display: block;
+  width: 17%;
+  height: 0.4vh;
+  margin-left: 41.5%;
+  margin-top: -1%;
+  background-color: #f1eab9;
 }
 .container__content {
   display: flex;
@@ -100,6 +99,14 @@
   background-color: #fff;
   color: #000;
   margin: 40px 0;
+}
+.experiencia__detalhe {
+  display: block;
+  width: 17%;
+  height: 0.4vh;
+  margin-left: 41.5%;
+  margin-top: -1%;
+  background-color: #f1eab9;
 }
 .experiencia__content {
   display: flex;
@@ -221,6 +228,7 @@
   .container__detalhe {
     width: 45%;
     margin-left: 27%;
+    margin-top: -5.5%;
   }
   .container__content {
     flex-direction: column;
@@ -250,6 +258,7 @@
   .experiencia__detalhe {
     width: 45%;
     margin-left: 27%;
+    margin-top: -5.5%;
   }
   .experiencia__content {
     flex-direction: column;
