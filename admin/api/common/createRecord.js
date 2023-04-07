@@ -6,9 +6,9 @@ const createRecord = (path, model) => {
     try {
       await model.create(req.body);
 
-      res.status(201).json({ message: 'Record inserted successfully!' });
+      return res.status(201).json({ message: 'Record inserted successfully!' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     };
   });
 };
