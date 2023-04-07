@@ -6,6 +6,28 @@ const User = require("../../models/User");
 
 exports.module = app.post("/users/login", async (req, res) => {
   try {
+    // validação do req.body.email
+    if (
+      !req.body.email ||
+      !req.body.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+    ) {
+      return res.status(400).json({
+        message: "email format not valid",
+      });
+    }
+
+    // validação do req.body.password
+    if (
+      !req.body.password ||
+      !req.body.password.match(
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,15}$/
+      )
+    ) {
+      return res.status(400).json({
+        message: "password format no valid",
+      });
+    }
+
     // user by email
     const user = await User.findOne({ where: { email: req.body.email } });
 
@@ -18,11 +40,13 @@ exports.module = app.post("/users/login", async (req, res) => {
       delete user.dataValues.password;
       const token = generateToken(user);
 
-      return res.status(200).json({ token: token, user: { ...user.dataValues } });
+      return res
+        .status(200)
+        .json({ token: token, user: { ...user.dataValues } });
     } else {
       return res.status(401).json({ message: "email or password not valid" });
-    };
+    }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 });

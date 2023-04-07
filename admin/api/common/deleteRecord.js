@@ -16,9 +16,9 @@ const deleteRecord = (path, model) => {
       // await result.update({ deletedAt: Date.now() });
       // res.status(200).json({ message: "Record disabled successfully" });
 
-      res.status(200).json({ message: "Record deleted successfully" });
+      return res.status(200).json({ message: "Record deleted successfully" });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   });
 };

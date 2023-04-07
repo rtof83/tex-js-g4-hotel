@@ -106,6 +106,8 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import axios from "axios";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   name: "SignUpView",
@@ -133,6 +135,39 @@ export default {
   },
 
   methods: {
+    invalidCep() {
+      toast("CEP inválido!", {
+        autoClose: 3000,
+      });
+    },
+
+    ifBlank() {
+      toast("Atenção! Os campos devem ser preenchidos.", {
+        autoClose: 3000,
+      });
+    },
+
+    ifEmailAlreadyExists() {
+      toast("Atenção! Email ou senha inválidos.", {
+        autoClose: 3000,
+      });
+    },
+
+    wrongEmailRegex() {
+      toast("Atenção! Formato de email inválido.", {
+        autoClose: 3000,
+      });
+    },
+
+    wrongPasswordRegex() {
+      toast(
+        "A senha deve ter entre 8 a 15 caracteres, com letras maiúsculas, minúsculas, números e caracteres especiais.",
+        {
+          autoClose: 3000,
+        }
+      );
+    },
+
     removeQuotesSpaces(str) {
       return str.replaceAll("'", "").replaceAll('"', "").trim();
     },
@@ -171,7 +206,7 @@ export default {
 
     cepValido() {
       let retornaCep = this.verificaCEP();
-      !retornaCep ? alert("CEP inválido!") : null;
+      !retornaCep ? this.invalidCep() : null;
       return retornaCep;
     },
 
@@ -195,17 +230,33 @@ export default {
       if (
         this.user.name === "" ||
         this.user.email === "" ||
-        this.user.password === ""
+        this.user.password === "" ||
+        this.cep === ""
       )
-        return alert(
-          "Atenção! Os campos usuário e senha devem ser preenchidos."
-        );
+        return this.ifBlank();
+
+      // validação do input email
+      if (
+        !this.user.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+      ) {
+        return this.wrongEmailRegex();
+      }
+
+      // validação do input password
+      if (
+        !this.user.password.match(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,15}$/
+        )
+      ) {
+        return this.wrongPasswordRegex();
+      }
 
       const filteredEmail = this.removeQuotesSpaces(this.user.email);
       // removido item.password do método find abaixo
       const result = this.allUsers.find((item) => item.email === filteredEmail);
 
-      if (result) return alert("Atenção! Email ou senha inválidos.");
+      // caso o e-mail já exista no banco de dados
+      if (result) return this.ifEmailAlreadyExists();
 
       this.user.address.streetName = this.infoCep.logradouro;
       this.user.address.neighborhood = this.infoCep.bairro;

@@ -32,10 +32,13 @@
             @keydown.enter="confirm"
           />
 
-          <router-link v-if="permission !== 'admin'" to="/signup" class="main__login__esqueceu-senha"
+          <router-link
+            v-if="permission !== 'admin'"
+            to="/signup"
+            class="main__login__esqueceu-senha"
             >Não tem cadastro?</router-link
           >
-          <div v-else><br></div>
+          <div v-else><br /></div>
 
           <button @click="confirm" type="button" id="login">Confirmar</button>
         </form>
@@ -52,11 +55,13 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import router from "@/router";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   name: "LoginView",
 
-  props: ['permission'],
+  props: ["permission"],
 
   components: {
     HeaderComponent,
@@ -81,12 +86,52 @@ export default {
       return str.replaceAll("'", "").replaceAll('"', "").trim();
     },
 
+    ifBlank() {
+      toast("Atenção! Os campos usuário e senha devem ser preenchidos.", {
+        autoClose: 3000,
+      });
+    },
+
+    wrongEmailRegex() {
+      toast("Atenção! Formato de email inválido.", {
+        autoClose: 3000,
+      });
+    },
+
+    wrongPasswordRegex() {
+      toast(
+        "Atenção! Formato de senha inválido.",
+        {
+          autoClose: 3000,
+        }
+      );
+    },
+
+    wrongEmailAndPassword() {
+      toast("Atenção! Email ou senha inválidos.", {
+        autoClose: 3000,
+      });
+    },
+
     async confirm() {
       // check blank
-      if (this.email === "" || this.password === "")
-        return alert(
-          "Atenção! Os campos usuário e senha devem ser preenchidos."
-        );
+      if (this.email === "" || this.password === "") {
+        return this.ifBlank();
+      }
+
+      // validação do input email
+      if (!this.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        return this.wrongEmailRegex();
+      }
+
+      // validação do input password
+      if (
+        !this.password.match(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,15}$/
+        )
+      ) {
+        return this.wrongPasswordRegex();
+      }
 
       const filteredEmail = this.removeQuotesSpaces(this.email);
 
@@ -102,19 +147,17 @@ export default {
       });
 
       if (this.login === 401)
-        return alert("Atenção! Email ou senha inválidos.");
+        return this.wrongEmailAndPassword();
 
-      this.email = '';
-      this.password = '';
+      this.email = "";
+      this.password = "";
 
       // redirect to my reservations
-      if (this.login.user.permissionId === 2)
-        router.push('/my-reservations');
-        // window.location.href = "/#/my-reservations";
+      if (this.login.user.permissionId === 2) router.push("/my-reservations");
+      // window.location.href = "/#/my-reservations";
 
       // redirect to admin
-      if (this.login.user.permissionId === 1)
-        router.push('/admin2');
+      if (this.login.user.permissionId === 1) router.push("/admin2");
 
       // redirect to my reservations
       // if (this.login[0].permissionId === 2) {
