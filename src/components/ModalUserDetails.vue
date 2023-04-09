@@ -45,7 +45,7 @@ export default {
 
   data() {
     return {
-      login: JSON.parse(localStorage.getItem("login")),
+      login: JSON.parse(localStorage.getItem("loginUser")),
     };
   },
 

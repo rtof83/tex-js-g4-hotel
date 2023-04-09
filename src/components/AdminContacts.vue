@@ -8,7 +8,6 @@
       <table class="table table-hover align-middle">
           <thead>
             <tr>
-              <th scope="col">id</th>
               <th scope="col">Nome</th>
               <th scope="col">Email</th>
               <th scope="col">Telefone</th>
@@ -18,11 +17,10 @@
           </thead>
           <tbody>
 
-          <tr v-for="item in contacts" :key="item.id">
+          <tr v-for="item in contacts" :key="item._id">
 
             <template v-if="!item.page">
 
-            <th scope="row">{{ item.id }}</th>
             <td>{{ item.name }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.phone }}</td>
@@ -34,13 +32,13 @@
                 <div class="actions__item bi bi-pencil-fill"
                      @mouseover="(e) => hovering(e, 'bi-pencil')"
                      @mouseout="(e) => hovering(e, 'bi-pencil-fill')"
-                     @click="updateTaskName(item.id, item.name)">
+                     @click="updateTaskName(item._id, item.name)">
                 </div>
 
                 <div class="actions__item bi bi-trash3-fill"
                      @mouseover="(e) => hovering(e, 'bi-trash3')"
                      @mouseout="(e) => hovering(e, 'bi-trash3-fill')"
-                     @click="deleteTask(item.id)">
+                     @click="deleteTask(item._id)">
                 </div>
               </div>
             </td>

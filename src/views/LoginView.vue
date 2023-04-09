@@ -169,11 +169,7 @@ export default {
       //   window.location.href = "/#/admin2";
       // }
     },
-  },
-
-  beforeMount() {
-    // this.$store.dispatch("usersModule/getUsers");
-  },
+  }
 };
 </script>
 

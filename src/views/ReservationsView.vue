@@ -100,20 +100,16 @@ export default {
         this.reservation.accommodation = accommodation.name;
 
         let sumServices = 0;
-        this.reservation.services.map(
-          (service) => (sumServices += service.price)
-        );
+        this.reservation.services.map((service) => (sumServices += parseFloat(service.price)));
 
         const report = JSON.parse(localStorage.getItem("report"));
         if (report) this.reservation.itemsBar = report.totalItems;
 
         this.reservation.rates =
-          (new Date(this.reservation.checkout) -
-            new Date(this.reservation.checkin)) /
-          86400000;
+          (new Date(this.reservation.checkout) - new Date(this.reservation.checkin)) / 86400000;
+
         this.reservation.total =
-          this.reservation.itemsBar +
-          sumServices +
+          this.reservation.itemsBar + sumServices +
           this.reservation.rates * this.reservation.qty * accommodation.price -
           this.reservation.discount;
 
@@ -126,13 +122,23 @@ export default {
   },
 
   methods: {
-    init() {
-      this.$store.commit("initReservation");
-    },
   },
 
   mounted() {
-    this.init();
+    const booking = JSON.parse(localStorage.getItem('booking'));
+    
+    if (booking) {
+      this.reservation.accommodation = booking.accommodation;
+      this.reservation.accommodationId = booking.accommodationId;
+      this.reservation.checkin = booking.checkin;
+      this.reservation.checkout = booking.checkout;
+      this.reservation.qty = booking.qty;
+      this.reservation.rates = booking.rates;
+      this.reservation.services = booking.services;
+      this.reservation.total = booking.total;
+    } else {
+      this.$store.commit("initReservation");
+    };
   },
 };
 </script>

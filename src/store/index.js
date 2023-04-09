@@ -12,6 +12,8 @@ import usersModule from "./modules/users";
 import loginModule from "./modules/login";
 import reservationsModule from "./modules/reservations";
 import contactsModule from "./modules/contacts";
+import couponsModule from "./modules/coupons";
+import servicesModule from "./modules/services";
 
 export default createStore({
   state: {
@@ -120,7 +122,7 @@ export default createStore({
     },
 
     logout: () => {
-      localStorage.removeItem('login');
+      localStorage.removeItem('loginUser');
       loginModule.state.validate.id = '';
       loginModule.state.validate.name = '';
       loginModule.state.validate.email = '';
@@ -137,5 +139,7 @@ export default createStore({
     loginModule,
     reservationsModule,
     contactsModule,
-  },
+    couponsModule,
+    servicesModule
+  }
 });

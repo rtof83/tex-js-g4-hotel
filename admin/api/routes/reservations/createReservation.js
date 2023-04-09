@@ -10,8 +10,8 @@ module.exports = app.post('/reservations', async (req, res) => {
       .then(result => lastId = result.id);
 
     if (req.body.services.length) {
-      req.body.services.map(async (item) => {
-        await ReservationServices.create({ reservationId: lastId, serviceId: item })
+      req.body.services.map(async (service) => {
+        await ReservationServices.create({ reservationId: lastId, serviceId: service.id })
       });
     };
       

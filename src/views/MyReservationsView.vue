@@ -24,15 +24,15 @@
 
       <article>
         <div class="container__user-reservations">
-          <div v-if="!reservations">
+          <div v-if="reservations">
             <div
               v-for="item in reservations"
-              :id="item.idReservation"
+              :id="item.id"
               :key="item.id"
               class="my-reservations"
             >
-              <p>ID Reserva: {{ item.idReservation }}</p>
-              <p>Quarto: {{ item.accommodation }}</p>
+              <p>ID Reserva: {{ item.id }}</p>
+              <p>Quarto: {{ item.accommodation.name }}</p>
               <p>Check in: {{ item.checkin }}</p>
               <p>Check out: {{ item.checkout }}</p>
 
@@ -50,7 +50,11 @@
               <!-- <p v-if="item.coupon">Cupom: {{ item.coupon }}</p>
       <p>Descontos aplicados: R$ {{ item.discount.toFixed(2) }}</p>
       <p>Total: R$ {{ item.total.toFixed(2) }}</p> -->
+
+            <hr>
+
             </div>
+
           </div>
           <div class="container__user-reservations__else" v-else>
             <div>
@@ -144,12 +148,9 @@ export default {
     this.$store.dispatch("usersModule/getUserById", this.validate.id);
   },
 
-  // mounted() {
-  //   this.$store.dispatch(
-  //     "reservationsModule/getReservationsByUser",
-  //     this.login.id
-  //   );
-  // },
+  async mounted() {
+    await this.$store.dispatch("reservationsModule/getReservationsByUser", this.validate.id);
+  }
 };
 </script>
 

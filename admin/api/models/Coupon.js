@@ -12,10 +12,6 @@ const Coupon = conn.define('coupon', {
     type: Sequelize.STRING(30),
     allowNull: false
   },
-  date: {
-    type: Sequelize.DATE,
-    allowNull: false
-  },
   expired: {
     type: Sequelize.BOOLEAN,
     allowNull: false
@@ -23,6 +19,9 @@ const Coupon = conn.define('coupon', {
   discount: {
     type: Sequelize.DECIMAL(5,2),
     allowNull: false
+  },
+  deletedAt: {
+    type: Sequelize.DATE
   }
 });
 
