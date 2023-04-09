@@ -90,6 +90,8 @@
 
 <script>
 import Cupom from "@/components/Coupon.vue";
+import router from "@/router";
+
 export default {
   name: "ModalDetails",
 
@@ -166,15 +168,15 @@ export default {
       if (!login) {
         if (
           window.confirm(
-            "Atenção! Para confirmar a reserva, é necessário autenticação.\nDeseja ser redirecionado para a tela de login?"
+            "Atenção! Para confirmar a reserva é necessário estar logado.\nDeseja ser redirecionado para a tela de login?"
           )
         )
-          window.location.href = "/#/login";
+          router.push("/login");
       } else {
         this.insertReservation(login.email);
         this.init();
         this.closeModal();
-        window.location.href = "/#/my-reservations";
+        router.push("/my-reservations");
       }
     },
   },
@@ -207,6 +209,24 @@ export default {
       & span {
         font-weight: bold;
         text-decoration: underline;
+      }
+    }
+  }
+}
+
+/* --------------  RESPONSIVIDADE ----------------  */
+/* MOBILE PORTRAIT */
+@media (max-width: 414px) and (orientation: portrait) {
+  .escolha__modal {
+    &__modal-content {
+      width: 90%;
+      &__room {
+        &__image {
+          text-align: center;
+        }
+        & img {
+          width: 100%;
+        }
       }
     }
   }

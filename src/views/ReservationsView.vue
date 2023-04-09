@@ -52,6 +52,8 @@ import FooterComponent from "@/components/FooterComponent.vue";
 import CreateAccommodations from "@/components/CreateAccommodations.vue";
 import Booking from "@/components/Booking.vue";
 import { addDays } from "@/store/getDate.js";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ReservationsView",
@@ -84,9 +86,7 @@ export default {
       async handler() {
         // validate date
         if (this.reservation.checkout <= this.reservation.checkin) {
-          alert(
-            "Atenção! A data de Check out não pode ser menor ou igual à data de Check in."
-          );
+          this.notify();
           this.reservation.checkout = addDays(
             new Date(this.reservation.checkout),
             1,
@@ -128,6 +128,15 @@ export default {
   methods: {
     init() {
       this.$store.commit("initReservation");
+    },
+
+    notify() {
+      toast(
+        "Atenção! A data de Check-out não pode ser menor ou igual à data de Check-in.",
+        {
+          autoClose: 3000,
+        }
+      );
     },
   },
 

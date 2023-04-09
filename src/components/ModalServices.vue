@@ -121,4 +121,14 @@ export default {
 .escolha__modal {
   display: v-bind("modal.showServices");
 }
+
+/* --------------  RESPONSIVIDADE ----------------  */
+/* MOBILE PORTRAIT */
+@media (max-width: 414px) and (orientation: portrait) {
+  .escolha__modal {
+    &__modal-content {
+      width: 90%;
+    }
+  }
+}
 </style>
