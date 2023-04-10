@@ -15,7 +15,7 @@
           </h3>
           <div class="container__user-info__buttons">
             <button @click="showModal('showUserDetails')" id="UserDetails">
-              Editar nome
+              Editar dados
             </button>
             <button @click="deleteUser(validate.id)">Deletar conta</button>
           </div>
@@ -24,7 +24,7 @@
 
       <article>
         <div class="container__user-reservations">
-          <div v-if="reservations">
+          <div v-if="reservations.length">
             <div
               v-for="item in reservations"
               :id="item.id"
@@ -51,10 +51,8 @@
       <p>Descontos aplicados: R$ {{ item.discount.toFixed(2) }}</p>
       <p>Total: R$ {{ item.total.toFixed(2) }}</p> -->
 
-            <hr>
-
+              <hr />
             </div>
-
           </div>
           <div class="container__user-reservations__else" v-else>
             <div>
@@ -149,8 +147,11 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch("reservationsModule/getReservationsByUser", this.validate.id);
-  }
+    await this.$store.dispatch(
+      "reservationsModule/getReservationsByUser",
+      this.validate.id
+    );
+  },
 };
 </script>
 

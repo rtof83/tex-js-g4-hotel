@@ -5,6 +5,12 @@ const Address = require("../../models/Address");
 
 module.exports = app.post("/users", async (req, res) => {
   try {
+    // checagem se email já existe no banco de dados
+    const email = await User.findOne({ where: { email: req.body.email } });
+
+    if (email)
+      return res.status(401).json({ message: "email already exists!" });
+
     // validação do req.body.email
     if (
       !req.body.email ||
@@ -28,19 +34,22 @@ module.exports = app.post("/users", async (req, res) => {
       });
     }
 
+    // criptografia da senha
     req.body.password = await require("../../services/hashPassword")(
       req.body.password
     );
 
+    // criação do usuário
     let lastId = 0;
     await User.create(req.body).then((result) => (lastId = result.id));
 
+    // criação do endereço do usuário
     if (req.body.address) {
       req.body.address.userId = lastId;
       await Address.create(req.body.address);
     }
 
-    return res.status(200).json({ message: "Record created successfully" });
+    return res.status(200).json({ message: "User created successfully" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

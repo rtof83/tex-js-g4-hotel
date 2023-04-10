@@ -10,13 +10,17 @@ module.exports = app.get("/users/:id", async (req, res) => {
     }
 
     // uso de 'mysql.escape()' para evitar ataques de SQL injection
-    const sql =
+    const sql1 =
       `SELECT * , "" as password FROM users WHERE id = ` + conn.escape(id);
-    const [user] = await conn.query(sql);
+    const [user] = await conn.query(sql1);
 
     if (!user) return res.status(422).json({ message: "User not found!" });
 
-    return res.status(200).json(user);
+    // uso de 'mysql.escape()' para evitar ataques de SQL injection
+    const sql2 = `SELECT * FROM addresses WHERE userId = ` + conn.escape(id);
+    const [address] = await conn.query(sql2);
+
+    return res.status(200).json({ user, address });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

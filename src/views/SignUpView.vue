@@ -106,6 +106,7 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import axios from "axios";
+import router from "@/router";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
@@ -268,7 +269,7 @@ export default {
       this.$store.dispatch("usersModule/addUser", this.user);
 
       // redirect to login page
-      window.location.href = "/#/login";
+      router.push("/login");
 
       // if (this.user.permissionId === 2) {
       //   window.location.href = "/#/login";

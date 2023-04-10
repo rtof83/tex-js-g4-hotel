@@ -30,7 +30,7 @@ require("./routes/reservations/getReservationById");
 require("./common/getAllRecords")("/users", User);
 require("./routes/users/getUserById");
 require("./routes/users/createUser");
-require("./common/updateRecord")("/users", User);
+require("./routes/users/updateUser");
 require("./common/deleteRecord")("/users", User);
 require("./common/createRecord")("/users/permissions", Permission);
 require("./routes/users/login");

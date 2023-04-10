@@ -14,7 +14,6 @@
 
       <div class="escolha__modal__modal-content__room">
         <div class="escolha__modal__modal-content__room__image">
-
           <!-- <img
             :src="
               require(`../assets/images/${
@@ -23,11 +22,7 @@
             "
             id="detailsImage"
           /> -->
-
-          <img
-            :src="accommodation.image"
-            id="detailsImage"
-          />
+          <img :src="accommodation.image" id="detailsImage" />
         </div>
 
         <h3 id="detailsAccommodation">{{ reservation.accommodation }}</h3>
@@ -99,99 +94,78 @@
 <script>
 import Cupom from "@/components/Coupon.vue";
 import router from "@/router";
-
 export default {
   name: "ModalDetails",
-
   components: {
     Cupom,
   },
-
   data() {
     return {
-      accommodation: {}
-    }
+      accommodation: {},
+    };
   },
-
   computed: {
     modal() {
       return this.$store.state.modal;
     },
-
     reservation() {
       return this.$store.state.reservation;
     },
-
     // dbServices() {
     //   return this.$store.getters.dbServices;
     // },
-
     // dbAccommodations() {
     //   return this.$store.getters.dbAccommodations;
     // },
-
     services() {
       return this.$store.state.servicesModule.services;
     },
-
     accommodations() {
       return this.$store.state.accommodationsModule.accommodations;
     },
-
     login() {
       return this.$store.state.loginModule.login;
     },
-
     validate() {
       return this.$store.state.loginModule.validate;
-    }
+    },
   },
-
   async mounted() {
     document.addEventListener("click", this.onClick);
-
-    await this.$store.dispatch('accommodationsModule/getAccommodations');
-    const accommodation = this.accommodations.find(accommodation => accommodation.id === this.reservation.accommodationId);
+    await this.$store.dispatch("accommodationsModule/getAccommodations");
+    const accommodation = this.accommodations.find(
+      (accommodation) => accommodation.id === this.reservation.accommodationId
+    );
     this.accommodation.image = accommodation.image;
     this.accommodation.description = accommodation.description;
   },
-
   beforeDestroy() {
     document.removeEventListener("click", this.onClick);
   },
-
   methods: {
     closeModal() {
       this.modal.showDetails = "none";
     },
-
     onClick(e) {
       const modal = document.getElementById("modalDetails");
-
       if (e.target === modal) this.closeModal();
     },
-
     init() {
       this.$store.commit("initReservation");
     },
-
     insertReservation(email) {
       // const reservations = JSON.parse(localStorage.getItem("reservations"));
       // const newReservation = reservations ? [...reservations] : [];
-
       // const myReservation = this.reservation;
       // myReservation.idReservation = new Date().getTime();
       // myReservation.email = email;
-
       // const coupon = JSON.parse(localStorage.getItem("coupon"));
       // if (myReservation.discount)
       //   myReservation.coupon = coupon.coupon.toUpperCase();
-
       // newReservation.push(myReservation);
       // localStorage.setItem("reservations", JSON.stringify(newReservation));
+      const reservation = JSON.parse(localStorage.getItem("booking"));
 
-      const reservation = JSON.parse(localStorage.getItem('booking'));
-      
       const sendReservation = {
         checkin: reservation.checkin,
         checkout: reservation.checkout,
@@ -200,31 +174,29 @@ export default {
         total: reservation.total,
         accommodationId: reservation.accommodationId,
         userId: this.validate.id,
-        services: reservation.services
+        services: reservation.services,
       };
+      this.$store.dispatch(
+        "reservationsModule/addReservation",
+        sendReservation
+      );
 
-      this.$store.dispatch("reservationsModule/addReservation", sendReservation);
-      
       // console.log(JSON.parse(localStorage.getItem('booking')))
-
       // this.$store.dispatch("reservationsModule/addReservation", myReservation);
     },
-
     confirmBook() {
       if (this.validate.permissionId !== 2) {
         if (
           window.confirm(
-            "Atenção! Para confirmar a reserva, é necessário autenticação.\nDeseja ser redirecionado para a tela de login?"
+            "Atenção! Para confirmar a reserva, é necessário estar logado.\nDeseja ser redirecionado para a tela de login?"
           )
         )
-          router.push('/login');
-          // window.location.href = "/#/login";
+          router.push("/login");
       } else {
         this.insertReservation(this.validate.email);
         this.init();
         this.closeModal();
-        router.push('/my-reservations');
-        // window.location.href = "/#/my-reservations";
+        router.push("/my-reservations");
       }
     },
   },
@@ -233,10 +205,8 @@ export default {
 
 <style lang="scss" scoped>
 @use "@/assets/scss/modal.scss";
-
 .escolha__modal {
   display: v-bind("modal.showDetails");
-
   &__modal-content {
     &__room {
       &__image {
@@ -245,7 +215,6 @@ export default {
       & img {
         width: 70%;
       }
-
       & h3 {
         text-align: center;
         font-size: 2rem;
@@ -253,10 +222,26 @@ export default {
       & p {
         text-align: justify;
       }
-
       & span {
         font-weight: bold;
         text-decoration: underline;
+      }
+    }
+  }
+}
+/* --------------  RESPONSIVIDADE ----------------  */
+/* MOBILE PORTRAIT */
+@media (max-width: 414px) and (orientation: portrait) {
+  .escolha__modal {
+    &__modal-content {
+      width: 90%;
+      &__room {
+        &__image {
+          text-align: center;
+        }
+        & img {
+          width: 100%;
+        }
       }
     }
   }
