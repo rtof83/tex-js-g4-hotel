@@ -63,7 +63,7 @@ export default {
 
   data() {
     return {
-      login: JSON.parse(localStorage.getItem("login")),
+      login: JSON.parse(localStorage.getItem("loginUser")),
     };
   },
 
@@ -79,6 +79,7 @@ export default {
 
   mounted() {
     document.addEventListener("click", this.onClick);
+    this.$store.dispatch("usersModule/getUsers");
   },
 
   beforeDestroy() {

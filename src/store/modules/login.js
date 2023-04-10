@@ -24,7 +24,15 @@ const loginModule = {
       await api.post('users/login', login)
         .then(({ data }) => {
           commit('setLogin', data);
-          localStorage.setItem('login', JSON.stringify(data));
+          // localStorage.setItem('login', JSON.stringify(data));
+
+          let itemName = ''; 
+          if (data.user.permissionId === 1)
+            itemName = 'loginAdmin';
+          else if (data.user.permissionId === 2)
+            itemName = 'loginUser';
+
+          localStorage.setItem(itemName, JSON.stringify(data));
 
           dispatch('validate', data.token);
         })

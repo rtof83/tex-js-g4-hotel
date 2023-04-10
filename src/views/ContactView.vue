@@ -18,6 +18,7 @@
             id="name"
             name="name"
             required
+            ref="name"
           />
 
           <label for="email">Email:</label>
@@ -73,6 +74,8 @@
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ContactView",
@@ -88,6 +91,18 @@ export default {
   },
 
   methods: {
+    ifBlank() {
+      toast("Atenção! Todos os campos devem ser preenchidos.", {
+        autoClose: 3000,
+      });
+    },
+
+    success() {
+      toast("Mensagem enviada com sucesso!", {
+        autoClose: 3000,
+      });
+    },
+
     confirm() {
       // check blank
       if (
@@ -97,19 +112,22 @@ export default {
         this.contact.subject === "" ||
         this.contact.message === ""
       )
-        return alert(
-          "Atenção! Os campos usuário e senha devem ser preenchidos."
-        );
+        return this.ifBlank();
 
       // POST
       this.$store.dispatch("contactsModule/addContact", this.contact);
-      alert("Mensagem enviada com sucesso!");
-    },
-  },
+      
+      this.contact.name = "";
+      this.contact.email = "";
+      this.contact.phone = "";
+      this.contact.subject = "";
+      this.contact.message = "";
 
-  // beforeMount() {
-  //   this.$store.dispatch("contactsModule/getContacts");
-  // },
+      this.$refs.name.focus();
+
+      this.success();
+    }
+  }
 };
 </script>
 

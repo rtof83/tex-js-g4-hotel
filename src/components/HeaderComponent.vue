@@ -55,7 +55,7 @@ export default {
   methods: {
     checkValidate() {
       if (!this.validate.id) {
-        const login = JSON.parse(localStorage.getItem('login'));
+        const login = JSON.parse(localStorage.getItem('loginUser'));
 
         if (login && login.token)
           this.$store.dispatch('loginModule/validate', login.token)

@@ -12,7 +12,7 @@
         <h2>Serviços Adicionais</h2>
       </div>
 
-      <div v-for="item in dbServices" :key="item.id" id="services-content">
+      <div v-for="item in services" :key="item.id" id="services-content">
         <p>
           <input
             type="checkbox"
@@ -23,12 +23,12 @@
                 : false
             "
           />
-          {{ item.service }}
+          {{ item.name }}
           <img
             src="../../src/assets/images/arrow-right-alt1.png"
             class="escolha__modal__modal-content__arrow"
           />
-          R$ {{ item.price.toFixed(2) }}
+          R$ {{ item.price }}
         </p>
       </div>
 
@@ -65,16 +65,21 @@ export default {
       return this.$store.state.modal;
     },
 
-    dbServices() {
-      return this.$store.getters.dbServices;
+    // dbServices() {
+    //   return this.$store.getters.dbServices;
+    // },
+
+    services() {
+      return this.$store.state.servicesModule.services;
     },
 
     checkServices() {
       return document.querySelectorAll('input[type="checkbox"]');
-    },
+    }
   },
 
   mounted() {
+    this.$store.dispatch('servicesModule/getServices');
     document.addEventListener("click", this.onClick);
   },
 
@@ -96,10 +101,12 @@ export default {
 
       this.checkServices.forEach((item) => {
         if (item.checked) {
+          const service = this.services.find(service => service.id === +item.id);
+
           this.reservation.services.push({
             id: item.id,
-            service: this.dbServices[item.id].service,
-            price: this.dbServices[item.id].price,
+            name: service.name,
+            price: service.price
           });
         }
       });

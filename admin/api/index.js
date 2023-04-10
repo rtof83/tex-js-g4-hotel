@@ -1,10 +1,10 @@
 const Accommodation = require("./models/Accommodation");
 const Service = require("./models/Service");
 const Banner = require("./models/Banner");
-const Contact = require("./models/Contact");
 const Reservation = require("./models/Reservation");
 const Permission = require("./models/Permission");
 const User = require("./models/User");
+const Coupon = require("./models/Coupon");
 
 // accommodations routes
 require("./common/getAllRecords")("/accommodations", Accommodation);
@@ -43,8 +43,17 @@ require("./common/deleteRecord")("/services", Service);
 require("./common/createRecord")("/services", Service);
 
 // contacts routes
-require("./common/getAllRecords")("/contacts", Contact);
-require("./common/createRecord")("/contacts", Contact);
+require('./routes/contacts/getContacts');
+require('./routes/contacts/createContact');
+
+// coupons routes
+require('./common/getAllRecords')('/coupons', Coupon);
+require('./common/activateInactivateRecord')('/coupons', Coupon);
+require('./common/deleteRecord')('/coupons', Coupon);
+require('./common/updateRecord')('/coupons', Coupon);
+require('./routes/coupons/createCoupon');
+require('./routes/coupons/useCoupon');
+require('./routes/coupons/checkCoupon');
 
 // services
 require('./services/initialPermission')();

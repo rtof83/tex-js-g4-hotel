@@ -13,7 +13,7 @@ const Accommodation = conn.define('accommodation', {
     allowNull: false
   },
   image: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.STRING(255),
     allowNull: false
   },
   description: {
@@ -23,6 +23,9 @@ const Accommodation = conn.define('accommodation', {
   price: {
     type: Sequelize.DECIMAL(10,2),
      allowNull: false
+  },
+  status: {
+    type: Sequelize.BOOLEAN
   }
 });
 
