@@ -142,9 +142,9 @@ export default {
     },
   },
 
-  beforeMount() {
-    this.$store.dispatch("usersModule/getUserById", this.validate.id);
-  },
+  // beforeMount() {
+  //   this.$store.dispatch("usersModule/getUserById", this.validate.id);
+  // },
 
   async mounted() {
     await this.$store.dispatch(

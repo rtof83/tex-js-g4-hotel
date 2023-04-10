@@ -16,7 +16,7 @@
         <form>
           <label for="name">Nome: </label>
           <input
-            v-model="login.user.name"
+            v-model="validate.name"
             type="text"
             placeholder="Digite seu nome"
             id="name"
@@ -25,7 +25,7 @@
 
           <label for="email">Email:</label>
           <input
-            v-model="login.user.email"
+            v-model="validate.email"
             type="text"
             placeholder="Digite seu email"
             id="email"
@@ -34,7 +34,7 @@
 
           <label for="password">Senha:</label>
           <input
-            v-model="login.user.password"
+            v-model="validate.password"
             type="password"
             placeholder="Digite sua senha..."
             id="password"
@@ -44,7 +44,7 @@
         <div class="escolha__modal__modal-content__div">
           <button
             class="escolha__modal__modal-content__div__btn"
-            @click="updateUser(login.user)"
+            @click="updateUser(validate)"
           >
             Salvar mudanças
           </button>
@@ -63,7 +63,7 @@ export default {
 
   data() {
     return {
-      login: JSON.parse(localStorage.getItem("loginUser")),
+      // login: JSON.parse(localStorage.getItem("loginUser")),
     };
   },
 
@@ -74,6 +74,10 @@ export default {
 
     allUsers() {
       return this.$store.state.usersModule.users;
+    },
+
+    validate() {
+      return this.$store.state.loginModule.validate;
     },
   },
 
@@ -130,7 +134,7 @@ export default {
     updateUser(data) {
       // validação do input email
       if (
-        !this.login.user.email.match(
+        !this.validate.email.match(
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
         )
       ) {
@@ -139,7 +143,8 @@ export default {
 
       // validação do input password
       if (
-        !this.login.user.password.match(
+        !this.validate.password ||
+        !this.validate.password.match(
           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,15}$/
         )
       ) {
@@ -147,7 +152,7 @@ export default {
       }
 
       // checagem se o e-mail que quer cadastrar já existe no banco de dados
-      const filteredEmail = this.removeQuotesSpaces(this.login.user.email);
+      const filteredEmail = this.removeQuotesSpaces(this.validate.email);
       const result = this.allUsers.find((item) => item.email === filteredEmail);
 
       // caso o e-mail já exista
@@ -155,6 +160,7 @@ export default {
 
       // atualização do usuário
       this.$store.dispatch("usersModule/updateUser", data);
+      this.validate.password = "";
       this.closeModal();
       this.notify();
     },
