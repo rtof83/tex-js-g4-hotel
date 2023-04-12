@@ -24,36 +24,45 @@
 
       <article>
         <div class="container__user-reservations">
+          <div>
+            <h2>Suas Reservas:</h2>
+          </div>
           <div v-if="reservations.length">
             <div
               v-for="item in reservations"
               :id="item.id"
               :key="item.id"
-              class="my-reservations"
+              class="container__user-reservations__div"
             >
-              <p>ID Reserva: {{ item.id }}</p>
-              <p>Quarto: {{ item.accommodation.name }}</p>
-              <p>Check in: {{ item.checkin }}</p>
-              <p>Check out: {{ item.checkout }}</p>
-
-              <!-- <div v-if="item.services.length">
-        <br />
-        <ul>
-          Serviços adicionais:
-          <li v-for="service in item.services" :key="service.id">
-            {{ service.service }}
-          </li>
-        </ul>
-        <br />
-      </div> -->
-
-              <!-- <p v-if="item.coupon">Cupom: {{ item.coupon }}</p>
-      <p>Descontos aplicados: R$ {{ item.discount.toFixed(2) }}</p>
-      <p>Total: R$ {{ item.total.toFixed(2) }}</p> -->
-
-              <hr />
+              <div class="container__user-reservations__div__image">
+                <img
+                  :src="item.accommodation.image"
+                  :alt="item.accommodation.name"
+                />
+              </div>
+              <div class="container__user-reservations__div__text">
+                <p>{{ item.accommodation.name }}</p>
+                <ul>
+                  <li>📅 Check-in: {{ formatDate(item.checkin) }}</li>
+                  <li>📅 Check-out: {{ formatDate(item.checkout) }}</li>
+                </ul>
+                <p>Número de Hóspedes: {{ item.qty }}</p>
+                <p>
+                  Valor Total: <span>R$ {{ item.total }}</span>
+                </p>
+                <p v-if="item.coupon === null">
+                  Reserva feita sem uso de cupom
+                </p>
+                <p v-else>
+                  Cupom utilizado: <span>{{ item.coupon }}</span>
+                </p>
+              </div>
+              <div class="container__user-reservations__div__btn">
+                <button>Cancelar</button>
+              </div>
             </div>
           </div>
+
           <div class="container__user-reservations__else" v-else>
             <div>
               <h3>
@@ -82,6 +91,7 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import ModalUserDetails from "../components/ModalUserDetails.vue";
 import router from "@/router";
+import moment from "moment";
 
 export default {
   name: "MyReservationsView",
@@ -131,6 +141,10 @@ export default {
   },
 
   methods: {
+    formatDate(date) {
+      return moment(date).format("DD/MM/YYYY");
+    },
+
     showModal(modal) {
       this.modal[modal] = "block";
     },
