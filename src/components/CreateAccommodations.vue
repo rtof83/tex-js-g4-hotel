@@ -85,20 +85,20 @@ export default {
   methods: {},
 
   beforeMount() {
-    this.$store.dispatch("accommodationsModule/getAccommodations");
+    // this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
   mounted() {
-    const bookingStorage = JSON.parse(localStorage.getItem("booking"));
+    // const bookingStorage = JSON.parse(localStorage.getItem("booking"));
 
-    if (bookingStorage) {
-      this.reservation.accommodationId = bookingStorage.accommodationId;
-      this.reservation.accommodation = bookingStorage.accommodation;
-      this.reservation.checkin = bookingStorage.checkin;
-      this.reservation.checkout = bookingStorage.checkout;
-      this.reservation.qty = bookingStorage.qty;
-      this.reservation.services = bookingStorage.services;
-    }
+    // if (bookingStorage) {
+    //   this.reservation.accommodationId = bookingStorage.accommodationId;
+    //   this.reservation.accommodation = bookingStorage.accommodation;
+    //   this.reservation.checkin = bookingStorage.checkin;
+    //   this.reservation.checkout = bookingStorage.checkout;
+    //   this.reservation.qty = bookingStorage.qty;
+    //   this.reservation.services = bookingStorage.services;
+    // }
   },
 };
 </script>
