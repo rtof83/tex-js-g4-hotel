@@ -23,10 +23,31 @@ const accommodationsModule = {
     },
 
     // delete
+    async deleteAccommodation({ dispatch }, id) {
+      await api.delete(`accommodations/${id}`)
+        .then(() => {
+          dispatch('getAccommodations')
+        })
+        .catch(error => console.log(error));
+    },
     
     // put
+    async updateAccommodation({ dispatch }, data) {
+      await api.put(`accommodations/${data.id}`, data)
+        .then(() => {
+          dispatch('getAccommodations')
+        })
+        .catch(error => console.log(error));
+    },
 
     // post
+    async addAccommodation({ dispatch }, data) {
+      await api.post('accommodations', data)
+        .then(() => {
+          dispatch('getAccommodations')
+        })
+        .catch(error => console.log(error));
+    },
   }
 }
 

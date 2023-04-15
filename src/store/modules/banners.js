@@ -32,7 +32,7 @@ const bannersModule = {
     },
 
     // delete
-      async deleteBanner({ dispatch }, id) {
+    async deleteBanner({ dispatch }, id) {
       await api.delete(`banners/${id}`)
         .then(() => {
           dispatch('getBanners')

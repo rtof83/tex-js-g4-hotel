@@ -45,6 +45,7 @@ require("./common/createRecord")("/services", Service);
 // contacts routes
 require('./routes/contacts/getContacts');
 require('./routes/contacts/createContact');
+require('./routes/contacts/deleteContact');
 
 // coupons routes
 require('./common/getAllRecords')('/coupons', Coupon);

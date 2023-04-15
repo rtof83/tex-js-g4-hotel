@@ -67,6 +67,8 @@ export default createStore({
       showServices: "none",
       showDetails: "none",
       showUserDetails: "none",
+      showBanner: "none",
+      showAccommodation: "none"
     },
 
     sorteio: {

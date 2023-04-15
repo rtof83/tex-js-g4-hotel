@@ -87,15 +87,16 @@
       },
 
       checkValidate() {
-        if (this.validate.id !== 1) {
-          const login = JSON.parse(localStorage.getItem('loginAdmin'));
+        if (this.validate.permissionId !== 1) {
+          const loginAdmin = JSON.parse(localStorage.getItem('loginAdmin'));
 
-          if (login && login.token)
-            this.$store.dispatch('loginModule/validate', login.token)
+          if (loginAdmin && loginAdmin.token)
+            this.$store.dispatch('loginModule/validate', loginAdmin.token);
+          else
+            this.component = <LoginView permission="admin" />;
         } else {
-          // this.component = <LoginView permission="admin" />;
+          this.component = '';
         };
-        this.component = <LoginView permission="admin" />;
       }
     },
 

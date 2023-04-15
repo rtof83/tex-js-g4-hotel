@@ -32,6 +32,13 @@ const contactsModule = {
     },
 
     // delete
+    async deleteContact({ dispatch }, id) {
+      await api.delete(`contacts/${id}`)
+        .then(() => {
+          dispatch('getContacts')
+        })
+        .catch(error => console.log(error));
+    },
     
     // put
   }

@@ -2,6 +2,9 @@
   <div class="content">
     <div class="panel">
       <h1>Cadastrar Acomodação</h1>
+      <button @click="showModal({}, 'showAccommodation')">Adicionar Acomodação</button>
+
+      <hr />
 
       <table class="table table-hover align-middle">
           <thead>
@@ -26,20 +29,20 @@
             <td>{{ item.image }}</td>
             <td>{{ item.description }}</td>
             <td>R$ {{ item.price }}</td>
-            <td>{{ item.status }}</td>
+            <td>{{ item.status ? 'Ativo' : 'Inativo' }}</td>
             
             <td>
               <div class="actions">
                 <div class="actions__item bi bi-pencil-fill"
                      @mouseover="(e) => hovering(e, 'bi-pencil')"
                      @mouseout="(e) => hovering(e, 'bi-pencil-fill')"
-                     @click="updateTaskName(item.id, item.name)">
+                     @click="showModal(item, 'showAccommodation')">
                 </div>
 
                 <div class="actions__item bi bi-trash3-fill"
                      @mouseover="(e) => hovering(e, 'bi-trash3')"
                      @mouseout="(e) => hovering(e, 'bi-trash3-fill')"
-                     @click="deleteTask(item.id)">
+                     @click="deleteRecord(item.id)">
                 </div>
               </div>
             </td>
@@ -52,34 +55,56 @@
       </table>
     </div>
   </div>
+
+  <ModalAccommodation :data="data" />
 </template>
 
 <script>
+  import ModalAccommodation from "@/components/ModalAccommodation.vue";
+
   export default {
-    name: 'AdminAccommodations',
+    name: "AdminAccommodations",
+
+    components: {
+      ModalAccommodation
+    },
 
     data() {
       return {
-      }
+        data: {}
+      };
     },
 
     computed: {
       accommodations() {
-        return this.$store.state.accommodationsModule.accommodations;
+          return this.$store.state.accommodationsModule.accommodations;
+      },
+
+      modal() {
+          return this.$store.state.modal;
       }
     },
 
     methods: {
+      showModal(item, modal) {
+        this.data = item;
+        this.modal[modal] = "block";
+      },
+
       hovering(e, action) {
         e.target.classList.remove(e.target.classList[2]);
         e.target.classList.add(action);
-      }
+      },
+
+      deleteRecord(id) {
+        this.$store.dispatch("accommodationsModule/deleteAccommodation", id);
+      },
     },
 
     mounted() {
-      this.$store.dispatch('accommodationsModule/getAccommodations');
+      this.$store.dispatch("accommodationsModule/getAccommodations");
     }
-  }
+}
 </script>
 
 <style scoped>

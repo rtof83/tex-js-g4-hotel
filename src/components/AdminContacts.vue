@@ -13,6 +13,7 @@
               <th scope="col">Telefone</th>
               <th scope="col">Assunto</th>
               <th scope="col">Mensagem</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -29,16 +30,10 @@
             
             <td>
               <div class="actions">
-                <div class="actions__item bi bi-pencil-fill"
-                     @mouseover="(e) => hovering(e, 'bi-pencil')"
-                     @mouseout="(e) => hovering(e, 'bi-pencil-fill')"
-                     @click="updateTaskName(item._id, item.name)">
-                </div>
-
                 <div class="actions__item bi bi-trash3-fill"
                      @mouseover="(e) => hovering(e, 'bi-trash3')"
                      @mouseout="(e) => hovering(e, 'bi-trash3-fill')"
-                     @click="deleteTask(item._id)">
+                     @click="deleteRecord(item._id)">
                 </div>
               </div>
             </td>
@@ -72,6 +67,10 @@
       hovering(e, action) {
         e.target.classList.remove(e.target.classList[2]);
         e.target.classList.add(action);
+      },
+
+      deleteRecord(id) {
+        this.$store.dispatch("contactsModule/deleteContact", id);
       }
     },
 
