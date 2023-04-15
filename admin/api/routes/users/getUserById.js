@@ -20,7 +20,11 @@ module.exports = app.get("/users/:id", async (req, res) => {
     const sql2 = `SELECT * FROM addresses WHERE userId = ` + conn.escape(id);
     const [address] = await conn.query(sql2);
 
-    return res.status(200).json({ user, address });
+    // uso de 'mysql.escape()' para evitar ataques de SQL injection
+    const sql3 = `SELECT * FROM reservations WHERE userId = ` + conn.escape(id);
+    const [reservations] = await conn.query(sql3);
+
+    return res.status(200).json({ user, address, reservations });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
