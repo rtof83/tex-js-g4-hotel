@@ -30,14 +30,20 @@ exports.module = app.post("/users/login", async (req, res) => {
 
     // user by email
     const user = await User.findOne({ where: { email: req.body.email } });
-
     if (!user)
       return res.status(401).json({ message: "email or password not valid" });
 
+    // checar se usuário foi deletado anteriormente e reverte o soft delete
+    if (user.isActive === false) {
+      await user.update({ deletedAt: null, isActive: true });
+    }
+
+    // checar se a senha está correta
     if (await bcrypt.compare(req.body.password, user.password)) {
       await user.update({ lastLogin: Date.now() });
 
       delete user.dataValues.password;
+      // gerar o token
       const token = generateToken(user);
 
       return res

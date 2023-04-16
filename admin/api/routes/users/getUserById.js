@@ -1,8 +1,13 @@
 const { app, conn } = require("../../database/conn");
+const User = require("../../models/User");
 
 module.exports = app.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
+
+    // checar se usuário existe
+    const result = await User.findByPk(id);
+    if (!result) return res.status(422).json({ message: "User not found!" });
 
     // validação do req.params.id em ser apenas números
     if (!id.match(/^[0-9]*$/)) {

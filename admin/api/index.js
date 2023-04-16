@@ -28,13 +28,12 @@ require("./routes/reservations/getReservationsByUser");
 require("./routes/reservations/getReservationById");
 require("./common/deleteRecord")("/reservations", Reservation);
 
-
 // users routes
 require("./common/getAllRecords")("/users", User);
 require("./routes/users/getUserById");
 require("./routes/users/createUser");
 require("./routes/users/updateUser");
-require("./common/deleteRecord")("/users", User);
+require("./routes/users/softDeleteUser");
 require("./common/createRecord")("/users/permissions", Permission);
 require("./routes/users/login");
 require("./routes/users/validate");
@@ -46,25 +45,25 @@ require("./common/deleteRecord")("/services", Service);
 require("./common/createRecord")("/services", Service);
 
 // contacts routes
-require('./routes/contacts/getContacts');
-require('./routes/contacts/createContact');
-require('./routes/contacts/deleteContact');
+require("./routes/contacts/getContacts");
+require("./routes/contacts/createContact");
+require("./routes/contacts/deleteContact");
 
 // coupons routes
-require('./common/getAllRecords')('/coupons', Coupon);
-require('./common/activateInactivateRecord')('/coupons', Coupon);
-require('./common/deleteRecord')('/coupons', Coupon);
-require('./common/updateRecord')('/coupons', Coupon);
-require('./routes/coupons/createCoupon');
-require('./routes/coupons/useCoupon');
-require('./routes/coupons/checkCoupon');
+require("./common/getAllRecords")("/coupons", Coupon);
+require("./common/activateInactivateRecord")("/coupons", Coupon);
+require("./common/deleteRecord")("/coupons", Coupon);
+require("./common/updateRecord")("/coupons", Coupon);
+require("./routes/coupons/createCoupon");
+require("./routes/coupons/useCoupon");
+require("./routes/coupons/checkCoupon");
 
 // review routes
-require('./common/getAllRecords')('/reviews', Review);
-require('./routes/reviews/getReviewsByAccommodation');
-require('./routes/reviews/getReviewsByUser');
-require('./routes/reviews/createReview');
+require("./common/getAllRecords")("/reviews", Review);
+require("./routes/reviews/getReviewsByAccommodation");
+require("./routes/reviews/getReviewsByUser");
+require("./routes/reviews/createReview");
 
 // services
-require('./services/initialPermission')();
-require('./services/initialAdmin')();
+require("./services/initialPermission")();
+require("./services/initialAdmin")();

@@ -22,9 +22,9 @@ const User = conn.define('user', {
     type: Sequelize.STRING(100),
     allowNull: false
   },
-  status: {
+  isActive: {
     type: Sequelize.BOOLEAN,
-    allowNull: false
+    defaultValue: true,
   },
   lastLogin: {
     type: Sequelize.DATE
