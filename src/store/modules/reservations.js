@@ -38,7 +38,15 @@ const reservationsModule = {
     },
 
     // delete
-    
+    async deleteReservation({ dispatch }, id) {
+      await api
+        .delete(`reservations/${id}`)
+        .then(() => {
+          dispatch("getReservations");
+        })
+        .catch((error) => console.log(error));
+    },
+
     // put
   }
 }
