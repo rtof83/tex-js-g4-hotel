@@ -38,11 +38,11 @@ const reservationsModule = {
     },
 
     // delete
-    async deleteReservation({ dispatch }, id) {
+    async deleteReservation({ dispatch }, data) {
       await api
-        .delete(`reservations/${id}`)
+        .delete(`reservations/${data.id}`)
         .then(() => {
-          dispatch("getReservations");
+          dispatch("getReservationsByUser", data.userId);
         })
         .catch((error) => console.log(error));
     },

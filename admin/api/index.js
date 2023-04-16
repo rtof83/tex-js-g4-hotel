@@ -5,6 +5,7 @@ const Reservation = require("./models/Reservation");
 const Permission = require("./models/Permission");
 const User = require("./models/User");
 const Coupon = require("./models/Coupon");
+const Review = require("./models/Review");
 
 // accommodations routes
 require("./common/getAllRecords")("/accommodations", Accommodation);
@@ -57,6 +58,12 @@ require('./common/updateRecord')('/coupons', Coupon);
 require('./routes/coupons/createCoupon');
 require('./routes/coupons/useCoupon');
 require('./routes/coupons/checkCoupon');
+
+// review routes
+require('./common/getAllRecords')('/reviews', Review);
+require('./routes/reviews/getReviewsByAccommodation');
+require('./routes/reviews/getReviewsByUser');
+require('./routes/reviews/createReview');
 
 // services
 require('./services/initialPermission')();

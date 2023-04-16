@@ -22,20 +22,20 @@
             "
             id="detailsImage"
           /> -->
-          <img :src="accommodation.image" id="detailsImage" />
+          <img :src="reservation.accommodationImage" id="detailsImage" />
         </div>
 
         <h3 id="detailsAccommodation">{{ reservation.accommodation }}</h3>
         <p id="detailsDescription">
-          <!-- {{ dbAccommodations[reservation.id].description }} -->
-          {{ accommodation.description }}
+          <!-- {{ accommodation.description }} -->
+          {{ reservation.accommodationDesc }}
         </p>
 
         <p id="detailsCheckin">
-          <span>Data de Check-in:</span> {{ reservation.checkin }}
+          <span>Data de Check-in:</span> {{ formatDate(reservation.checkin) }}
         </p>
         <p id="detailsCheckout">
-          <span>Data de Check-out:</span> {{ reservation.checkout }}
+          <span>Data de Check-out:</span> {{ formatDate(reservation.checkout) }}
         </p>
         <p id="detailsQty"><span>Hóspedes:</span> {{ reservation.qty }}</p>
 
@@ -49,7 +49,7 @@
             :key="item.id"
             id="detailsServices"
           >
-            <p>{{ item.name }}</p>
+            <p>-> {{ item.name }}</p>
           </div>
         </div>
         <!-- Consumo na tela de reservas ? -->
@@ -62,7 +62,7 @@
         <h2>Resumo do seu pedido</h2>
         <p>
           {{ reservation.accommodation }}: R$
-          {{ reservation.total.toFixed(2) }}
+          {{ reservation.accommodationTotal }}
         </p>
         <p>Hóspedes: {{ reservation.qty }}</p>
         <p>Diárias: {{ reservation.rates }}</p>
@@ -75,8 +75,11 @@
           <p>Consumo -> R$ {{ reservation.itemsBar.toFixed(2) }}</p>
         </div>
 
+        <hr>
+
         <Cupom />
-        <!-- validar se o cupom já foi utilizado (localstorage) -->
+
+        <hr>
 
         <p>TOTAL: R$ {{ reservation.total.toFixed(2) }}</p>
         <button
@@ -93,17 +96,26 @@
 
 <script>
 import Cupom from "@/components/Coupon.vue";
+import moment from "moment";
 import router from "@/router";
+
 export default {
   name: "ModalDetails",
+
   components: {
     Cupom,
   },
+
   data() {
     return {
-      accommodation: {},
+      accommodation: {
+        image: '',
+        description: '',
+        total: 0
+      },
     };
   },
+
   computed: {
     modal() {
       return this.$store.state.modal;
@@ -111,12 +123,6 @@ export default {
     reservation() {
       return this.$store.state.reservation;
     },
-    // dbServices() {
-    //   return this.$store.getters.dbServices;
-    // },
-    // dbAccommodations() {
-    //   return this.$store.getters.dbAccommodations;
-    // },
     services() {
       return this.$store.state.servicesModule.services;
     },
@@ -129,19 +135,15 @@ export default {
     validate() {
       return this.$store.state.loginModule.validate;
     },
+    applyCoupon() {
+      return this.$store.state.applyCoupon;
+    }
   },
-  async mounted() {
-    document.addEventListener("click", this.onClick);
-    await this.$store.dispatch("accommodationsModule/getAccommodations");
-    const accommodation = this.accommodations.find(
-      (accommodation) => accommodation.id === this.reservation.accommodationId
-    );
-    this.accommodation.image = accommodation.image;
-    this.accommodation.description = accommodation.description;
-  },
+
   beforeDestroy() {
     document.removeEventListener("click", this.onClick);
   },
+
   methods: {
     closeModal() {
       this.modal.showDetails = "none";
@@ -153,17 +155,7 @@ export default {
     init() {
       this.$store.commit("initReservation");
     },
-    insertReservation(email) {
-      // const reservations = JSON.parse(localStorage.getItem("reservations"));
-      // const newReservation = reservations ? [...reservations] : [];
-      // const myReservation = this.reservation;
-      // myReservation.idReservation = new Date().getTime();
-      // myReservation.email = email;
-      // const coupon = JSON.parse(localStorage.getItem("coupon"));
-      // if (myReservation.discount)
-      //   myReservation.coupon = coupon.coupon.toUpperCase();
-      // newReservation.push(myReservation);
-      // localStorage.setItem("reservations", JSON.stringify(newReservation));
+    async insertReservation() {
       const reservation = JSON.parse(localStorage.getItem("booking"));
 
       const sendReservation = {
@@ -173,16 +165,15 @@ export default {
         subTotal: reservation.total,
         total: reservation.total,
         accommodationId: reservation.accommodationId,
+        couponId: this.applyCoupon.id ? this.applyCoupon.id : null,
         userId: this.validate.id,
         services: reservation.services,
       };
-      this.$store.dispatch(
-        "reservationsModule/addReservation",
-        sendReservation
-      );
 
-      // console.log(JSON.parse(localStorage.getItem('booking')))
-      // this.$store.dispatch("reservationsModule/addReservation", myReservation);
+      if (this.applyCoupon.id)
+        await this.$store.dispatch("couponsModule/useCoupon", this.applyCoupon.id);
+      
+      await this.$store.dispatch("reservationsModule/addReservation", sendReservation);
     },
     confirmBook() {
       if (this.validate.permissionId !== 2) {
@@ -199,6 +190,23 @@ export default {
         router.push("/my-reservations");
       }
     },
+
+    formatDate(date) {
+      return moment(date).format('DD/MM/YYYY');
+    },
+
+    async mounted() {
+      document.addEventListener("click", this.onClick);
+
+      // await this.$store.dispatch("accommodationsModule/getAccommodations");
+      // const accommodation = this.accommodations.find(
+      //   (accommodation) => accommodation.id === this.reservation.accommodationId
+      // );
+
+      // this.accommodation.image = accommodation.image;
+      // this.accommodation.description = accommodation.description;
+      // this.accommodation.total = this.reservation.qty * this.reservation.rates * accommodation.price;
+    }
   },
 };
 </script>

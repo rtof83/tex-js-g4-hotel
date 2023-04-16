@@ -102,6 +102,9 @@ export default {
           (item) => item.id === this.reservation.accommodationId
         );
         this.reservation.accommodation = accommodation.name;
+        this.reservation.accommodationDesc = accommodation.description;
+        this.reservation.accommodationTotal = this.reservation.rates * this.reservation.qty * accommodation.price;
+        this.reservation.accommodationImage = accommodation.image;
 
         let sumServices = 0;
         this.reservation.services.map((service) => (sumServices += parseFloat(service.price)));
@@ -116,7 +119,7 @@ export default {
           this.reservation.itemsBar + sumServices +
           this.reservation.rates * this.reservation.qty * accommodation.price;
 
-        this.reservation.total -= this.reservation.total * discount;
+        this.reservation.total -= this.reservation.total * this.reservation.discount;
 
         // set to localStorage
         localStorage.setItem("booking", JSON.stringify(this.reservation));
@@ -153,6 +156,9 @@ export default {
       this.reservation.qty = booking.qty;
       this.reservation.rates = booking.rates;
       this.reservation.services = booking.services;
+      this.reservation.accommodationDesc = booking.accommodationDesc;
+      this.reservation.accommodationTotal = booking.accommodationTotal;
+      this.reservation.accommodationImage = booking.accommodationImage;
 
       const accommodation = this.accommodations.find(
         (item) => item.id === this.reservation.accommodationId

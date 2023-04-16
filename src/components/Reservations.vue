@@ -25,7 +25,7 @@
           </p>
           <p v-if="item.coupon === null">Reserva feita sem uso de cupom</p>
           <p v-else>
-            Cupom utilizado: <span>{{ item.coupon }}</span>
+            Cupom utilizado: <span>{{ `${item.coupon.code} (${item.coupon.discount}%)` }}</span>
           </p>
         </div>
         <div class="container__user-reservations__div__btn">
@@ -74,15 +74,14 @@ export default {
     },
 
     deleteReservation(id) {
-      this.$store.dispatch("reservationsModule/deleteReservation", id);
-    },
+      if (confirm('Esta ação irá excluir a reserva selecionada. Deseja continuar?'))
+        this.$store.dispatch("reservationsModule/deleteReservation",
+          { id: id, userId: this.validate.id });
+    }
   },
 
   async mounted() {
-    await this.$store.dispatch(
-      "reservationsModule/getReservationsByUser",
-      this.validate.id
-    );
+    await this.$store.dispatch("reservationsModule/getReservationsByUser", this.validate.id);
   },
 };
 </script>

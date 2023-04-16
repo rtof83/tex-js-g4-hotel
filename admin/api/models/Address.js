@@ -30,7 +30,7 @@ const Address = conn.define('address', {
     allowNull: false
   },
   postCode: {
-    type: Sequelize.STRING(8),
+    type: Sequelize.STRING(9),
     allowNull: false
   }
 });

@@ -4,6 +4,7 @@ const { conn } = require('../database/conn');
 const Accommodation = require('./Accommodation');
 const Coupon = require('./Coupon');
 const User = require('./User');
+const Review = require('./Review');
 
 const Reservation = conn.define('reservation', {
   id: {
@@ -50,6 +51,11 @@ Reservation.belongsTo(User, {
 Reservation.belongsTo(Coupon, {
     constraint: true,
     foreignKey: 'couponId'
+});
+
+Reservation.belongsTo(Review, {
+  constraint: true,
+  foreignKey: 'reviewId'
 });
 
 module.exports = Reservation;

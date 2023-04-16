@@ -111,13 +111,16 @@ export default {
       rating: 0,
       accommodationComments: [],
       comments: new Comments(),
+
+      accommodation: {}
     };
   },
 
   computed: {
-    accommodation() {
-      return this.$store.state.accommodationsModule.accommodations[this.id];
-    },
+    accommodations() {
+      return this.$store.state.accommodationsModule.accommodations;
+    }
+    
 
     // login() {
     //   // return this.$store.state.login;
@@ -161,13 +164,15 @@ export default {
   },
 
   beforeMount() {
-    this.$store.dispatch("accommodationsModule/getAccommodations");
+    // this.$store.dispatch("accommodationsModule/getAccommodations");
   },
 
   mounted() {
     this.accommodationComments = this.comments.getComments(
       this.accommodation.id
     );
+
+    this.accommodation = this.accommodations.find(item => item.id == this.id);
   },
 
   components: {

@@ -11,7 +11,7 @@ const User = conn.define('user', {
     primaryKey: true
   },
   name: {
-    type: Sequelize.STRING(16),
+    type: Sequelize.STRING(26),
     allowNull: false
   },
   email: {
@@ -27,6 +27,9 @@ const User = conn.define('user', {
     allowNull: false
   },
   lastLogin: {
+    type: Sequelize.DATE
+  },
+  deletedAt: {
     type: Sequelize.DATE
   }
 });

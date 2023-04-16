@@ -491,7 +491,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"user\",\n    \"email\": \"user@email.com\",\n    \"password\": \"pass\",\n    \"status\": 1,\n    \"permissionId\": 2,\n    \"address\": {\n        \"streetName\": \"Rua Teste\",\n        \"streetNumber\": 100,\n        \"neighborhood\": \"Bairro Teste\",\n        \"city\": \"Cidade\",\n        \"state\": \"AA\",\n        \"postCode\": \"12345678\"\n    }\n}",
+							"raw": "{\n    \"name\": \"user\",\n    \"email\": \"user@email.com\",\n    \"password\": \"User123@456\",\n    \"status\": 1,\n    \"permissionId\": 2,\n    \"address\": {\n        \"streetName\": \"Rua Teste\",\n        \"streetNumber\": 100,\n        \"neighborhood\": \"Bairro Teste\",\n        \"city\": \"Cidade\",\n        \"state\": \"AA\",\n        \"postCode\": \"12345678\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -796,6 +796,45 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete contact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6ImFkbWluMiIsImVtYWlsIjoiYWRtaW4yQGVtYWlsLmNvbSIsInBlcm1pc3Npb25JZCI6MSwiaWF0IjoxNjgxNTY4MTk2LCJleHAiOjE2ODE2MTEzOTZ9.U1qZBjqWo_J2YwL5bm3l5pfTLihmcYpR2wKvFRJuBm0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkin\": \"2023-02-01\",\r\n    \"checkout\": \"2023-02-02\",\r\n    \"qty\": 4,\r\n    \"subTotal\": 100,\r\n    \"total\": 200,\r\n    \"accommodationId\": 10,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/contacts/643095e6600162b82065282f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"contacts",
+								"643095e6600162b82065282f"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1021,6 +1060,171 @@
 							"path": [
 								"coupons",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "use coupon",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/coupons/use?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupons",
+								"use"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reviews",
+			"item": [
+				{
+					"name": "get reviews by accommodation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/reviews/accommodation/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews",
+								"accommodation",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get reviews by user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/reviews/user/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews",
+								"user",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all reviews",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 8,\r\n    \"accommodationId\": 11,\r\n    \"message\": \"\",\r\n    \"rating\": 4.5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reviews"
 							]
 						}
 					},

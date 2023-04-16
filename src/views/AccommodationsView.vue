@@ -27,7 +27,7 @@
           :key="item.id"
           class="products-container__card"
         >
-          <router-link :to="`/accommodation/${index}`">
+          <router-link :to="`/accommodation/${item.id}`">
             <img
               class="products-container__card__product-image"
               :src="item.image"
@@ -91,6 +91,10 @@ export default {
     accommodations() {
       return this.$store.state.accommodationsModule.accommodations;
     },
+
+    validate() {
+
+    }
   },
 
   mounted() {

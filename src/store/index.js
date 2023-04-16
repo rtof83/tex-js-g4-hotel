@@ -20,6 +20,9 @@ export default createStore({
     reservation: {
       id: 0,
       accommodationId: 0,
+      accommodationTotal: 0,
+      accommodationDesc: "",
+      accommodationImage: "",
       accommodation: "",
       checkin: "",
       checkout: "",

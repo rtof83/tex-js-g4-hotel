@@ -38,9 +38,11 @@ export default {
     async checkCoupon() {
       await this.$store.dispatch("couponsModule/checkCoupon", this.coupon);
 
+      
       if (this.coupons === 404 || this.coupons === 400) {
         this.applyCoupon.couponId = '';
         this.applyCoupon.discount = 0;
+        this.reservation.discount = 0;
         this.message = "insira um cupom válido";
       } else if (this.coupons.discount) {
         this.reservation.discount = this.coupons.discount / 100;
