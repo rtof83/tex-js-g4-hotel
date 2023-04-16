@@ -81,9 +81,15 @@ export default {
     },
 
     deleteUser(id) {
-      this.$store.dispatch("usersModule/deleteUser", id);
-      localStorage.removeItem("login");
-      router.push("/login");
+      if (
+        confirm(
+          "Esta ação irá excluir a reserva selecionada. Deseja continuar?"
+        )
+      ) {
+        this.$store.dispatch("usersModule/deleteUser", id);
+        localStorage.removeItem("login");
+        router.push("/login");
+      }
     },
   },
 

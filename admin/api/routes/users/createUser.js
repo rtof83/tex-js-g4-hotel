@@ -1,5 +1,4 @@
 const { app } = require("../../database/conn");
-
 const User = require("../../models/User");
 const Address = require("../../models/Address");
 
