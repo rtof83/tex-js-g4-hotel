@@ -62,43 +62,25 @@ export default {
     },
   },
 
-  watch: {
-    accommodations() {
-      let limit = 3;
-
-      if (this.id) {
-        this.selectedAccommodations.push(
-          this.accommodations.find((item) => item.id == this.id)
-        );
-        this.selectedAccommodations[0].checked = true;
-        limit--;
-      }
-
-      for (let i = 0; i < limit; i++) {
-        if (this.id != i) {
-          this.selectedAccommodations.push(this.accommodations[i]);
-        }
-      }
-    },
-  },
-
   methods: {},
 
-  beforeMount() {
-    // this.$store.dispatch("accommodationsModule/getAccommodations");
-  },
+  async mounted() {
+    await this.$store.dispatch('accommodationsModule/getAccommodations');
 
-  mounted() {
-    // const bookingStorage = JSON.parse(localStorage.getItem("booking"));
+    let limit = 3;
 
-    // if (bookingStorage) {
-    //   this.reservation.accommodationId = bookingStorage.accommodationId;
-    //   this.reservation.accommodation = bookingStorage.accommodation;
-    //   this.reservation.checkin = bookingStorage.checkin;
-    //   this.reservation.checkout = bookingStorage.checkout;
-    //   this.reservation.qty = bookingStorage.qty;
-    //   this.reservation.services = bookingStorage.services;
-    // }
+    if (this.id) {
+      this.selectedAccommodations.push(
+        this.accommodations.find((item) => item.id == this.id)
+      );
+      this.selectedAccommodations[0].checked = true;
+      limit--;
+    };
+
+    for (let i = 0; i < limit; i++) {
+      if (this.accommodations[i].id != this.id)
+        this.selectedAccommodations.push(this.accommodations[i]);
+    };
   },
 };
 </script>

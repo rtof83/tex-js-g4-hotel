@@ -20,7 +20,7 @@ module.exports = app.get("/reservations/user/:user", async (req, res) => {
         },
         {
           model: Coupon,
-          attributes: ["code"],
+          attributes: ["code", "discount"],
         },
       ],
     });

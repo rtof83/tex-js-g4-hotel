@@ -1,18 +1,18 @@
 const { app } = require('../../database/conn');
-const checkAdmin = require('../../middlewares/checkAdmin');
+// const checkAdmin = require('../../middlewares/checkAdmin');
 
 const Coupon = require('../../models/Coupon');
 
-module.exports = app.put('/coupons/:code', checkAdmin, async (req, res) => {
+module.exports = app.put('/coupons/use/:id', async (req, res) => {
   try {
-    const coupon = await Coupon.findAll({ where: { code: req.params.code } });
+    const coupon = await Coupon.findByPk(req.params.id);
 
-    if (!coupon.length)
+    if (!coupon)
       return res.status(404).json({ message: 'Record not found!' });
 
-    await coupon[0].update({ expired: true });
+    await coupon.update({ expired: true });
 
-    res.status(200).json({ message: `coupon ${coupon[0].code} is now expired` });
+    res.status(200).json({ message: `coupon ${coupon.code} is now expired` });
   } catch (error) {
     res.status(500).json({ error: error.message });
   };

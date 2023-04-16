@@ -26,7 +26,8 @@ export default createStore({
       qty: 1,
       rates: 1,
       services: [],
-      coupon: "",
+      // coupon: "",
+      // couponId: "",
       discount: 0,
       itemsBar: 0,
       total: 0,
@@ -76,9 +77,10 @@ export default createStore({
       slogan: "",
     },
 
-    discount: {
-      message: "",
-    },
+    applyCoupon: {
+      id: '',
+      discount: 0
+    }
   },
 
   getters: {
@@ -109,8 +111,6 @@ export default createStore({
 
   mutations: {
     initReservation: (state) => {
-      // state.reservation.accommodationId = accommodationId;
-
       const date = new Date();
       state.reservation.checkin = getFromDate(date, true);
       state.reservation.checkout = addDays(date, 1, true);

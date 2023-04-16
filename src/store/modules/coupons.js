@@ -22,6 +22,16 @@ const couponsModule = {
       commit('setCoupons', data);
     },
 
+    async checkCoupon({ commit }, code) {   
+      await api.get(`coupons/${code}`)
+        .then(({ data }) => {
+          commit('setCoupons', data);
+        })
+        .catch((error) => {
+          commit('setCoupons', error.response.status);
+        });
+    },
+
     // post
     async createCoupon({ dispatch }, data) {
       await api.post('coupons', { discount: data.discount })
@@ -51,13 +61,20 @@ const couponsModule = {
     
     // put
     async updateCoupon({ dispatch }, data) {
-      console.log(data)
       await api.put(`coupons/${data.id}`, { discount: data.discount })
         .then(() => {
           dispatch('getCoupons')
         })
         .catch(error => console.log(error));
-    }
+    },
+
+    async useCoupon({ dispatch }, id) {
+      await api.put(`coupons/use/${id}`)
+        .then(() => {
+          dispatch('getCoupons')
+        })
+        .catch(error => console.log(error));
+    },
   }
 }
 
