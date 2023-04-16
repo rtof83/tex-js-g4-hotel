@@ -72,6 +72,10 @@ export default {
       return this.$store.state.reservation;
     },
 
+    applyCoupon() {
+      return this.$store.state.applyCoupon;
+    },
+
     accommodations() {
       return this.$store.state.accommodationsModule.accommodations;
     },
@@ -83,7 +87,7 @@ export default {
 
   watch: {
     reservation: {
-      async handler() {
+      handler() {
         // validate date
         if (this.reservation.checkout <= this.reservation.checkin) {
           this.notify();
@@ -94,7 +98,7 @@ export default {
           );
         }
 
-        const accommodation = await this.accommodations.find(
+        const accommodation = this.accommodations.find(
           (item) => item.id === this.reservation.accommodationId
         );
         this.reservation.accommodation = accommodation.name;
@@ -110,8 +114,9 @@ export default {
 
         this.reservation.total =
           this.reservation.itemsBar + sumServices +
-          this.reservation.rates * this.reservation.qty * accommodation.price -
-          this.reservation.discount;
+          this.reservation.rates * this.reservation.qty * accommodation.price;
+
+        this.reservation.total -= this.reservation.total * discount;
 
         // set to localStorage
         localStorage.setItem("booking", JSON.stringify(this.reservation));
@@ -136,7 +141,8 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch('accommodationsModule/getAccommodations');
     const booking = JSON.parse(localStorage.getItem('booking'));
     
     if (booking) {
@@ -147,7 +153,16 @@ export default {
       this.reservation.qty = booking.qty;
       this.reservation.rates = booking.rates;
       this.reservation.services = booking.services;
-      this.reservation.total = booking.total;
+
+      const accommodation = this.accommodations.find(
+        (item) => item.id === this.reservation.accommodationId
+      );
+
+      let sumServices = 0;
+      this.reservation.services.map((service) => (sumServices += parseFloat(service.price)));
+      
+      this.reservation.total = sumServices +
+          this.reservation.rates * this.reservation.qty * accommodation.price;
     } else {
       this.$store.commit("initReservation");
     };

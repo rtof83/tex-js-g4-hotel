@@ -3,7 +3,7 @@
     <label for="coupon">Possui cupom de desconto?</label>
     <br />
     <input v-model="coupon" type="text" placeholder="Insira seu cupom" />
-    <button @click="checkCoupon">Validar</button>
+    <button v-if="coupon" @click="checkCoupon">Validar</button>
     <button v-if="coupon" @click="cancelCoupon">Cancelar</button>
     <p>{{ message }}</p>
   </div>
@@ -21,29 +21,34 @@ export default {
   },
 
   computed: {
-    couponStorage() {
-      return JSON.parse(localStorage.getItem("coupon"));
+    coupons() {
+      return this.$store.state.couponsModule.coupons;
     },
 
     reservation() {
       return this.$store.state.reservation;
     },
+
+    applyCoupon() {
+      return this.$store.state.applyCoupon;
+    }
   },
 
   methods: {
-    checkCoupon() {
-      console.log(this.couponStorage.coupon);
-      if (!this.couponStorage) return (this.message = "insira um cupom válido");
+    async checkCoupon() {
+      await this.$store.dispatch("couponsModule/checkCoupon", this.coupon);
 
-      if (this.coupon !== this.couponStorage.coupon)
-        return (this.message = "cupom inválido");
+      if (this.coupons === 404 || this.coupons === 400) {
+        this.applyCoupon.couponId = '';
+        this.applyCoupon.discount = 0;
+        this.message = "insira um cupom válido";
+      } else if (this.coupons.discount) {
+        this.reservation.discount = this.coupons.discount / 100;
+        this.applyCoupon.id = this.coupons.id;
+        this.applyCoupon.discount = this.coupons.discount;
 
-      if (!this.reservation.discount) {
-        this.message = "cupom aplicado (10%)";
-        this.reservation.discount = this.reservation.total * 0.1;
-      } else {
-        this.message = "desconto já aplicado";
-      }
+        this.message = `cupom aplicado! (${this.coupons.discount}%)`;
+      };
     },
 
     cancelCoupon() {
