@@ -25,6 +25,8 @@ require("./routes/reservations/createReservation");
 require("./routes/reservations/createCoupon");
 require("./routes/reservations/getReservationsByUser");
 require("./routes/reservations/getReservationById");
+require("./common/deleteRecord")("/reservations", Reservation);
+
 
 // users routes
 require("./common/getAllRecords")("/users", User);

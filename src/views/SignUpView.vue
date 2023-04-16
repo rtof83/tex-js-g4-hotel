@@ -17,6 +17,7 @@
             placeholder="Digite seu nome"
             id="name"
             name="name"
+            maxlength="26"
           />
 
           <label for="email">Email:</label>

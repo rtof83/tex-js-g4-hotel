@@ -27,8 +27,8 @@ try {
   conn.authenticate()
     .then(() => console.log('MySQL connection has been established successfully.'));
   
-  mongoose.connect(connMongo)
-    .then(() => console.log('MongoDB connection has been established successfully.'));
+  // mongoose.connect(connMongo)
+    // .then(() => console.log('MongoDB connection has been established successfully.'));
 
   app.listen(process.env.APP_PORT);
 } catch (error) {
