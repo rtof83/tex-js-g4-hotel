@@ -1,66 +1,94 @@
 <template>
   <HeaderComponent />
 
-  <h1>Minhas Reservas</h1>
+  <main>
+    <section class="container">
+      <article>
+        <div>
+          <h2 class="container__subtitle">Minhas Reservas</h2>
+          <span class="container__detalhe"></span>
+        </div>
+        <div class="container__user-info">
+          <h3>
+            Bem vindo,
+            <span> {{ validate.name }} </span>! O que deseja fazer?
+          </h3>
+          <div class="container__user-info__buttons">
+            <button @click="showModal('showUserDetails')" id="UserDetails">
+              Editar dados
+            </button>
+            <button @click="deleteUser(validate.id)">Deletar conta</button>
+          </div>
+        </div>
+      </article>
 
-  <!-- <div v-if="myReservations"> -->
-  <div v-for="item in myReservations" :id="item.idReservation" class="my-reservations">
-    <p>ID Reserva: {{ item.idReservation }}</p>
-    <p>Quarto: {{ item.accommodation }}</p>
-    <p>Check in: {{ item.checkin }}</p>
-    <p>Check out: {{ item.checkout }}</p>
+      <article>
+        <component v-bind:is="component" />
+      </article>
 
-    <div v-if="item.services.length">
-      <br>
-      <ul>Serviços adicionais: <li v-for="service in item.services" :key="service.id">{{ service.service }}</li></ul>
-      <br>
-    </div>
-
-    <p v-if="item.coupon">Cupom: {{ item.coupon }}</p>
-    <p>Descontos aplicados: R$ {{ item.discount.toFixed(2) }}</p>
-    <p>Total: R$ {{ item.total.toFixed(2) }}</p>
-  </div>
-  <!-- </div> -->
+      <ModalUserDetails />
+    </section>
+  </main>
 
   <FooterComponent />
 </template>
 
 <script>
-  import HeaderComponent from "@/components/HeaderComponent.vue";
-  import FooterComponent from "@/components/FooterComponent.vue";
-  
-  export default {
-    name: 'MyReservationsView',
+import HeaderComponent from "@/components/HeaderComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
+import ModalUserDetails from "../components/ModalUserDetails.vue";
+import Reservations from "@/components/Reservations.vue";
+import { shallowRef } from "vue";
+import router from "@/router";
 
-    components: {
-      HeaderComponent,
-      FooterComponent
+export default {
+  name: "MyReservationsView",
+
+  components: {
+    HeaderComponent,
+    FooterComponent,
+    ModalUserDetails,
+    Reservations,
+  },
+
+  data() {
+    return {
+      component: shallowRef(Reservations),
+    };
+  },
+
+  computed: {
+    modal() {
+      return this.$store.state.modal;
     },
 
-    data() {
-      return {
+    validate() {
+      return this.$store.state.loginModule.validate;
+    }
+  },
 
-      }
+  methods: {
+    showModal(modal) {
+      this.modal[modal] = "block";
     },
 
-    computed: {
-      myReservations() {
-        const login = JSON.parse(localStorage.getItem('login'));
-        const reservations = JSON.parse(localStorage.getItem('reservations'));
-
-        if (reservations) {
-          const myReservations = reservations.filter(item => item.email === login.email);
-          return myReservations
-        } else {
-         return false
-        }
+    deleteUser(id) {
+      if (
+        confirm(
+          "Esta ação irá excluir a reserva selecionada. Deseja continuar?"
+        )
+      ) {
+        this.$store.dispatch("usersModule/deleteUser", id);
+        this.$store.commit("logout");
+        router.push("/login");
       }
     },
   }
+};
 </script>
 
-<style>
-  .my-reservations {
-    margin: 0 2rem 2rem;
-  }
+<style lang="scss" scoped>
+@import "@/assets/scss/myreservations.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 </style>

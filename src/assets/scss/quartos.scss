@@ -2,12 +2,6 @@
 @use "mixins" as mix;
 @use "extends";
 
-// @use "header";
-// @use "footer";
-
-@import url("https://fonts.googleapis.com/css2?family=Della+Respira&family=Forum&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Forum&family=Italiana&display=swap");
-
 /* --------------  MAIN  ----------------  */
 // SEÇÃO NOSSAS ACOMODAÇÕES E PRODUTO EM DESTAQUE
 .container {
@@ -24,7 +18,12 @@
   }
 
   &__detalhe {
-    @extend %detalhe;
+    display: block;
+    width: 17%;
+    height: 0.4vh;
+    margin-left: 41.5%;
+    margin-top: -1%;
+    background-color: let.$background;
   }
 
   &__text {
@@ -173,6 +172,11 @@
 
     &__card {
       margin-bottom: 3rem;
+
+      & img {
+        width: 360px;
+        height: 200px;
+      }
     }
 
     &__card:last-child {
@@ -186,6 +190,7 @@
     &__detalhe {
       width: 45%;
       margin-left: 27%;
+      margin-top: -5.5%;
     }
 
     &__text p {

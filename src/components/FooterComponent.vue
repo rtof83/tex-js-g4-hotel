@@ -83,6 +83,4 @@ export default {
 };
 </script>
 
-<style>
-  /* import */
-</style>
+<style src="@/assets/scss/footer.scss" lang="scss" scoped />

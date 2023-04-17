@@ -1,41 +1,40 @@
 <template>
-  <div v-if="login.user" class="home__painel-usuario" id="painel">
-      <div id="user">Olá, {{ login.user }}!</div>
-      <div id="email">email: {{ login.email }}</div>
-      <div class="home__painel-usuario__painel-sair">
-        <button @click="logout" id="clearStorage">Sair</button>
-      </div>
+  <div v-if="validate.id" class="painel-usuario" id="painel">
+    <div id="user">Olá, {{ validate.name }}!</div>
+    <div class="painel-usuario__painel-sair">
+      <button @click="logout" id="clearStorage">Sair</button>
     </div>
+
+    <Countdown></Countdown>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'UserPanel',
+import Countdown from "@/components/Countdown";
+import router from "@/router";
 
-    methods: {
-    logout() {
-      this.$store.commit('initLogin')
-    },
-  },
+export default {
+  name: "UserPanel",
 
-  data() {
-    return {
-      loginStorage: JSON.parse(localStorage.getItem('login')),
-      reservationsStorage: JSON.parse(localStorage.getItem('reservations'))
-    }
+  components: {
+    Countdown,
   },
 
   computed: {
-    login() {
-      return this.$store.state.login
-    }
+    validate() {
+      return this.$store.state.loginModule.validate;
+    },
   },
 
-  mounted() {
-    if (this.loginStorage) {
-      this.login.user = this.loginStorage.user;
-      this.login.email = this.loginStorage.email;
-    };
+  methods: {
+    logout() {
+      this.$store.commit("logout");
+      router.push("/");
+    },
   }
-}
+};
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/painel-usuario.scss";
+</style>

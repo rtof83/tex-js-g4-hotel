@@ -1,13 +1,38 @@
-const app = require('../app/server');
-
+const Sequelize = require('sequelize');
 const mongoose = require('mongoose');
 
-const conn = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_CLUSTER}.${process.env.DB_URL}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const express = require('express');
+const app = express();
+const cors = require('cors');
 
-mongoose.connect(conn)
-  .then(() => {
-    console.log('DB connected...');
-    app.listen(process.env.PORT, () => 
-        console.log(`server listening on port ${process.env.PORT}...`));
-  })
-  .catch((error) => console.log(error));
+require('dotenv').config();
+app.use(express.json());
+app.use(cors());
+
+// sequelize
+const conn = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+  dialect: process.env.DB_DIALECT,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT
+});
+
+// mongoDB
+const connMongo = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_PASS}@${process.env.MDB_CLUSTER}.${process.env.MDB_URL}/${process.env.MDB_NAME}?retryWrites=true&w=majority`;
+
+(async () => {
+  await conn.sync();
+})();
+
+try {
+  conn.authenticate()
+    .then(() => console.log('MySQL connection has been established successfully.'));
+  
+  mongoose.connect(connMongo)
+    .then(() => console.log('MongoDB connection has been established successfully.'));
+
+  app.listen(process.env.APP_PORT);
+} catch (error) {
+  console.log('Unable to connect to the database: ', error);
+};
+
+module.exports = { app, conn };

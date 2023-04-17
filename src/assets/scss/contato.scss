@@ -2,24 +2,23 @@
 @use "mixins" as mix;
 @use "extends";
 
-// @use "header";
-// @use "footer";
-
-@import url("https://fonts.googleapis.com/css2?family=Della+Respira&family=Forum&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Forum&family=Italiana&display=swap");
-
 /* --------------  MAIN  ----------------  */
 .main {
   position: relative;
   background-size: cover;
   padding-bottom: 1rem;
 
-  & h1 {
-    text-align: center;
-    font-weight: 700;
-    font-size: 3rem;
-    text-shadow: 2px 2px 4px black;
-    padding-top: 2rem;
+  &__subtitle {
+    @extend %subtitle;
+  }
+
+  &__detalhe {
+    display: block;
+    width: 10%;
+    height: 0.4vh;
+    margin-left: 45%;
+    margin-top: -1%;
+    background-color: let.$background;
   }
 
   &__login {
@@ -84,8 +83,10 @@
 /* --------------  RESPONSIVIDADE ----------------  */
 @media (max-width: 414px) and (orientation: portrait) {
   .main {
-    & h1 {
-      margin-bottom: -3rem;
+    &__detalhe {
+      width: 40%;
+      margin-left: 30%;
+      margin-top: -5.5%;
     }
 
     &__login {

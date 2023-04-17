@@ -1,0 +1,76 @@
+@use "variaveis" as let;
+@use "extends";
+
+.escolha__modal {
+  /* display: none;  Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: let.$text; /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+  & h2 {
+    text-align: center;
+    font-size: 2.5rem;
+  }
+
+  &__modal-content {
+    background-color: let.$branco;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 0.3rem;
+    width: 40%;
+
+    & input {
+      cursor: pointer;
+    }
+
+    &__arrow {
+      width: 20px;
+    }
+
+    &__close {
+      color: let.$text;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+
+      &:hover,
+      &:focus {
+        cursor: pointer;
+      }
+    }
+
+    &__div {
+      text-align: center;
+
+      &__btn {
+        margin-top: 0.7rem;
+        margin-right: 2rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.3rem;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        background-color: let.$text;
+        color: let.$branco;
+        opacity: 1;
+        transition: 0.3s;
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &__resume {
+      text-align: center;
+    }
+  }
+}

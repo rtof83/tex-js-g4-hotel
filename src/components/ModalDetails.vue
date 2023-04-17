@@ -1,146 +1,233 @@
 <template>
-<div id="modalDetails" class="escolha__modal">
+  <div id="modalDetails" class="escolha__modal">
     <!-- Modal content -->
     <div class="escolha__modal__modal-content">
-        <span @click="closeModal" id="closeModalDetails" class="escolha__modal__modal-content__close">&times;</span>
-        <p><b>Detalhes da Reserva</b></p>
+      <img
+        src="../../src/assets/images/close.png"
+        @click="closeModal"
+        id="closeModalDetails"
+        class="escolha__modal__modal-content__close"
+      />
+      <div>
+        <h2>Detalhes da Reserva</h2>
+      </div>
 
-        <br>
-
-        <img :src="dbAccommodations[reservation.id].image" id="detailsImage" />
-        <h2 id="detailsAccommodation">{{ reservation.accommodation }}</h2>
-        <p id="detailsDescription">{{ dbAccommodations[reservation.id].description }}</p>
-
-        <br>
-
-        <p id="detailsCheckin">Check in: {{ reservation.checkin }}</p>
-        <p id="detailsCheckout">Check out: {{ reservation.checkout }}</p>
-        <p id="detailsQty">Hóspedes: {{ reservation.qty }}</p>
-
-        <br>
-
-        <p><b>Serviços Adicionais</b></p>
-        <div v-for="item in reservation.services" :key="item.id" id="detailsServices">
-            <p>{{ item.service }}</p>
+      <div class="escolha__modal__modal-content__room">
+        <div class="escolha__modal__modal-content__room__image">
+          <img :src="reservation.accommodationImage" id="detailsImage" />
         </div>
 
-        <br>
+        <h3 id="detailsAccommodation">{{ reservation.accommodation }}</h3>
+        <p id="detailsDescription">
+          {{ reservation.accommodationDesc }}
+        </p>
 
-        <div id="detailsSummary">
-            <h2>Resumo</h2>
-            <p>{{ reservation.accommodation }} -> R$ {{ reservation.total.toFixed(2) }}</p>
-            <p>Hóspedes -> {{ reservation.qty }}</p>
-            <p>Diárias -> {{ reservation.rates }}</p>
+        <p id="detailsCheckin">
+          <span>Data de Check-in:</span> {{ formatDate(reservation.checkin) }}
+        </p>
+        <p id="detailsCheckout">
+          <span>Data de Check-out:</span> {{ formatDate(reservation.checkout) }}
+        </p>
+        <p id="detailsQty"><span>Hóspedes:</span> {{ reservation.qty }}</p>
 
-            <div v-for="item in reservation.services" :key="item.id">
-            <p>{{ item.service }} -> R$ {{ item.price.toFixed(2) }}</p>
-            </div>
+        <div v-if="!reservation.services.length">
+          <h3>Nenhum serviço adicional</h3>
+        </div>
+        <div v-else>
+          <h3>Serviços adicionais</h3>
+          <div
+            v-for="item in reservation.services"
+            :key="item.id"
+            id="detailsServices"
+          >
+            <p>-> {{ item.name }}</p>
+          </div>
+        </div>
+      </div>
 
-            <br>
+      <div id="detailsSummary" class="escolha__modal__modal-content__resume">
+        <h2>Resumo do seu pedido</h2>
+        <p>
+          {{ reservation.accommodation }}: R$
+          {{ reservation.accommodationTotal }}
+        </p>
+        <p>Hóspedes: {{ reservation.qty }}</p>
+        <p>Diárias: {{ reservation.rates }}</p>
 
-            <Cupom />
-            <!-- validar se o cupom já foi utilizado (localstorage) -->
-
-        <br>
-
-            <p>TOTAL: R$ {{ reservation.total.toFixed(2) }}</p>
+        <div v-for="item in reservation.services" :key="item.id">
+          <p>{{ item.name }}: R$ {{ item.price }}</p>
         </div>
 
-        <button @click="confirmBook" id="confirmBook">Confirmar Reserva</button>
+        <div v-if="reservation.itemsBar">
+          <p>Consumo -> R$ {{ reservation.itemsBar.toFixed(2) }}</p>
+        </div>
+
+        <hr>
+
+        <Cupom />
+
+        <hr>
+
+        <p>TOTAL: R$ {{ reservation.total.toFixed(2) }}</p>
+        <button
+          class="escolha__modal__modal-content__div__btn"
+          @click="confirmBook"
+          id="confirmBook"
+        >
+          Confirmar Reserva
+        </button>
+      </div>
     </div>
   </div>
 </template>
-  
+
 <script>
-import Cupom from '@/components/Coupon.vue'
+import Cupom from "@/components/Coupon.vue";
+import moment from "moment";
+import router from "@/router";
+
 export default {
-  name: 'ModalDetails',
+  name: "ModalDetails",
 
   components: {
-    Cupom
+    Cupom,
+  },
+
+  data() {
+    return {
+      accommodation: {
+        image: '',
+        description: '',
+        total: 0
+      },
+    };
   },
 
   computed: {
     modal() {
-      return this.$store.state.modal
+      return this.$store.state.modal;
     },
-
     reservation() {
-      return this.$store.state.reservation
+      return this.$store.state.reservation;
     },
-
-    dbServices() {
-      return this.$store.getters.dbServices
+    services() {
+      return this.$store.state.servicesModule.services;
     },
-
-    dbAccommodations() {
-      return this.$store.getters.dbAccommodations
+    accommodations() {
+      return this.$store.state.accommodationsModule.accommodations;
+    },
+    login() {
+      return this.$store.state.loginModule.login;
+    },
+    validate() {
+      return this.$store.state.loginModule.validate;
+    },
+    applyCoupon() {
+      return this.$store.state.applyCoupon;
     }
   },
 
-  mounted() {
-    document.addEventListener('click', this.onClick)
-  },
-
   beforeDestroy() {
-    document.removeEventListener('click', this.onClick)
+    document.removeEventListener("click", this.onClick);
   },
 
   methods: {
     closeModal() {
-      this.modal.showDetails = 'none'
+      this.modal.showDetails = "none";
     },
-
     onClick(e) {
-      const modal = document.getElementById('modalDetails');
-
-      if (e.target === modal)
-        this.closeModal();
+      const modal = document.getElementById("modalDetails");
+      if (e.target === modal) this.closeModal();
     },
+    async insertReservation() {
+      const reservation = JSON.parse(localStorage.getItem("booking"));
 
-    init() {
-      this.$store.commit('initReservation')
-    },
-
-    insertReservation(email) {
-      const reservations = JSON.parse(localStorage.getItem('reservations'));
-      const newReservation = reservations ? [...reservations] : [];
-
-      const myReservation = this.reservation;
-      myReservation.idReservation = new Date().getTime();
-      myReservation.email = email;
-
-      const coupon = JSON.parse(localStorage.getItem('coupon'));
-      if (myReservation.discount)
-        myReservation.coupon = coupon.coupon.toUpperCase();
-
-      newReservation.push(myReservation);
-      localStorage.setItem('reservations', JSON.stringify(newReservation));
-    },
-
-    confirmBook() {
-      const login = JSON.parse(localStorage.getItem('login'));
-
-      if (!login) {
-        if (window.confirm('Atenção! Para confirmar a reserva, é necessário autenticação.\nDeseja ser redirecionado para a tela de login?'))
-          window.location.href = '/#/login';
-      } else {
-        this.insertReservation(login.email);
-        this.init();
-        this.closeModal();
-        window.location.href = '/#/my-reservations';
+      const sendReservation = {
+        checkin: reservation.checkin,
+        checkout: reservation.checkout,
+        qty: reservation.qty,
+        subTotal: reservation.total,
+        total: reservation.total,
+        accommodationId: reservation.accommodationId,
+        couponId: this.applyCoupon.id ? this.applyCoupon.id : null,
+        userId: this.validate.id,
+        services: reservation.services,
       };
+
+      if (this.applyCoupon.id)
+        await this.$store.dispatch("couponsModule/useCoupon", this.applyCoupon.id);
+      
+      await this.$store.dispatch("reservationsModule/addReservation", sendReservation);
+
+      this.$store.commit("initReservation");
+    },
+    confirmBook() {
+      if (this.validate.permissionId !== 2) {
+        if (
+          window.confirm(
+            "Atenção! Para confirmar a reserva, é necessário estar logado.\nDeseja ser redirecionado para a tela de login?"
+          )
+        )
+          router.push("/login");
+      } else {
+        this.insertReservation();
+        this.closeModal();
+        router.push("/my-reservations");
+      }
+    },
+
+    formatDate(date) {
+      return moment(date).format('DD/MM/YYYY');
+    },
+
+    async mounted() {
+      document.addEventListener("click", this.onClick);
+    }
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@use "@/assets/scss/modal.scss";
+.escolha__modal {
+  display: v-bind("modal.showDetails");
+  &__modal-content {
+    &__room {
+      &__image {
+        text-align: center;
+      }
+      & img {
+        width: 70%;
+      }
+      & h3 {
+        text-align: center;
+        font-size: 2rem;
+      }
+      & p {
+        text-align: justify;
+      }
+      & span {
+        font-weight: bold;
+        text-decoration: underline;
+      }
     }
   }
 }
-</script>
-  
-<style scoped>
+/* --------------  RESPONSIVIDADE ----------------  */
+/* MOBILE PORTRAIT */
+@media (max-width: 414px) and (orientation: portrait) {
   .escolha__modal {
-    display: v-bind('modal.showDetails');
+    &__modal-content {
+      width: 90%;
+      &__room {
+        &__image {
+          text-align: center;
+        }
+        & img {
+          width: 100%;
+        }
+      }
+    }
   }
-
-  img {
-    width: 80%;
-  }
+}
 </style>

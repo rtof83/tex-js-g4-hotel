@@ -1,0 +1,18 @@
+@use "variaveis" as let;
+
+@import url("https://fonts.googleapis.com/css2?family=Della+Respira&family=Forum&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Forum&family=Italiana&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: let.$fonte;
+    box-sizing: border-box;
+    line-height: 2;
+  }
+  
+  p {
+    font-family: let.$p;
+    font-size: 1.3rem;
+  }
+  

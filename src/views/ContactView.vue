@@ -3,21 +3,27 @@
 
   <main>
     <div class="main">
-      <h1>Contato</h1>
+      <div>
+        <h2 class="main__subtitle">Contato</h2>
+        <span class="main__detalhe"></span>
+      </div>
 
       <article class="main__login">
         <form action="/public" method="get">
           <label for="name">Nome:</label>
           <input
+            v-model="contact.name"
             type="text"
             placeholder="Digite seu nome completo"
             id="name"
             name="name"
             required
+            ref="name"
           />
 
           <label for="email">Email:</label>
           <input
+            v-model="contact.email"
             type="email"
             placeholder="Digite seu melhor email"
             id="email"
@@ -27,6 +33,7 @@
 
           <label for="phone">Telefone:</label>
           <input
+            v-model="contact.phone"
             type="tel"
             placeholder="Digite seu telefone"
             id="phone"
@@ -35,7 +42,7 @@
           />
 
           <label for="subject">Assunto:</label>
-          <select name="subject" id="subject">
+          <select v-model="contact.subject" name="subject" id="subject">
             <option value="CancelamentoDeReserva">
               Cancelamento de Reserva
             </option>
@@ -47,6 +54,7 @@
 
           <label for="message">Mensagem:</label>
           <textarea
+            v-model="contact.message"
             placeholder="Digite sua mensagem"
             name="message"
             id="message"
@@ -54,7 +62,7 @@
             rows="10"
           ></textarea>
 
-          <button>Confirmar</button>
+          <button @click="confirm" type="button">Confirmar</button>
         </form>
       </article>
     </div>
@@ -66,6 +74,8 @@
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ContactView",
@@ -73,9 +83,56 @@ export default {
     HeaderComponent,
     FooterComponent,
   },
+
+  computed: {
+    contact() {
+      return this.$store.state.contact;
+    },
+  },
+
+  methods: {
+    ifBlank() {
+      toast("Atenção! Todos os campos devem ser preenchidos.", {
+        autoClose: 3000,
+      });
+    },
+
+    success() {
+      toast("Mensagem enviada com sucesso!", {
+        autoClose: 3000,
+      });
+    },
+
+    confirm() {
+      // check blank
+      if (
+        this.contact.name === "" ||
+        this.contact.email === "" ||
+        this.contact.phone === "" ||
+        this.contact.subject === "" ||
+        this.contact.message === ""
+      )
+        return this.ifBlank();
+
+      // POST
+      this.$store.dispatch("contactsModule/addContact", this.contact);
+      
+      this.contact.name = "";
+      this.contact.email = "";
+      this.contact.phone = "";
+      this.contact.subject = "";
+      this.contact.message = "";
+
+      this.$refs.name.focus();
+
+      this.success();
+    }
+  }
 };
 </script>
 
-<style scoped>
-@import "@/assets/css/contato.css";
+<style lang="scss" scoped>
+@import "@/assets/scss/contato.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 </style>

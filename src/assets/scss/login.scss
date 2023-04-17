@@ -2,12 +2,6 @@
 @use "mixins" as mix;
 @use "extends";
 
-@use "header";
-// @use "footer";
-
-@import url("https://fonts.googleapis.com/css2?family=Della+Respira&family=Forum&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Forum&family=Italiana&display=swap");
-
 /* --------------  MAIN  ----------------  */
 .main {
   position: relative;
@@ -15,12 +9,17 @@
   padding-bottom: 1rem;
   height: 725px;
 
-  & h1 {
-    text-align: center;
-    font-weight: 700;
-    font-size: 3rem;
-    text-shadow: 2px 2px 4px black;
-    padding-top: 2rem;
+  &__subtitle {
+    @extend %subtitle;
+  }
+
+  &__detalhe {
+    display: block;
+    width: 7%;
+    height: 0.4vh;
+    margin-left: 46.5%;
+    margin-top: -1%;
+    background-color: let.$background;
   }
 
   &__login {
@@ -36,7 +35,7 @@
       width: 70%;
       text-align: right;
       margin: 1rem auto;
-      font-size: small;
+      font-size: 1.1rem;
       text-decoration: none;
       font-weight: bold;
     }
@@ -60,6 +59,7 @@
       margin: 0.8rem 0;
       border-radius: 0.3rem;
       border: 1px solid let.$azul-claro;
+      font-size: 1rem;
     }
 
     & input,
@@ -80,6 +80,7 @@
       color: let.$branco;
       opacity: 1;
       transition: 0.3s;
+      font-size: 1rem;
 
       &:hover {
         opacity: 0.5;
@@ -92,8 +93,11 @@
 @media (max-width: 414px) and (orientation: portrait) {
   .main {
     height: 525px;
-    & h1 {
-      margin-bottom: -3rem;
+
+    &__detalhe {
+      width: 30%;
+      margin-left: 35%;
+      margin-top: -5.5%;
     }
 
     &__login {

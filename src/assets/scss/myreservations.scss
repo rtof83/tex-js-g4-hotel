@@ -1,0 +1,182 @@
+@use "variaveis" as let;
+@use "mixins" as mix;
+@use "extends";
+
+/* --------------  MAIN  ----------------  */
+.container {
+  background-color: let.$branco;
+  color: let.$text;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 0 auto;
+  width: 80vw;
+
+  &__subtitle {
+    @extend %subtitle;
+  }
+
+  &__detalhe {
+    @extend %detalhe;
+  }
+
+  &__user-info {
+    max-width: 900px;
+    margin: 2rem auto 4rem auto;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-align: center;
+
+    & span {
+      text-decoration: underline;
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      & button {
+        margin-top: 1.5rem;
+        padding: 0.7rem 1.5rem;
+        border-radius: 0.3rem;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        background-color: let.$text;
+        color: let.$branco;
+        opacity: 1;
+        transition: 0.3s;
+        font-size: 1.2rem;
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  &__user-reservations {
+    max-width: 900px;
+    margin: 0 auto 3rem auto;
+    font-size: 1.5rem;
+
+    & h2 {
+      text-align: center;
+    }
+
+    &__div {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 2rem;
+      border: 1px solid black;
+      box-shadow: 5px 5px #666666;
+
+      &__image {
+        padding: 0.7rem;
+        border-right: 4px dotted black;
+
+        & img {
+          width: 250px;
+          height: 100%;
+        }
+      }
+
+      &__text {
+        min-width: 520px;
+        justify-content: center;
+        text-align: center;
+
+        & p:first-of-type {
+          font-weight: bold;
+          font-size: 1.8rem;
+        }
+
+        & p:last-of-type {
+          font-style: italic;
+        }
+
+        & ul {
+          display: flex;
+          list-style: none;
+          font-size: 1.3rem;
+          justify-content: space-around;
+
+          & li {
+            font-family: "Della Respira", serif;
+          }
+        }
+
+        & span {
+          font-family: "Della Respira", serif;
+          font-weight: bold;
+        }
+      }
+
+      &__btn {
+        display: flex;
+        align-items: end;
+        padding-bottom: 0.7rem;
+
+        & button {
+          font-size: 1rem;
+          margin-top: 0.7rem;
+          margin-right: 2rem;
+          padding: 0.5rem 1rem;
+          border-radius: 0.3rem;
+          border: none;
+          font-weight: 700;
+          cursor: pointer;
+          background-color: let.$text;
+          color: let.$branco;
+          opacity: 1;
+          transition: 0.3s;
+
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+
+    &__else {
+      justify-content: center;
+      text-align: center;
+      border: 1px solid black;
+      box-shadow: 5px 5px #666666;
+      padding-top: 1rem;
+
+      & img {
+        margin-top: 1rem;
+        width: 600px;
+      }
+
+      & button {
+        margin: 1rem 0;
+        padding: 0.7rem 1.5rem;
+        border-radius: 0.3rem;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        background-color: let.$text;
+        color: let.$branco;
+        opacity: 1;
+        transition: 0.3s;
+        font-size: 1.2rem;
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+
+/* --------------  RESPONSIVIDADE ----------------  */
+@media (max-width: 414px) and (orientation: portrait) {
+  .container__user-reservations__else {
+    & img {
+      width: 300px;
+    }
+  }
+}

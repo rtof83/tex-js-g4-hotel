@@ -2,12 +2,6 @@
 @use "mixins" as mix;
 @use "extends";
 
-// @use "header";
-// @use "footer";
-
-@import url("https://fonts.googleapis.com/css2?family=Della+Respira&family=Forum&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Forum&family=Italiana&display=swap");
-
 /* --------------  MAIN  ----------------  */
 // SEÇÃO NOSSO HOTEL
 .container {
@@ -24,11 +18,18 @@
   }
 
   &__detalhe {
-    @extend %detalhe;
+    display: block;
+    width: 17%;
+    height: 0.4vh;
+    margin-left: 41.5%;
+    margin-top: -1%;
+    background-color: let.$background;
   }
 
   &__content {
-    @extend %content;
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
 
     & div {
       @extend %text-align-center;
@@ -100,6 +101,19 @@
       }
     }
   }
+
+  .image img {
+    width: 400px;
+    height: 250px;
+    opacity: 1;
+    margin: 0 auto 20px auto;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  .image:hover {
+    opacity: 0.7;
+  }
 }
 
 // SEÇÃO EXPERIÊNCIA
@@ -113,11 +127,18 @@
   }
 
   &__detalhe {
-    @extend %detalhe;
+    display: block;
+    width: 17%;
+    height: 0.4vh;
+    margin-left: 41.5%;
+    margin-top: -1%;
+    background-color: let.$background;
   }
 
   &__content {
-    @extend %content;
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
 
     & div {
       @extend %text-align-center;
@@ -258,6 +279,7 @@
     &__detalhe {
       width: 45%;
       margin-left: 27%;
+      margin-top: -5.5%;
     }
 
     &__content {
@@ -273,7 +295,7 @@
 
   .quartos {
     margin: 0;
-    padding: 40px 0 1550px 0;
+    padding: 40px 0 1650px 0;
     height: let.$height;
 
     &__images {
@@ -294,6 +316,7 @@
     &__detalhe {
       width: 45%;
       margin-left: 27%;
+      margin-top: -5.5%;
     }
 
     &__content {

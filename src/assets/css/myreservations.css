@@ -1,0 +1,169 @@
+.container__subtitle {
+  text-transform: uppercase;
+}
+
+.container__subtitle {
+  text-align: center;
+}
+
+.container__detalhe {
+  display: block;
+  width: 15%;
+  height: 0.4vh;
+  margin-left: 42.5%;
+  margin-top: -1.5%;
+  background-color: #f1eab9;
+}
+
+.container__subtitle {
+  font-size: 2rem;
+  padding: 20px 0;
+}
+
+/* --------------  MAIN  ----------------  */
+.container {
+  background-color: #fff;
+  color: #000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 0 auto;
+  width: 80vw;
+}
+.container__user-info {
+  max-width: 900px;
+  margin: 2rem auto 4rem auto;
+  justify-content: center;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.container__user-info span {
+  text-decoration: underline;
+}
+.container__user-info__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.container__user-info__buttons button {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.3rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  opacity: 1;
+  transition: 0.3s;
+  font-size: 1.2rem;
+}
+.container__user-info__buttons button:hover {
+  opacity: 0.5;
+}
+.container__user-reservations {
+  max-width: 900px;
+  margin: 0 auto 3rem auto;
+  font-size: 1.5rem;
+}
+.container__user-reservations h2 {
+  text-align: center;
+}
+.container__user-reservations__div {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+  border: 1px solid black;
+  box-shadow: 5px 5px #666666;
+}
+.container__user-reservations__div__image {
+  padding: 0.7rem;
+  border-right: 4px dotted black;
+}
+.container__user-reservations__div__image img {
+  width: 250px;
+  height: 100%;
+}
+.container__user-reservations__div__text {
+  min-width: 520px;
+  justify-content: center;
+  text-align: center;
+}
+.container__user-reservations__div__text p:first-of-type {
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+.container__user-reservations__div__text p:last-of-type {
+  font-style: italic;
+}
+.container__user-reservations__div__text ul {
+  display: flex;
+  list-style: none;
+  font-size: 1.3rem;
+  justify-content: space-around;
+}
+.container__user-reservations__div__text ul li {
+  font-family: "Della Respira", serif;
+}
+.container__user-reservations__div__text span {
+  font-family: "Della Respira", serif;
+  font-weight: bold;
+}
+.container__user-reservations__div__btn {
+  display: flex;
+  align-items: end;
+  padding-bottom: 0.7rem;
+}
+.container__user-reservations__div__btn button {
+  font-size: 1rem;
+  margin-top: 0.7rem;
+  margin-right: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  opacity: 1;
+  transition: 0.3s;
+}
+.container__user-reservations__div__btn button:hover {
+  opacity: 0.5;
+}
+.container__user-reservations__else {
+  justify-content: center;
+  text-align: center;
+  border: 1px solid black;
+  box-shadow: 5px 5px #666666;
+  padding-top: 1rem;
+}
+.container__user-reservations__else img {
+  margin-top: 1rem;
+  width: 600px;
+}
+.container__user-reservations__else button {
+  margin: 1rem 0;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.3rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  opacity: 1;
+  transition: 0.3s;
+  font-size: 1.2rem;
+}
+.container__user-reservations__else button:hover {
+  opacity: 0.5;
+}
+
+/* --------------  RESPONSIVIDADE ----------------  */
+@media (max-width: 414px) and (orientation: portrait) {
+  .container__user-reservations__else img {
+    width: 300px;
+  }
+}
+
+/*# sourceMappingURL=myreservations.css.map */

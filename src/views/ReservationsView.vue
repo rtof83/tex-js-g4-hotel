@@ -4,8 +4,12 @@
   <main>
     <section class="container">
       <article>
-        <h2>Minha Reserva</h2>
-        <p>Forneça a data de entrada, saída e quantidade de pessoas:</p>
+        <div>
+          <h2 class="container__subtitle">Faça sua Reserva!</h2>
+          <span class="container__detalhe"></span>
+          <p>Forneça a data de entrada, saída e quantidade de pessoas:</p>
+        </div>
+
         <form class="container__form">
           <div>
             <label for="checkin">Check-in:</label>
@@ -34,10 +38,8 @@
         </form>
       </article>
 
-      <CreateAccommodations v-bind:id="id" />
-
+      <CreateAccommodations :id="id" />
       <Booking />
-
     </section>
   </main>
 
@@ -49,18 +51,20 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import CreateAccommodations from "@/components/CreateAccommodations.vue";
 import Booking from "@/components/Booking.vue";
-import { addDays } from '@/store/getDate.js';
+import { addDays } from "@/store/getDate.js";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   name: "ReservationsView",
 
-  props: ['id'],
+  props: ["id"],
 
   components: {
     HeaderComponent,
     FooterComponent,
     CreateAccommodations,
-    Booking
+    Booking,
   },
 
   computed: {
@@ -68,9 +72,17 @@ export default {
       return this.$store.state.reservation;
     },
 
-    dbAccommodations() {
-      return this.$store.getters.dbAccommodations
-    }
+    applyCoupon() {
+      return this.$store.state.applyCoupon;
+    },
+
+    accommodations() {
+      return this.$store.state.accommodationsModule.accommodations;
+    },
+
+    services() {
+      return this.$store.state.servicesModule.services;
+    },
   },
 
   watch: {
@@ -78,48 +90,94 @@ export default {
       handler() {
         // validate date
         if (this.reservation.checkout <= this.reservation.checkin) {
-          alert('Atenção! A data de Check out não pode ser menor ou igual à data de Check in.');
-          this.reservation.checkout = addDays(new Date(this.reservation.checkout), 1, true);
-        };
+          this.notify();
+          this.reservation.checkout = addDays(
+            new Date(this.reservation.checkout),
+            1,
+            true
+          );
+        }
 
-        this.reservation.accommodation = this.dbAccommodations[this.reservation.id].accommodation;
+        const accommodation = this.accommodations.find(
+          (item) => item.id === this.reservation.accommodationId
+        );
+        this.reservation.accommodation = accommodation.name;
+        this.reservation.accommodationDesc = accommodation.description;
+        this.reservation.accommodationTotal = this.reservation.rates * this.reservation.qty * accommodation.price;
+        this.reservation.accommodationImage = accommodation.image;
 
         let sumServices = 0;
-        this.reservation.services.map(service => sumServices += service.price);
+        this.reservation.services.map((service) => (sumServices += parseFloat(service.price)));
 
-        this.reservation.rates = (new Date(this.reservation.checkout) - new Date(this.reservation.checkin)) / 86400000;    
-        this.reservation.total = (sumServices + (this.reservation.rates * this.reservation.qty * this.dbAccommodations[this.reservation.id].price)) - this.reservation.discount;
-      
+        const report = JSON.parse(localStorage.getItem("report"));
+        if (report) this.reservation.itemsBar = report.totalItems;
+
+        this.reservation.rates =
+          (new Date(this.reservation.checkout) - new Date(this.reservation.checkin)) / 86400000;
+
+        this.reservation.total =
+          this.reservation.itemsBar + sumServices +
+          this.reservation.rates * this.reservation.qty * accommodation.price;
+
+        this.reservation.total -= this.reservation.total * this.reservation.discount;
+
         // set to localStorage
-        localStorage.setItem('booking', JSON.stringify(this.reservation));
+        localStorage.setItem("booking", JSON.stringify(this.reservation));
       },
 
-      deep: true
-    } 
+      deep: true,
+    },
   },
 
   methods: {
     init() {
-      this.$store.commit('initReservation')
-    }
+      this.$store.commit("initReservation");
+    },
+
+    notify() {
+      toast(
+        "Atenção! A data de Check-out não pode ser menor ou igual à data de Check-in.",
+        {
+          autoClose: 3000,
+        }
+      );
+    },
   },
 
-  mounted() {
-    const bookingStorage = JSON.parse(localStorage.getItem('booking'));
- 
-    if (!bookingStorage) {
-      this.init();
+  async mounted() {
+    await this.$store.dispatch('accommodationsModule/getAccommodations');
+    const booking = JSON.parse(localStorage.getItem('booking'));
+    
+    if (booking) {
+      this.reservation.accommodation = booking.accommodation;
+      this.reservation.accommodationId = booking.accommodationId;
+      this.reservation.checkin = booking.checkin;
+      this.reservation.checkout = booking.checkout;
+      this.reservation.qty = booking.qty;
+      this.reservation.rates = booking.rates;
+      this.reservation.services = booking.services;
+      this.reservation.accommodationDesc = booking.accommodationDesc;
+      this.reservation.accommodationTotal = booking.accommodationTotal;
+      this.reservation.accommodationImage = booking.accommodationImage;
+
+      const accommodation = this.accommodations.find(
+        (item) => item.id === this.reservation.accommodationId
+      );
+
+      let sumServices = 0;
+      this.reservation.services.map((service) => (sumServices += parseFloat(service.price)));
+      
+      this.reservation.total = sumServices +
+          this.reservation.rates * this.reservation.qty * accommodation.price;
     } else {
-      this.reservation.id = bookingStorage.id;
-      this.reservation.checkin = bookingStorage.checkin;
-      this.reservation.checkout = bookingStorage.checkout;
-      this.reservation.qty = bookingStorage.qty;
-      this.reservation.services = bookingStorage.services;
+      this.$store.commit("initReservation");
     };
-  }
+  },
 };
 </script>
 
-<style scoped>
-  @import "@/assets/css/reservas.css";
+<style lang="scss" scoped>
+@import "@/assets/scss/reservas.scss";
+@import "@/assets/scss/header.scss";
+@import "@/assets/scss/footer.scss";
 </style>

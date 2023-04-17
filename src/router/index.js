@@ -1,7 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-// import HomeView from "../views/HomeView.vue";
-// import AboutView from "../views/AboutView.vue";
-// import TesteTS from '../views/TesteTS.vue';
 
 const routes = [
   {
@@ -9,6 +6,13 @@ const routes = [
     name: "home",
     component: () => import("@/views/HomeView.vue"),
   },
+
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("@/views/AdminView.vue"),
+  },
+
   {
     path: "/about",
     name: "about",
@@ -44,6 +48,16 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("@/views/LoginView.vue"),
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: () => import("@/views/SignUpView.vue"),
+  },
+  {
+    path: "/report",
+    name: "report",
+    component: () => import("@/views/ReportView.vue"),
   },
   {
     path: "/accommodation/:id",

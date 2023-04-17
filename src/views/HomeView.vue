@@ -1,19 +1,18 @@
 <template>
   <header id="topo" class="home">
-
-    <UserPanel />
+    <UserPanel></UserPanel>
 
     <div class="home__background">
       <img
         id="imagem-fundo"
         class="imagem-header"
-        :src="getSorteio.image"
+        :src="banner"
         alt="imagem aleatória de capa"
       />
     </div>
 
     <div class="home__slogan">
-      <p id="texto">{{ getSorteio.slogan }}</p>
+      <p id="texto">{{ slogan }}</p>
     </div>
 
     <div class="home__title">
@@ -35,9 +34,9 @@
       <li><router-link to="/about">O Hotel</router-link></li>
       <li><router-link to="/accommodations">Quartos</router-link></li>
       <li><router-link to="/reservations">Reservas</router-link></li>
-      <li v-if="login.user && reservationsStorage"><router-link to="/my-reservations">Minhas Reservas</router-link></li>
+      <li v-if="validate.id"><router-link to="/my-reservations">Minhas Reservas</router-link></li>
       <li><router-link to="/contact">Contato</router-link></li>
-      <li><router-link to="/login">Login</router-link></li>
+      <li v-if="!validate.id"><router-link to="/login">Login</router-link></li>
     </ul>
   </nav>
 
@@ -90,7 +89,7 @@
             </router-link>
           </div>
           <div class="container__section2__cards__card">
-            <router-link to="/reservations">
+            <router-link to="/accommodations">
               <h3>Quartos</h3>
               <img src="@/assets/images/quarto.jpg" alt="quarto" />
             </router-link>
@@ -148,11 +147,11 @@
           </ul>
         </div>
         <div class="container__local__button">
-          <a href="/public/reservas.html"
-            ><button class="container__local__button__btn">
+          <router-link to="/reservations">
+            <button class="container__local__button__btn">
               Reserve agora mesmo!
-            </button></a
-          >
+            </button>
+          </router-link>
         </div>
       </article>
     </section>
@@ -169,44 +168,40 @@ export default {
   name: "HomeView",
   components: {
     UserPanel,
-    FooterComponent
+    FooterComponent,
   },
 
   data() {
     return {
-      loginStorage: JSON.parse(localStorage.getItem('login')),
-      reservationsStorage: JSON.parse(localStorage.getItem('reservations')),
-    }
+      banner: '',
+      slogan: ''
+    };
   },
 
   computed: {
-    login() {
-      return this.$store.state.login
+    validate() {
+      return this.$store.state.loginModule.validate
     },
 
-    dbBanners() {
-      return this.$store.getters.dbBanners
-    },
-
-    getSorteio() {
-      return this.$store.state.sorteio
+    banners() {
+      return this.$store.state.bannersModule.banners;
     }
   },
 
-  methods: {
-    // ================= aula dia 12/01/2023 =================
-    sorteio() {
-      // gerar número aleatório entre 0 e 4
-      const position = parseInt(Math.random() * 5);
+  async beforeMount() {
+    const position = parseInt(Math.random() * 5);
 
-      this.getSorteio.image = this.dbBanners[position].image;
-      this.getSorteio.slogan = this.dbBanners[position].slogan;
-    },
+    await this.$store.dispatch("bannersModule/getBanners");
+    if (this.banners) {
+      this.banner = this.banners[position].image;
+      this.slogan = this.banners[position].slogan;
+    } else {
+      this.banner = 'https://cdn.wallpapersafari.com/35/90/BrmIE3.jpg';
+      this.slohan = 'Seremos sempre o seu hotel preferido!';
+    };
   },
-  
-  mounted() {
-    this.sorteio();
 
+  mounted() {
     // Toggle display navbar ao rolar a página home
     const navMenu = document.querySelector(".nav_home");
     window.addEventListener("scroll", function (event) {
@@ -231,7 +226,7 @@ export default {
 };
 </script>
 
-<style scoped>
-  @import "@/assets/css/home.css";
-  @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css";
+<style lang="scss" scoped>
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css";
+@import "@/assets/scss/home.scss";
 </style>

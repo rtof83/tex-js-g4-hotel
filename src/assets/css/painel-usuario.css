@@ -1,0 +1,60 @@
+.painel-usuario {
+  background-color: #f5f5f5;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  right: 1.5rem;
+  top: 1.5rem;
+  height: auto;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  box-shadow: 2px 2px 5px #999;
+  opacity: 0.8;
+  font-weight: bold;
+}
+.painel-usuario__painel-sair {
+  display: flex;
+  justify-content: center;
+}
+.painel-usuario__painel-sair button {
+  width: 100%;
+  border-radius: 0.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  opacity: 1;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+.painel-usuario__painel-sair button:hover {
+  opacity: 0.5;
+}
+
+/* --------------  RESPONSIVIDADE ----------------  */
+/* TABLET LANDSCAPE */
+@media (max-width: 1194px) and (orientation: landscape) {
+  .painel-usuario {
+    top: 6rem;
+  }
+}
+/* TABLET PORTRAIT */
+@media (max-width: 1024px) and (orientation: portrait) {
+  .painel-usuario {
+    top: 6rem;
+  }
+}
+/* MOBILE PORTRAIT */
+@media (max-width: 414px) and (orientation: portrait) {
+  .painel-usuario {
+    left: 0.5rem;
+    top: 0.5rem;
+    width: 150px;
+    padding: 0.5rem;
+  }
+  .painel-usuario__painel-sair button {
+    margin-top: 0;
+  }
+}
+
+/*# sourceMappingURL=painel-usuario.css.map */
