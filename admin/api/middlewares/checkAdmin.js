@@ -1,8 +1,7 @@
-// const User = require("../models/User");
+
 const checkValidate = require('./checkValidate');
 
 module.exports = async (req, res, next) => {
-  // if (req.path !== '/contacts') {
   try {
     const { error, decoded } = checkValidate(req);
 
@@ -13,12 +12,9 @@ module.exports = async (req, res, next) => {
       next();
     } else {
       return res.status(401).json({ message: "access only for admin" });
-    }
+    };
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
-  }
-  // } else {
-  //   next();
-  // };
+  };
 };

@@ -14,20 +14,11 @@
 
       <div class="escolha__modal__modal-content__room">
         <div class="escolha__modal__modal-content__room__image">
-          <!-- <img
-            :src="
-              require(`../assets/images/${
-                dbAccommodations[reservation.id].image
-              }.jpg`)
-            "
-            id="detailsImage"
-          /> -->
           <img :src="reservation.accommodationImage" id="detailsImage" />
         </div>
 
         <h3 id="detailsAccommodation">{{ reservation.accommodation }}</h3>
         <p id="detailsDescription">
-          <!-- {{ accommodation.description }} -->
           {{ reservation.accommodationDesc }}
         </p>
 
@@ -52,10 +43,6 @@
             <p>-> {{ item.name }}</p>
           </div>
         </div>
-        <!-- Consumo na tela de reservas ? -->
-        <!-- <div v-if="!reservation.itemsBar">
-          <h3>Nenhum consumo</h3>
-        </div> -->
       </div>
 
       <div id="detailsSummary" class="escolha__modal__modal-content__resume">
@@ -152,9 +139,6 @@ export default {
       const modal = document.getElementById("modalDetails");
       if (e.target === modal) this.closeModal();
     },
-    init() {
-      this.$store.commit("initReservation");
-    },
     async insertReservation() {
       const reservation = JSON.parse(localStorage.getItem("booking"));
 
@@ -174,6 +158,8 @@ export default {
         await this.$store.dispatch("couponsModule/useCoupon", this.applyCoupon.id);
       
       await this.$store.dispatch("reservationsModule/addReservation", sendReservation);
+
+      this.$store.commit("initReservation");
     },
     confirmBook() {
       if (this.validate.permissionId !== 2) {
@@ -184,8 +170,7 @@ export default {
         )
           router.push("/login");
       } else {
-        this.insertReservation(this.validate.email);
-        this.init();
+        this.insertReservation();
         this.closeModal();
         router.push("/my-reservations");
       }
@@ -197,15 +182,6 @@ export default {
 
     async mounted() {
       document.addEventListener("click", this.onClick);
-
-      // await this.$store.dispatch("accommodationsModule/getAccommodations");
-      // const accommodation = this.accommodations.find(
-      //   (accommodation) => accommodation.id === this.reservation.accommodationId
-      // );
-
-      // this.accommodation.image = accommodation.image;
-      // this.accommodation.description = accommodation.description;
-      // this.accommodation.total = this.reservation.qty * this.reservation.rates * accommodation.price;
     }
   },
 };

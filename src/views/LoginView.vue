@@ -78,7 +78,7 @@ export default {
   computed: {
     login() {
       return this.$store.state.loginModule.login;
-    },
+    }
   },
 
   methods: {
@@ -135,11 +135,6 @@ export default {
 
       const filteredEmail = this.removeQuotesSpaces(this.email);
 
-      // removido item.password do método find abaixo
-      // const result = this.users.find((item) => item.email === filteredEmail);
-
-      // if (!result) return alert("Atenção! Email ou senha inválidos.");
-
       // LOGIN
       await this.$store.dispatch("loginModule/login", {
         email: filteredEmail,
@@ -153,21 +148,10 @@ export default {
       this.password = "";
 
       // redirect to my reservations
-      if (this.login.user.permissionId === 2) router.push("/my-reservations");
-      // window.location.href = "/#/my-reservations";
+      if (this.login.user.permissionId === 2) router.push("/");
 
       // redirect to admin
-      if (this.login.user.permissionId === 1) router.push("/admin2");
-
-      // redirect to my reservations
-      // if (this.login[0].permissionId === 2) {
-      //   window.location.href = "/#/my-reservations";
-      // }
-
-      // redirect to admin page
-      // if (this.login.permission === "admin") {
-      //   window.location.href = "/#/admin2";
-      // }
+      if (this.login.user.permissionId === 1) router.push("/admin");
     },
   }
 };

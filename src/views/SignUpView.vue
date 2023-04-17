@@ -271,16 +271,7 @@ export default {
 
       // redirect to login page
       router.push("/login");
-
-      // if (this.user.permissionId === 2) {
-      //   window.location.href = "/#/login";
-      // }
-
-      // redirect to admin page
-      // if (this.user.permissionId === 1) {
-      //   window.location.href = "/#/admin";
-      // }
-    },
+    }
   },
 
   beforeMount() {

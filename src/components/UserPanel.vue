@@ -1,7 +1,6 @@
 <template>
   <div v-if="validate.id" class="painel-usuario" id="painel">
     <div id="user">Olá, {{ validate.name }}!</div>
-    <!-- <div id="email">email: {{ validate.email }}</div> -->
     <div class="painel-usuario__painel-sair">
       <button @click="logout" id="clearStorage">Sair</button>
     </div>
@@ -32,19 +31,7 @@ export default {
       this.$store.commit("logout");
       router.push("/");
     },
-  },
-
-  // watch: {
-  //   login: {
-  //     handler() {
-  //       Object.keys(dbProducts).forEach((key) => {
-  //         dbProducts[key].map(item => this.total += item.price * item.qty);
-  //       });
-  //     },
-
-  //     deep: true
-  //   }
-  // },
+  }
 };
 </script>
 

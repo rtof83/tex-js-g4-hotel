@@ -64,18 +64,10 @@ export default {
 
     validate() {
       return this.$store.state.loginModule.validate;
-    },
-
-    // user() {
-    //   return this.$store.state.usersModule.users;
-    // },
+    }
   },
 
   methods: {
-    // reservations() {
-    //   this.component = Reservations;
-    // },
-
     showModal(modal) {
       this.modal[modal] = "block";
     },
@@ -87,18 +79,11 @@ export default {
         )
       ) {
         this.$store.dispatch("usersModule/deleteUser", id);
-        localStorage.removeItem("login");
+        this.$store.commit("logout");
         router.push("/login");
       }
     },
-  },
-
-  // async mounted() {
-  //   await this.$store.dispatch(
-  //     "reservationsModule/getReservationsByUser",
-  //     this.validate.id
-  //   );
-  // },
+  }
 };
 </script>
 

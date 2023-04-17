@@ -1,14 +1,10 @@
 <template>
-  <!-- <HeaderComponent></HeaderComponent> -->
-
   <div class="admin-content">
     <div class="admin-content__side-nav">
       <a v-if="validate.permissionId === 1" @click="banners">Banners</a>
       <a v-if="validate.permissionId === 1" @click="accommodations">Acomodações</a>
       <a v-if="validate.permissionId === 1" @click="contacts">Contatos</a>
       <a v-if="validate.permissionId === 1" @click="coupons">Cupons</a>
-
-      <!-- <div v-if="validate.permissionId === 1"><hr></div> -->
       <a v-if="validate.permissionId === 1" @click="logout">Logout</a>
     </div>
 
@@ -19,8 +15,6 @@
       <component v-bind:is="component" />
     </div>
   </div>
-
-  <!-- <FooterComponent></FooterComponent> -->
 </template>
 
 <script>
@@ -70,13 +64,7 @@
         this.component = AdminCoupons
       },
 
-      // login() {
-      //   this.component = <LoginView permission="admin" />
-      // },
-
       logout() {
-        // this.$store.commit('logout');
-
         localStorage.removeItem('loginAdmin');
         this.validate.id = '';
         this.validate.permissionId = '';

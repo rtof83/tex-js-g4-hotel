@@ -1,5 +1,4 @@
 const { app } = require('../../database/conn');
-// const checkAdmin = require('../../middlewares/checkAdmin');
 
 const Review = require('../../models/Review');
 const Reservation = require('../../models/Reservation');

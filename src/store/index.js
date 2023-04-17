@@ -1,9 +1,4 @@
 import { createStore } from "vuex";
-import dbAccommodations from "./db/dbAccommodations";
-import dbServices from "./db/dbServices";
-import dbLogin from "./db/dbLogin";
-import dbBanners from "./db/dbBanner";
-import dbProducts from "./db/dbProducts";
 import { addDays, getFromDate } from "./getDate";
 
 import accommodationsModule from "./modules/accommodations";
@@ -14,6 +9,7 @@ import reservationsModule from "./modules/reservations";
 import contactsModule from "./modules/contacts";
 import couponsModule from "./modules/coupons";
 import servicesModule from "./modules/services";
+import reviewsModule from "./modules/reviews";
 
 export default createStore({
   state: {
@@ -29,15 +25,12 @@ export default createStore({
       qty: 1,
       rates: 1,
       services: [],
-      // coupon: "",
-      // couponId: "",
       discount: 0,
       itemsBar: 0,
       total: 0,
     },
 
     login: {
-      // user: "",
       email: "",
       password: "",
     },
@@ -47,7 +40,6 @@ export default createStore({
       email: "",
       password: "",
       status: true,
-      // lastLogin: "",
       permissionId: 2,
       address: {
         streetName: "",
@@ -86,31 +78,7 @@ export default createStore({
     }
   },
 
-  getters: {
-    getStorage: () => (storage) => {
-      return JSON.parse(localStorage.getItem(storage));
-    },
-
-    dbServices: () => {
-      return dbServices;
-    },
-
-    dbAccommodations: () => {
-      return dbAccommodations;
-    },
-
-    dbLogin: () => {
-      return dbLogin;
-    },
-
-    dbProducts: () => {
-      return dbProducts;
-    },
-
-    dbBanners: () => {
-      return dbBanners;
-    },
-  },
+  getters: {},
 
   mutations: {
     initReservation: (state) => {
@@ -134,8 +102,7 @@ export default createStore({
     }
   },
 
-  actions: {
-  },
+  actions: {},
 
   modules: {
     accommodationsModule,
@@ -145,6 +112,7 @@ export default createStore({
     reservationsModule,
     contactsModule,
     couponsModule,
-    servicesModule
+    servicesModule,
+    reviewsModule
   }
 });

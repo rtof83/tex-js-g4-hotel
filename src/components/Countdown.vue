@@ -31,7 +31,9 @@
           const now = new Date().getTime();
           const distance = this.countdownDate - now;
 
-          let hours = Math.floor((distance % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
+          // hours
+          // let hours = Math.floor((distance % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
+          
           let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -42,7 +44,10 @@
             this.$store.commit('logout');
             router.push('/login');
           } else {
-            this.result = hours + 'h ' + minutes + 'm ' + seconds + 's';
+            // hours
+            // this.result = hours + 'h ' + minutes + 'm ' + seconds + 's';
+
+            this.result = minutes + 'm ' + seconds + 's';
           }
         }, 1000);
       }

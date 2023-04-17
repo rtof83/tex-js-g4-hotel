@@ -1,5 +1,4 @@
 const { app } = require("../../database/conn");
-// const checkValidate = require("../middlewares/checkValidate");
 const isAuth = require("../../middlewares/isAuth");
 const User = require("../../models/User");
 
@@ -54,5 +53,5 @@ module.exports = app.put("/users/:id", isAuth, async (req, res) => {
       .json({ message: "User updated successfully", result });
   } catch (error) {
     return res.status(500).json({ error: error.message });
-  }
+  };
 });

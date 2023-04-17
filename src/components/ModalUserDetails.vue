@@ -62,9 +62,7 @@ export default {
   name: "ModalUserDetails",
 
   data() {
-    return {
-      // login: JSON.parse(localStorage.getItem("loginUser")),
-    };
+    return {}
   },
 
   computed: {

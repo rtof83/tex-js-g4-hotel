@@ -1,7 +1,7 @@
 
 #  Atlantic Hotel
 
-## Projeto final do curso de Full Stack Javascript Developer da Technology Experts. Tem como objetivo criar e gerenciar um site de hotel fictício, através de cadastro, criação de reservas e avaliação de quartos por parte do usuário e gerenciamento de quartos, banners, cupons e formulários de contato por parte do administrador.
+## Projeto final do Curso Full Stack Javascript Developer da Technology Experts. Tem como objetivo criar e gerenciar um site de hotel fictício, através de cadastro, criação de reservas e avaliação de quartos por parte do usuário e gerenciamento de quartos, banners, cupons e formulários de contato por parte do administrador.
 
 &nbsp;
 
@@ -11,6 +11,7 @@
 - [Configurações](#configurações)
 - [Estrutura da Base de Dados](#estrutura-da-base-de-dados)
 - [Implementações API](#implementações-api)
+- [Backlog](#backlog)
 - [Desenvolvido por](#desenvolvido-por)
 
 &nbsp;
@@ -24,7 +25,8 @@
 | `Estilização`     | Sass                             |
 | `Base de Dados`   | MySQL e MongoDB                  |
 | `ORM`             | Sequelize                        |
-| `Ferramentas`     | Visual Studio Code 1.75.1        |
+| `ODM`             | Mongoose                         |
+| `Ferramentas`     | Visual Studio Code               |
 |                   | HeidiSQL e MySQLWorkbench        |
 |                   | Postman e Insomnia               |
 
@@ -41,15 +43,17 @@
     - npm run serve;
 
 - porta padrão API: 3000;
+  - {baseURL}:{PORT}/admin
 
 - porta padrão WEB: 8080;
+  - {baseURL}:{PORT}/
 
 - ### a aplicação pode ser acessada através dos links:
   - WEB (armazenado em instância Amazon S3):
-    - http://to-do-list-node-vue.s3-website-us-east-1.amazonaws.com
+    - http://tex-js-grupo4.s3-website-us-east-1.amazonaws.com
 
   - API (instanciada em EC2 AWS):
-    - http://34.235.89.154:3005
+    - http://34.235.89.154:3010
 
   - Base de Dados instanciada em RDS:
     - database.c4gffxjofhme.us-east-1.rds.amazonaws.com:3306;
@@ -58,71 +62,70 @@
 
 ## Configurações
 
-- [WEB - conexão com a API](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/src/store/api.js);
+- [WEB - conexão com a API](https://github.com/rtof83/tex-js-grupo4-final/blob/main/src/store/api.js);
 
-- [ENV - variáveis de ambiente - configuração inicial](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/.env.example) <strong>(antes da inicialização, deve ser renomeado para .env):</strong>
+- [ENV - variáveis de ambiente - configuração inicial](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/.env.example) <strong>(antes da inicialização, deve ser renomeado para .env):</strong>
 
   exemplo de configuração:
 
   ```javascript
   APP_PORT = 3000
 
-  DB_NAME = name          |
-  DB_USER = user          | 
-  DB_PASS = password      |
-  DB_DIALECT  =  mysql    | --> parâmetros base de dados mySQL
-  DB_PORT = 3306          |
-  DB_HOST  =  localhost   | 
+  DB_NAME     =  name          |
+  DB_USER     =  user          | 
+  DB_PASS     =  password      |
+  DB_DIALECT  =  mysql         | --> parâmetros base de dados mySQL
+  DB_PORT     =  3306          |
+  DB_HOST     =  localhost     | 
  
-  MDB_USER  =  user       |
-  MDB_PASS  =  password   | 
-  MDB_CLUSTER  =  cluster | --> parâmetros base de dados MongoDB
-  MDB_URL  =  url         | 
-  MDB_NAME  =  name       |
+  MDB_USER     =  user         |
+  MDB_PASS     =  password     | 
+  MDB_CLUSTER  =  cluster      | --> parâmetros base de dados MongoDB
+  MDB_URL      =  url          | 
+  MDB_NAME     =  name         |
          
-  SECRET  =  secret_word  |  
-  TIMEOUT  =  600000      |    
+  SECRET  =  secret_word
 
 &nbsp;
 
 ## Estrutura da Base de Dados:
 
-- [Quartos;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Accommodation.js)
+- [Quartos;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Accommodation.js)
 
-- [Endereço;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Address.js)
+- [Endereço;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Address.js)
 
-- [Banner;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Banner.js)
+- [Banner;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Banner.js)
 
-- [Usuário;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/User.js)
+- [Usuário;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/User.js)
 
-- [Contato;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Contact.js)
+- [Contato;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Contact.js)
 
-- [Cupom;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Coupon.js)
+- [Cupom;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Coupon.js)
 
-- [Permissão;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Permission.js)
+- [Permissão;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Permission.js)
 
-- [Reserva;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Reservation.js)
+- [Reserva;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Reservation.js)
 
-- [Comentários;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Review.js)
+- [Comentários;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Review.js)
 
-- [Serviços Adicionais;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/models/Service.js)
+- [Serviços Adicionais;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/models/Service.js)
 
 &nbsp;
 
 ## Implementações API:
 
-- [Collections Postman;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/samples/hotel.postman_collection.json);
+- [Collections Postman;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/samples/hotel.postman_collection.json);
 
-- [Estrutura base de dados;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/database/model/script.sql);
+- [Estrutura base de dados;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/database/model/hotel_db.sql);
 
-- [Model base de dados;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/database/model/DB_hotel.mwb);
+- [Model base de dados;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/database/model/hotel_diagram.mwb);
 
-- [Rotas de acesso;](https://github.com/rtof83/tex-js-grupo4-final/blob/dev/admin/api/index.js);
+- [Rotas de acesso;](https://github.com/rtof83/tex-js-grupo4-final/blob/main/admin/api/index.js);
 
-- [Middlewares:](https://github.com/rtof83/tex-js-grupo4-final/tree/dev/admin/api/middlewares)
+- [Middlewares:](https://github.com/rtof83/tex-js-grupo4-final/tree/main/admin/api/middlewares)
 
   - isAuth:
-    - verifica se quem está fazendo a requisição está enviando o token de autenticação que foi criado pela nossa aplicação ;
+    - verifica se quem está fazendo a requisição está enviando o token de autenticação que foi criado pela nossa aplicação;
   
   - checkAdmin:
     - verifica se quem está fazendo a requisição possui permissão de admin;
@@ -133,20 +136,42 @@
 
 &nbsp;
 
-- [Serviços:](https://github.com/rtof83/tex-js-grupo4-final/tree/dev/admin/api/services)
+- [Serviços:](https://github.com/rtof83/tex-js-grupo4-final/tree/main/admin/api/services)
 
   - initialAdmin:
     - ao iniciar a aplicação, gera um usuário com permissão admin automaticamente, caso não haja nenhum;
+
+  - initialPermission:
+    - ao iniciar a aplicação, gera as permissões "admin" e "user", caso não existam;
 
   - hashPassword:
     - criptografa a senha do usuário no momento do cadastro;
 
 &nbsp;
 
+## Backlog
+- Relatório de consumo dinâmico;
+- Atualização de reservas;
+- Área Admin:
+  - CRUD Serviços;
+- Usuários:
+  - CRUD admin;
+  - atualização de endereço;
+- Alguns componentes apresentam instabilidade ao atualizar a página;
+- Ampliar a utilização do campo deletedAt para toda base de dados;
+- Integrar o componente de comentário da acomodação para a reserva;
+- Implementar confirmação da reserva (admin) para liberação de outros recursos (controle de consumo, disponibilidade da acomodação);
+- Adicionar paginação em listagens;
+- Aprimorar integração entre tela de acomodações e reservas; 
+
+&nbsp;
+
 ## Desenvolvido por:
-- [Renato Tadeu;](https://github.com/rtof83)
-- [Maurício Oliveira Alves;](https://github.com/mauricio-alves)
+- [Renato Tadeu](https://github.com/rtof83)
+- [Maurício Oliveira Alves](https://github.com/mauricio-alves)
 - [Leonardo Bernardo](https://github.com/L-Bernardo)
+
+&nbsp;
 
 Se quiser saber mais sobre nós e esse projeto, acesse o  [link da apresentação](https://docs.google.com/presentation/d/12AroSm4YYZ2jrKXBzxyCUIlyw9ipJx4nond_gP05a_0/edit#slide=id.p).
 

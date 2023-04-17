@@ -87,7 +87,6 @@
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
-import dbProducts from "@/store/db/dbProducts";
 
 export default {
   name: "ReportView",

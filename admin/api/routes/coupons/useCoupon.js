@@ -1,5 +1,4 @@
 const { app } = require('../../database/conn');
-// const checkAdmin = require('../../middlewares/checkAdmin');
 
 const Coupon = require('../../models/Coupon');
 

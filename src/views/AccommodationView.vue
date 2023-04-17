@@ -18,12 +18,12 @@
         </div>
       </div>
 
-      <div class="form">
+      <div v-if="validate.id" class="form">
         <h3 class="form__subtitle">
           Faça um comentário sobre sua experiência:
         </h3>
         <form class="form__content">
-          <label for="name">Nome:</label>
+          <!-- <label for="name">Nome:</label>
           <input
             type="text"
             placeholder="Digite seu nome completo"
@@ -31,7 +31,7 @@
             name="name"
             v-model="name"
             required
-          />
+          /> -->
 
           <label for="message">Mensagem:</label>
           <textarea
@@ -53,23 +53,23 @@
     </div>
 
     <div>
-      <div v-if="accommodationComments.length > 0">
+      <div v-if="reviews.length">
         <div
           class="comments"
-          v-for="item in accommodationComments"
+          v-for="item in reviews"
           :key="item.accommodationId"
         >
           <div class="comments__user">
             <img src="../assets/images/avatar.jpg" alt="default avatar" />
-            <p><span>Nome:</span> {{ item.user }}</p>
+            <p><span>Nome:</span> {{ item.user.name }}</p>
           </div>
           <div class="comments__rating">
-            <p><span>Comentário:</span> {{ item.comment }}</p>
-            <p v-if="item.rating < 0.5"><span>Nota:</span> ☆ ☆ ☆ ☆ ☆</p>
-            <p v-else-if="item.rating < 1.5"><span>Nota:</span> ★ ☆ ☆ ☆ ☆</p>
-            <p v-else-if="item.rating < 2.5"><span>Nota:</span> ★ ★ ☆ ☆ ☆</p>
-            <p v-else-if="item.rating < 3.5"><span>Nota:</span> ★ ★ ★ ☆ ☆</p>
-            <p v-else-if="item.rating < 4.5"><span>Nota:</span> ★ ★ ★ ★ ☆</p>
+            <p><span>Comentário:</span> {{ item.review.message }}</p>
+            <p v-if="item.review.rating < 0.5"><span>Nota:</span> ☆ ☆ ☆ ☆ ☆</p>
+            <p v-else-if="item.review.rating < 1.5"><span>Nota:</span> ★ ☆ ☆ ☆ ☆</p>
+            <p v-else-if="item.review.rating < 2.5"><span>Nota:</span> ★ ★ ☆ ☆ ☆</p>
+            <p v-else-if="item.review.rating < 3.5"><span>Nota:</span> ★ ★ ★ ☆ ☆</p>
+            <p v-else-if="item.review.rating < 4.5"><span>Nota:</span> ★ ★ ★ ★ ☆</p>
             <p v-else><span>Nota:</span> ★ ★ ★ ★ ★</p>
           </div>
         </div>
@@ -89,7 +89,6 @@
 </template>
 
 <script>
-import Comments from "@/components/Comments.js";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 
@@ -110,8 +109,6 @@ export default {
       comment: "",
       rating: 0,
       accommodationComments: [],
-      comments: new Comments(),
-
       accommodation: {}
     };
   },
@@ -119,34 +116,33 @@ export default {
   computed: {
     accommodations() {
       return this.$store.state.accommodationsModule.accommodations;
-    }
-    
+    },
 
-    // login() {
-    //   // return this.$store.state.login;
-    //   return this.$store.state.loginModule.login;
-    // },
+    reviews() {
+      return this.$store.state.reviewsModule.reviews;
+    },
+
+    validate() {
+      return this.$store.state.loginModule.validate;
+    }
   },
 
   methods: {
-    confirmComment() {
+    async confirmComment() {
       // checagem de usuário logado
-      if (!this.login) {
+      if (!this.validate.id) {
         return this.NotLoggedIn();
       }
 
-      // class
-      // this.comments.checkLogin(this.login);
-
-      const newComment = {
-        accommodationId: this.accommodation.id,
-        user: this.name,
-        comment: this.comment,
-        rating: this.rating,
+      const review = {
+        userId: this.validate.id,
+        accommodationId: this.id,
+        message: this.comment,
+        rating: this.rating
       };
 
-      this.comments.insertComment(newComment);
-      this.comments.getComments(this.id);
+      await this.$store.dispatch('reviewsModule/addReview', review);
+
       this.notify();
     },
 
@@ -163,16 +159,10 @@ export default {
     },
   },
 
-  beforeMount() {
-    // this.$store.dispatch("accommodationsModule/getAccommodations");
-  },
-
-  mounted() {
-    this.accommodationComments = this.comments.getComments(
-      this.accommodation.id
-    );
-
+  async mounted() {
     this.accommodation = this.accommodations.find(item => item.id == this.id);
+
+    await this.$store.dispatch('reviewsModule/getReviewsByAccommodation', this.id);
   },
 
   components: {

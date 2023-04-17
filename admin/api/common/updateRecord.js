@@ -1,6 +1,4 @@
 const { app } = require("../database/conn");
-// const checkAdmin = require("../middlewares/checkAdmin");
-// const checkValidate = require("../middlewares/checkValidate");
 const isAuth = require("../middlewares/isAuth");
 
 const updateRecord = (path, model) => {

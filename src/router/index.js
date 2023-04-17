@@ -8,8 +8,8 @@ const routes = [
   },
 
   {
-    path: "/admin2",
-    name: "admin2",
+    path: "/admin",
+    name: "admin",
     component: () => import("@/views/AdminView.vue"),
   },
 
@@ -55,8 +55,8 @@ const routes = [
     component: () => import("@/views/SignUpView.vue"),
   },
   {
-    path: "/admin",
-    name: "admin",
+    path: "/report",
+    name: "report",
     component: () => import("@/views/ReportView.vue"),
   },
   {

@@ -21,13 +21,6 @@
         </div>
       </div>
 
-      <!-- <div class="escolha__resumo" id="itemsBar">
-        <p v-if="!itemsBar"><span>Nenhum Consumo</span></p>
-        <p v-else><span>Total Consumo: R$ {{ itemsBar.totalItems.toFixed(2) }}</span></p>
-      </div> -->
-
-      <!-- <div class="link"><a href="#"><span>Adicionar mais serviços</span></a></div> -->
-
       <div class="escolha__btn">
         <button @click="showModal('showServices')" id="showServices">Adicionar mais serviços</button>
       </div>
@@ -39,11 +32,6 @@
       <div class="escolha__btn">
         <button @click="showModal('showDetails')" id="bookDetails">Ver Detalhes</button>
       </div>
-
-      <!-- <div class="escolha__btn">
-        <button @click="createCode">Gerar Cupom</button>
-      </div>
-      <h3>{{ code }}</h3> -->
 
       <ModalServices />
       <ModalDetails />
@@ -63,9 +51,7 @@
     },
 
     data() {
-      return {
-        // code: ''
-      }
+      return {}
     },
 
     computed: {
@@ -94,14 +80,6 @@
       formatDate(date) {
         return moment(date).format('DD/MM/YYYY');
       }
-
-      // createCode() {
-      //   const code = Math.random().toString(17).substring(7).toUpperCase();
-      //   this.code = code;
-      //   localStorage.setItem('coupon', JSON.stringify({ coupon: code }))
-
-      //   this.reservation.coupon = code;
-      // }
     },
   };
 </script>

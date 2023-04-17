@@ -21,7 +21,7 @@
       <li><router-link to="/reservations">Reservas</router-link></li>
       <li v-if="validate.id"><router-link to="/my-reservations">Minhas Reservas</router-link></li>
       <li><router-link to="/contact">Contato</router-link></li>
-      <li><router-link to="/login">Login</router-link></li>
+      <li v-if="!validate.id" ><router-link to="/login">Login</router-link></li>
     </ul>
   </nav>
 </template>

@@ -35,22 +35,4 @@ try {
   console.log('Unable to connect to the database: ', error);
 };
 
-// conn
-//   .authenticate()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//     app.listen(process.env.APP_PORT);
-//   })
-//   .catch((err) => {
-//     console.log('Unable to connect to the database:', err);
-//   });
-
-//   mongoose.connect(connMongo)
-//     .then(() => {
-//       console.log('mongoDB connected...');
-//       // app.listen(process.env.PORT, () => 
-//       //     console.log(`server listening on port ${process.env.PORT}...`));
-//     })
-//     .catch((error) => console.log(error));
-
 module.exports = { app, conn };

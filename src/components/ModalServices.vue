@@ -65,10 +65,6 @@ export default {
       return this.$store.state.modal;
     },
 
-    // dbServices() {
-    //   return this.$store.getters.dbServices;
-    // },
-
     services() {
       return this.$store.state.servicesModule.services;
     },

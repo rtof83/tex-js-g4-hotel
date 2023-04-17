@@ -23,7 +23,7 @@
       </article>
       <article class="products-container">
         <div
-          v-for="(item, index) in accommodations"
+          v-for="item in accommodations"
           :key="item.id"
           class="products-container__card"
         >
@@ -73,7 +73,6 @@
 <script>
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
-// import dbAccommodations from "@/store/db/dbAccommodations";
 
 export default {
   name: "AccommodationsView",
@@ -82,9 +81,7 @@ export default {
     FooterComponent,
   },
   data() {
-    return {
-      // dbAccommodations,
-    };
+    return {};
   },
 
   computed: {
@@ -93,7 +90,7 @@ export default {
     },
 
     validate() {
-
+      
     }
   },
 

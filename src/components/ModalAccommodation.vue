@@ -51,15 +51,6 @@
             name="price"
           />
 
-          <!-- <label for="image">Status: </label>
-          <input
-            v-model="formData.status"
-            type="select"
-            placeholder="Insira o Status"
-            id="status"
-            name="status"
-          /> -->
-
           <label for="image">Status: </label>
           <select v-model="formData.status">
             <option value="true">Ativo</option>

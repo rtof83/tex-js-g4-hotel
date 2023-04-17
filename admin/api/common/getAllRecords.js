@@ -4,7 +4,6 @@ const getAll = (path, model) => {
   app.get(path, async (_, res) => {
     try {
       const result = await model.findAll({ attributes: { exclude: ["password"] }});
-      // const result = await model.findAll({ attributes: { exclude: ["password"] }, where: { deletedAt: null }});
 
       if (!result)
         return res.status(422).json({ message: "Record not found!" });

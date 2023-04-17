@@ -4,7 +4,7 @@ function generateToken(user) {
   const { id, name, email, permissionId } = user;
 
   const signature = process.env.SECRET;
-  const expiration = "12h";
+  const expiration = "1h";
 
   return jwt.sign({ id, name, email, permissionId }, signature, {
     expiresIn: expiration,

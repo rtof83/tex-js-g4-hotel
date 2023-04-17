@@ -36,7 +36,7 @@
       <li><router-link to="/reservations">Reservas</router-link></li>
       <li v-if="validate.id"><router-link to="/my-reservations">Minhas Reservas</router-link></li>
       <li><router-link to="/contact">Contato</router-link></li>
-      <li><router-link to="/login">Login</router-link></li>
+      <li v-if="!validate.id"><router-link to="/login">Login</router-link></li>
     </ul>
   </nav>
 
@@ -175,8 +175,6 @@ export default {
     return {
       banner: '',
       slogan: ''
-      // loginStorage: JSON.parse(localStorage.getItem("login")),
-      // reservationsStorage: JSON.parse(localStorage.getItem("reservations")),
     };
   },
 
@@ -185,33 +183,10 @@ export default {
       return this.$store.state.loginModule.validate
     },
 
-    // dbBanners() {
-    //   return this.$store.getters.dbBanners;
-    // },
-
     banners() {
       return this.$store.state.bannersModule.banners;
-    },
-
-    // getSorteio() {
-    //   return this.$store.state.sorteio;
-    // },
+    }
   },
-
-  // methods: {
-  //   sorteio() {
-  //     console.log(this.banners);
-
-  //     gerar número aleatório entre 0 e 4
-  //     this.position = parseInt(Math.random() * 5);
-
-  //     this.getSorteio.image = this.dbBanners[position].image;
-  //     this.getSorteio.slogan = this.dbBanners[position].slogan;
-
-  //     this.image = this.banners[position].image;
-  //     this.slogan = this.banners[position].slogan;
-  //   },
-  // },
 
   async beforeMount() {
     const position = parseInt(Math.random() * 5);
@@ -251,10 +226,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css";
 @import "@/assets/scss/home.scss";
-
-/* @import "@/assets/css/home.css"; */
-/* @import "@/assets/css/footer.css"; */
 </style>

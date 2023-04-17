@@ -32,8 +32,22 @@ const servicesModule = {
     },
 
     // delete
+    async deleteService({ dispatch }, id) {
+      await api.delete(`services/${id}`)
+        .then(() => {
+          dispatch('getServices')
+        })
+        .catch(error => console.log(error));
+    },
     
     // put
+    async updateService({ dispatch }, id) {
+      await api.put(`services/${id}`)
+        .then(() => {
+          dispatch('getServices')
+        })
+        .catch(error => console.log(error));
+    }
   }
 }
 
