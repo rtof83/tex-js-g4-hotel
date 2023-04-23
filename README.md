@@ -48,6 +48,10 @@
 - porta padrão WEB: 8080;
   - {baseURL}:{PORT}/
 
+- usuário padrão (admin):
+  - email: admin@email.com
+  - senha: Admin123@456
+
 - ### a aplicação pode ser acessada através dos links:
   - WEB (armazenado em instância Amazon S3):
     - http://tex-js-grupo4.s3-website-us-east-1.amazonaws.com
