@@ -41,8 +41,8 @@ const servicesModule = {
     },
     
     // put
-    async updateService({ dispatch }, id) {
-      await api.put(`services/${id}`)
+    async updateService({ dispatch }, data) {
+      await api.put(`services/${data.id}`, data)
         .then(() => {
           dispatch('getServices')
         })

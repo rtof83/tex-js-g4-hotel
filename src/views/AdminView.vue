@@ -3,6 +3,7 @@
     <div class="admin-content__side-nav">
       <a v-if="validate.permissionId === 1" @click="banners">Banners</a>
       <a v-if="validate.permissionId === 1" @click="accommodations">Acomodações</a>
+      <a v-if="validate.permissionId === 1" @click="services">Serviços</a>
       <a v-if="validate.permissionId === 1" @click="contacts">Contatos</a>
       <a v-if="validate.permissionId === 1" @click="coupons">Cupons</a>
       <a v-if="validate.permissionId === 1" @click="logout">Logout</a>
@@ -22,6 +23,7 @@
   import AdminAccommodations from '@/components/AdminAccommodations.vue';
   import AdminContacts from '@/components/AdminContacts.vue';
   import AdminCoupons from '@/components/AdminCoupons.vue';
+  import AdminServices from '@/components/AdminServices.vue';
   import LoginView from './LoginView.vue';
 
   export default {
@@ -38,6 +40,7 @@
       AdminAccommodations,
       AdminContacts,
       AdminCoupons,
+      AdminServices,
       LoginView
     },
 
@@ -64,6 +67,10 @@
         this.component = AdminCoupons
       },
 
+      services() {
+        this.component = AdminServices
+      },
+
       logout() {
         localStorage.removeItem('loginAdmin');
         this.validate.id = '';
@@ -74,14 +81,16 @@
         this.component = <LoginView permission="admin" />;
       },
 
-      checkValidate() {
+      async checkValidate() {
         if (this.validate.permissionId !== 1) {
           const loginAdmin = JSON.parse(localStorage.getItem('loginAdmin'));
 
-          if (loginAdmin && loginAdmin.token)
-            this.$store.dispatch('loginModule/validate', loginAdmin.token);
-          else
+          if (loginAdmin && loginAdmin.token) {
+            await this.$store.dispatch('loginModule/validate', loginAdmin.token);
+            if (!this.validate) this.logout();
+          } else {
             this.component = <LoginView permission="admin" />;
+          };
         } else {
           this.component = '';
         };
