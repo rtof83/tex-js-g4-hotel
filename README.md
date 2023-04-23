@@ -1,7 +1,7 @@
 
 #  Atlantic Hotel
 
-## Projeto final do Curso Full Stack Javascript Developer da Technology Experts. Tem como objetivo criar e gerenciar um site de hotel fictício, através de cadastro, criação de reservas e avaliação de quartos por parte do usuário e gerenciamento de quartos, banners, cupons e formulários de contato por parte do administrador.
+## Projeto final do Curso Full Stack Javascript Developer da Technology Experts. Tem como objetivo gerenciar um site de hotel fictício, através de cadastro, criação de reservas e avaliação de quartos por parte do usuário e gerenciamento de quartos, banners, cupons e formulários de contato por parte do administrador.
 
 &nbsp;
 
@@ -158,6 +158,7 @@
 - Atualização de reservas;
 - Área Admin:
   - CRUD Serviços;
+  - Responsividade para tela mobile;
 - Usuários:
   - CRUD admin;
   - atualização de endereço;
@@ -167,13 +168,18 @@
 - Implementar confirmação da reserva (admin) para liberação de outros recursos (controle de consumo, disponibilidade da acomodação);
 - Adicionar paginação em listagens;
 - Aprimorar integração entre tela de acomodações e reservas; 
+- Rodapé:
+  - Tornar funcional a opção de outros idiomas para o site;
+  - Criar as seções "sobre nós" e "termos e condições";
+- Home:
+  - Criar as telas de "spa wellness", "gastronomia" e "experiências" da seção "conheça mais sobre nossos serviços";
+  - Corrigir layout do componente banner para resoluções superiores a 1920 x 1080 pixels.
 
 &nbsp;
 
 ## Desenvolvido por:
 - [Renato Tadeu](https://github.com/rtof83)
 - [Maurício Oliveira Alves](https://github.com/mauricio-alves)
-- [Leonardo Bernardo](https://github.com/L-Bernardo)
 
 &nbsp;
 
