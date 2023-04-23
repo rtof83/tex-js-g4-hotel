@@ -3,7 +3,12 @@
     <div>
       <h2>Suas Reservas:</h2>
     </div>
-    <div v-if="reservations.length">
+
+    <div v-if="loading">
+      aguarde...
+    </div>
+
+    <div v-if="reservations.length && !loading">
       <div
         v-for="item in reservations"
         :id="item.id"
@@ -34,7 +39,7 @@
       </div>
     </div>
 
-    <div class="container__user-reservations__else" v-else>
+    <div v-if="!reservations.length && !loading" class="container__user-reservations__else">
       <div>
         <h3>Parece que você ainda não tem reservas. Faça uma agora mesmo!</h3>
         <img src="../../src/assets/images/funny-dog.jpg" />
@@ -55,7 +60,9 @@ export default {
   name: "Reservations",
 
   data() {
-    return {};
+    return {
+      loading: true
+    }
   },
 
   computed: {
@@ -67,6 +74,12 @@ export default {
       return this.$store.state.loginModule.validate;
     },
   },
+
+  // watch: {
+  //   reservations() {
+  //     if ()
+  //   }
+  // },
 
   methods: {
     formatDate(date) {
@@ -80,8 +93,11 @@ export default {
     }
   },
 
-  async mounted() {
-    await this.$store.dispatch("reservationsModule/getReservationsByUser", this.validate.id);
+  mounted() {
+    setTimeout(async () => {
+      await this.$store.dispatch("reservationsModule/getReservationsByUser", this.validate.id);
+      this.loading = false;
+    }, 1000);
   },
 };
 </script>

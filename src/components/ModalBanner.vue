@@ -15,22 +15,27 @@
       <div>
         <form>
           <label for="image">Imagem: </label>
-          <input
+          <textarea
             v-model="formData.image"
             type="text"
             placeholder="Insira o link da imagem"
             id="image"
             name="image"
-          />
+            col="30"
+            rows="3"
+          >
+          </textarea>
 
           <label for="slogan">Slogan:</label>
-          <input
+          <textarea
             v-model="formData.slogan"
             type="text"
             placeholder="Digite o slogan"
             id="slogan"
             name="slogan"
-          />
+            cols="30"
+            rows="5">
+          </textarea>
         </form>
         <div class="escolha__modal__modal-content__div">
           <button
@@ -136,7 +141,7 @@ export default {
         font-weight: bold;
       }
 
-      & input {
+      & input, textarea {
         font-weight: bold;
         font-size: 1.2rem;
         width: 50%;

@@ -158,8 +158,9 @@ export default {
         await this.$store.dispatch("couponsModule/useCoupon", this.applyCoupon.id);
       
       await this.$store.dispatch("reservationsModule/addReservation", sendReservation);
+      await this.$store.commit("initReservation");
 
-      this.$store.commit("initReservation");
+      router.push("/my-reservations");
     },
     confirmBook() {
       if (this.validate.permissionId !== 2) {
@@ -172,8 +173,7 @@ export default {
       } else {
         this.insertReservation();
         this.closeModal();
-        router.push("/my-reservations");
-      }
+      };
     },
 
     formatDate(date) {

@@ -1,26 +1,26 @@
 <template>
-  <div id="modalAccommodation" class="escolha__modal">
+  <div id="modalService" class="escolha__modal">
     <!-- Modal content -->
     <div class="escolha__modal__modal-content">
       <img
         src="../../src/assets/images/close.png"
         @click="closeModal"
-        id="closeModalAccommodation"
+        id="closeModalService"
         class="escolha__modal__modal-content__close"
       />
       <div>
-        <h2>Cadastrar Acomodação</h2>
+        <h2>Cadastrar Serviço</h2>
       </div>
 
       <div>
         <form>
-          <label for="image">Nome: </label>
+          <label for="name">Serviço: </label>
           <input
             v-model="formData.name"
             type="text"
-            placeholder="Insira o nome da acomodação"
-            id="accommodation"
-            name="accommodation"
+            placeholder="Insira o nome do serviço"
+            id="name"
+            name="name"
           />
 
           <label for="image">Imagem: </label>
@@ -35,16 +35,15 @@
           >
           </textarea>
 
-          <label for="slogan">Descrição:</label>
+          <label for="detail">Detalhes:</label>
           <textarea
-            v-model="formData.description"
+            v-model="formData.detail"
             type="text"
-            placeholder="Insira a descrição"
-            id="description"
-            name="description"
-            col="30"
-            rows="8"
-          >
+            placeholder="Detalhe o serviço"
+            id="detail"
+            name="detail"
+            cols="30"
+            rows="8">
           </textarea>
 
           <label for="image">Preço: </label>
@@ -56,12 +55,6 @@
             id="price"
             name="price"
           />
-
-          <label for="image">Status: </label>
-          <select v-model="formData.status">
-            <option value="true">Ativo</option>
-            <option value="false">Inativo</option>
-          </select>
         </form>
         <div class="escolha__modal__modal-content__div">
           <button
@@ -81,7 +74,7 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
 export default {
-  name: "ModalAccommodation",
+  name: "ModalService",
 
   props: ['data'],
 
@@ -91,9 +84,8 @@ export default {
         id: 0,
         name: '',
         image: '',
-        description: '',
-        price: '',
-        status: true
+        detail: '',
+        price: 0
       }
     };
   },
@@ -113,9 +105,8 @@ export default {
       this.formData.id = this.data.id;
       this.formData.name = this.data.name;
       this.formData.image = this.data.image;
-      this.formData.description = this.data.description;
+      this.formData.detail = this.data.detail;
       this.formData.price = this.data.price;
-      this.formData.status = this.data.status;
     }
   },
 
@@ -127,11 +118,11 @@ export default {
     save() {
       if (!this.formData.name ||
           !this.formData.image ||
-          !this.formData.description ||
+          !this.formData.detail ||
           !this.formData.price) return this.notify();
 
-      const method = this.formData.id ? "updateAccommodation" : "addAccommodation";
-      this.$store.dispatch(`accommodationsModule/${method}`, this.formData);
+      const method = this.formData.id ? "updateService" : "addService";
+      this.$store.dispatch(`servicesModule/${method}`, this.formData);
 
       this.closeModal();
     },
@@ -143,11 +134,11 @@ export default {
     },
 
     closeModal() {
-      this.modal.showAccommodation = "none";
+      this.modal.showService = "none";
     },
 
     onClick(e) {
-      const modal = document.getElementById("modalAccommodation");
+      const modal = document.getElementById("modalService");
       if (e.target === modal) this.closeModal();
     }
   }
@@ -158,7 +149,7 @@ export default {
 @use "@/assets/scss/modal.scss";
 
 .escolha__modal {
-  display: v-bind("modal.showAccommodation");
+  display: v-bind("modal.showService");
 
   &__modal-content {
     & h1 {
@@ -176,7 +167,7 @@ export default {
         font-weight: bold;
       }
 
-      & input, textarea, select {
+      & input, textarea {
         font-weight: bold;
         font-size: 1.2rem;
         width: 50%;
