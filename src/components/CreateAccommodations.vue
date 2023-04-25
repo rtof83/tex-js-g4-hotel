@@ -78,8 +78,9 @@ export default {
     };
 
     for (let i = 0; i < limit; i++) {
-      if (this.accommodations[i].id != this.id)
+      if (this.accommodations[i].id != this.id) {
         this.selectedAccommodations.push(this.accommodations[i]);
+      };
     };
   },
 };
@@ -88,3 +89,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/create-accomodations.scss";
 </style>
+
+0
+1
+2

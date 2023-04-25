@@ -6,6 +6,7 @@
       <a v-if="validate.permissionId === 1" @click="services">Serviços</a>
       <a v-if="validate.permissionId === 1" @click="contacts">Contatos</a>
       <a v-if="validate.permissionId === 1" @click="coupons">Cupons</a>
+      <a v-if="validate.permissionId === 1" @click="users">Usuários</a>
       <a v-if="validate.permissionId === 1" @click="logout">Logout</a>
     </div>
 
@@ -24,6 +25,7 @@
   import AdminContacts from '@/components/AdminContacts.vue';
   import AdminCoupons from '@/components/AdminCoupons.vue';
   import AdminServices from '@/components/AdminServices.vue';
+  import AdminUsers from '@/components/AdminUsers.vue';
   import LoginView from './LoginView.vue';
 
   export default {
@@ -41,6 +43,7 @@
       AdminContacts,
       AdminCoupons,
       AdminServices,
+      AdminUsers,
       LoginView
     },
 
@@ -69,6 +72,10 @@
 
       services() {
         this.component = AdminServices
+      },
+
+      users() {
+        this.component = AdminUsers
       },
 
       logout() {

@@ -97,7 +97,8 @@
       },
 
       deleteRecord(id) {
-        this.$store.dispatch("accommodationsModule/deleteAccommodation", id);
+        if (window.confirm('Tem certeza que deseja excluir este registro?'))
+          this.$store.dispatch("accommodationsModule/deleteAccommodation", id);
       },
     },
 

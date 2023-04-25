@@ -1,8 +1,8 @@
 <template>
   <div class="content">
     <div class="panel">
-      <h1>Lista Banners</h1>
-      <button @click="showModal({}, 'showBanner')">Adicionar Banner</button>
+      <h1>Lista Usuários</h1>
+      <button @click="showModal({}, 'showUser')">Adicionar Usuário</button>
 
       <hr />
 
@@ -10,17 +10,19 @@
         <thead>
           <tr>
             <th scope="col">id</th>
-            <th scope="col">Imagem</th>
-            <th scope="col">Slogan</th>
+            <th scope="col">Usuário</th>
+            <th scope="col">Email</th>
+            <th scope="col">Tipo Permissão</th>
             <th scope="col">Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in banners" :key="item.id">
+          <tr v-for="item in users" :key="item.id">
             <template v-if="!item.page">
               <th scope="row">{{ item.id }}</th>
-              <td>{{ item.image }}</td>
-              <td>{{ item.slogan }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.permissionId === 1 ? 'Admin' : 'User' }}</td>
 
               <td>
                 <div class="actions">
@@ -28,7 +30,7 @@
                     class="actions__item bi bi-pencil-fill"
                     @mouseover="(e) => hovering(e, 'bi-pencil')"
                     @mouseout="(e) => hovering(e, 'bi-pencil-fill')"
-                    @click="showModal(item, 'showBanner')"
+                    @click="showModal(item, 'showUser')"
                   ></div>
 
                   <div
@@ -46,17 +48,17 @@
     </div>
   </div>
 
-  <ModalBanner :data="data" />
+  <ModalUser :data="data" />
 </template>
 
 <script>
-import ModalBanner from "@/components/ModalBanner.vue";
+import ModalUser from "@/components/ModalUser.vue";
 
 export default {
-  name: "AdminBanners",
+  name: "AdminUsers",
 
   components: {
-    ModalBanner
+    ModalUser
   },
 
   data() {
@@ -66,8 +68,8 @@ export default {
   },
 
   computed: {
-    banners() {
-      return this.$store.state.bannersModule.banners;
+    users() {
+      return this.$store.state.usersModule.users;
     },
 
     modal() {
@@ -88,12 +90,12 @@ export default {
 
     deleteRecord(id) {
       if (window.confirm('Tem certeza que deseja excluir este registro?'))
-        this.$store.dispatch("bannersModule/deleteBanner", id);
+        this.$store.dispatch("usersModule/deleteUser", id);
     },
   },
 
   mounted() {
-    this.$store.dispatch("bannersModule/getBanners");
+    this.$store.dispatch("usersModule/getUsers");
   }
 };
 </script>
