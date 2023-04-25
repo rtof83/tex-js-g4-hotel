@@ -88,7 +88,7 @@
   MDB_URL      =  url          | 
   MDB_NAME     =  name         |
          
-  SECRET  =  secret_word
+  SECRET       =  secret_word
 
 &nbsp;
 
@@ -185,4 +185,4 @@
 
 Se quiser saber mais sobre nós e esse projeto, acesse o  [link da apresentação](https://docs.google.com/presentation/d/12AroSm4YYZ2jrKXBzxyCUIlyw9ipJx4nond_gP05a_0/edit#slide=id.p).
 
-Desenvolvido apenas para fins educacionais.
+Desenvolvido para fins educacionais.

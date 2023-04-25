@@ -75,12 +75,6 @@ export default {
     },
   },
 
-  // watch: {
-  //   reservations() {
-  //     if ()
-  //   }
-  // },
-
   methods: {
     formatDate(date) {
       return moment(date).format("DD/MM/YYYY");

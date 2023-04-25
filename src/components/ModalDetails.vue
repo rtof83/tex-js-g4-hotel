@@ -49,13 +49,13 @@
         <h2>Resumo do seu pedido</h2>
         <p>
           {{ reservation.accommodation }}: R$
-          {{ reservation.accommodationTotal }}
+          {{ reservation.accommodationTotal.toFixed(2) }}
         </p>
         <p>Hóspedes: {{ reservation.qty }}</p>
         <p>Diárias: {{ reservation.rates }}</p>
 
         <div v-for="item in reservation.services" :key="item.id">
-          <p>{{ item.name }}: R$ {{ item.price }}</p>
+          <p>{{ item.name }}: R$ {{ item.price.toFixed(2) }}</p>
         </div>
 
         <div v-if="reservation.itemsBar">
