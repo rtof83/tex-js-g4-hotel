@@ -4,8 +4,12 @@
       <h2>Suas Reservas:</h2>
     </div>
 
-    <div v-if="loading">
-      aguarde...
+    <div v-if="loading" class="center">
+      <pulse-loader
+        :loading="loading"
+        :color="color"
+        :size="size"
+      ></pulse-loader>
     </div>
 
     <div v-if="reservations.length && !loading">
@@ -30,7 +34,8 @@
           </p>
           <p v-if="item.coupon === null">Reserva feita sem uso de cupom</p>
           <p v-else>
-            Cupom utilizado: <span>{{ `${item.coupon.code} (${item.coupon.discount}%)` }}</span>
+            Cupom utilizado:
+            <span>{{ `${item.coupon.code} (${item.coupon.discount}%)` }}</span>
           </p>
         </div>
         <div class="container__user-reservations__div__btn">
@@ -39,7 +44,10 @@
       </div>
     </div>
 
-    <div v-if="!reservations.length && !loading" class="container__user-reservations__else">
+    <div
+      v-if="!reservations.length && !loading"
+      class="container__user-reservations__else"
+    >
       <div>
         <h3>Parece que você ainda não tem reservas. Faça uma agora mesmo!</h3>
         <img src="../../src/assets/images/funny-dog.jpg" />
@@ -55,14 +63,18 @@
 
 <script>
 import moment from "moment";
+import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 
 export default {
   name: "Reservations",
+  components: {
+    PulseLoader,
+  },
 
   data() {
     return {
-      loading: true
-    }
+      loading: true,
+    };
   },
 
   computed: {
@@ -81,15 +93,24 @@ export default {
     },
 
     deleteReservation(id) {
-      if (confirm('Esta ação irá excluir a reserva selecionada. Deseja continuar?'))
-        this.$store.dispatch("reservationsModule/deleteReservation",
-          { id: id, userId: this.validate.id });
-    }
+      if (
+        confirm(
+          "Esta ação irá excluir a reserva selecionada. Deseja continuar?"
+        )
+      )
+        this.$store.dispatch("reservationsModule/deleteReservation", {
+          id: id,
+          userId: this.validate.id,
+        });
+    },
   },
 
   mounted() {
     setTimeout(async () => {
-      await this.$store.dispatch("reservationsModule/getReservationsByUser", this.validate.id);
+      await this.$store.dispatch(
+        "reservationsModule/getReservationsByUser",
+        this.validate.id
+      );
       this.loading = false;
     }, 1000);
   },
@@ -98,6 +119,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/myreservations.scss";
+
+.center {
+  display: flex;
+  justify-content: center;
+}
 
 /* --------------  RESPONSIVIDADE ----------------  */
 /* MOBILE PORTRAIT */
