@@ -18,8 +18,8 @@
         <tbody>
           <tr v-for="item in banners" :key="item.id">
             <template v-if="!item.page">
-              <th scope="row">{{ item.id }}</th>
-              <td>{{ item.image }}</td>
+              <th scope="row">{{ item.id }}</th>       
+              <td><img class="image" :src="item.image"/></td>
               <td>{{ item.slogan }}</td>
 
               <td>
@@ -98,23 +98,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.content {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.panel {
-  width: 80%;
-  text-align: center;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
-
-h1 {
-  text-shadow: 1px 1px 2px #838383cc;
-  font-weight: 600;
-}
+<style scoped lang="scss">
+  @import "@/assets/scss/admin-component.scss";
 </style>

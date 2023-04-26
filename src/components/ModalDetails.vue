@@ -55,11 +55,11 @@
         <p>Diárias: {{ reservation.rates }}</p>
 
         <div v-for="item in reservation.services" :key="item.id">
-          <p>{{ item.name }}: R$ {{ item.price.toFixed(2) }}</p>
+          <p>{{ item.name }}: R$ {{ item.price }}</p>
         </div>
 
         <div v-if="reservation.itemsBar">
-          <p>Consumo -> R$ {{ reservation.itemsBar.toFixed(2) }}</p>
+          <p>Consumo -> R$ {{ reservation.itemsBar }}</p>
         </div>
 
         <hr>

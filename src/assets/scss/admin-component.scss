@@ -1,0 +1,46 @@
+@use "variaveis" as let;
+
+.content {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.panel {
+  width: 80%;
+  text-align: center;
+  padding: 2rem;
+  border-radius: .5rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+h1 {
+  text-shadow: 1px 1px 2px #838383cc;
+  font-weight: 600;
+}
+
+table {
+  font-weight: bold;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: let.$text;
+  color: let.$branco;
+  opacity: 1;
+  transition: 0.3s;
+  font-size: 1rem;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.image {
+  width: 8rem;
+  border-radius: 0.3rem;
+}
