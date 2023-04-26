@@ -30,6 +30,7 @@
             placeholder="Digite seu email"
             id="email"
             name="email"
+            disabled
           />
 
           <label for="password">Senha:</label>
@@ -118,12 +119,6 @@ export default {
       );
     },
 
-    ifEmailAlreadyExists() {
-      toast("Atenção! Email ou senha inválidos.", {
-        autoClose: 3000,
-      });
-    },
-
     onClick(e) {
       const modal = document.getElementById("modalUserDetails");
       if (e.target === modal) this.closeModal();
@@ -148,13 +143,6 @@ export default {
       ) {
         return this.wrongPasswordRegex();
       }
-
-      // checagem se o e-mail que quer cadastrar já existe no banco de dados
-      const filteredEmail = this.removeQuotesSpaces(this.validate.email);
-      const result = this.allUsers.find((item) => item.email === filteredEmail);
-
-      // caso o e-mail já exista
-      if (result) return this.ifEmailAlreadyExists();
 
       // atualização do usuário
       this.$store.dispatch("usersModule/updateUser", data);

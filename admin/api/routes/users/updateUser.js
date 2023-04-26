@@ -7,8 +7,8 @@ module.exports = app.put("/users/:id", isAuth, async (req, res) => {
     // checagem se email já existe no banco de dados
     const email = await User.findOne({ where: { email: req.body.email } });
 
-    if (email)
-      return res.status(401).json({ message: "email already exists!" });
+    if (!email)
+      return res.status(401).json({ message: "email invalid!" });
 
     // validação do req.body.email
     if (
