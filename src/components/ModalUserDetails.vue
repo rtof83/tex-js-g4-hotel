@@ -63,7 +63,7 @@ export default {
   name: "ModalUserDetails",
 
   data() {
-    return {}
+    return {};
   },
 
   computed: {
@@ -104,12 +104,6 @@ export default {
       });
     },
 
-    wrongEmailRegex() {
-      toast("Atenção! Formato de email inválido.", {
-        autoClose: 3000,
-      });
-    },
-
     wrongPasswordRegex() {
       toast(
         "A senha deve ter entre 8 a 15 caracteres, com letras maiúsculas, minúsculas, números e caracteres especiais.",
@@ -125,15 +119,6 @@ export default {
     },
 
     updateUser(data) {
-      // validação do input email
-      if (
-        !this.validate.email.match(
-          /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        )
-      ) {
-        return this.wrongEmailRegex();
-      }
-
       // validação do input password
       if (
         !this.validate.password ||

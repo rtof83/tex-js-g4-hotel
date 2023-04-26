@@ -50,6 +50,8 @@ const usersModule = {
 
     // put
     async updateUser({ dispatch }, data) {
+      delete data.email;
+
       await api
         .put(`users/${data.id}`, data)
         .then(() => {
