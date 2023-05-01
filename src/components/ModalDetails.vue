@@ -49,7 +49,7 @@
         <h2>Resumo do seu pedido</h2>
         <p>
           {{ reservation.accommodation }}: R$
-          {{ reservation.accommodationTotal }}
+          {{ reservation.accommodationTotal.toFixed(2) }}
         </p>
         <p>Hóspedes: {{ reservation.qty }}</p>
         <p>Diárias: {{ reservation.rates }}</p>
@@ -59,7 +59,7 @@
         </div>
 
         <div v-if="reservation.itemsBar">
-          <p>Consumo -> R$ {{ reservation.itemsBar.toFixed(2) }}</p>
+          <p>Consumo -> R$ {{ reservation.itemsBar }}</p>
         </div>
 
         <hr>
@@ -158,8 +158,9 @@ export default {
         await this.$store.dispatch("couponsModule/useCoupon", this.applyCoupon.id);
       
       await this.$store.dispatch("reservationsModule/addReservation", sendReservation);
+      await this.$store.commit("initReservation");
 
-      this.$store.commit("initReservation");
+      router.push("/my-reservations");
     },
     confirmBook() {
       if (this.validate.permissionId !== 2) {
@@ -172,8 +173,7 @@ export default {
       } else {
         this.insertReservation();
         this.closeModal();
-        router.push("/my-reservations");
-      }
+      };
     },
 
     formatDate(date) {

@@ -30,6 +30,7 @@
             placeholder="Digite seu email"
             id="email"
             name="email"
+            disabled
           />
 
           <label for="password">Senha:</label>
@@ -62,7 +63,7 @@ export default {
   name: "ModalUserDetails",
 
   data() {
-    return {}
+    return {};
   },
 
   computed: {
@@ -103,12 +104,6 @@ export default {
       });
     },
 
-    wrongEmailRegex() {
-      toast("Atenção! Formato de email inválido.", {
-        autoClose: 3000,
-      });
-    },
-
     wrongPasswordRegex() {
       toast(
         "A senha deve ter entre 8 a 15 caracteres, com letras maiúsculas, minúsculas, números e caracteres especiais.",
@@ -118,27 +113,12 @@ export default {
       );
     },
 
-    ifEmailAlreadyExists() {
-      toast("Atenção! Email ou senha inválidos.", {
-        autoClose: 3000,
-      });
-    },
-
     onClick(e) {
       const modal = document.getElementById("modalUserDetails");
       if (e.target === modal) this.closeModal();
     },
 
     updateUser(data) {
-      // validação do input email
-      if (
-        !this.validate.email.match(
-          /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        )
-      ) {
-        return this.wrongEmailRegex();
-      }
-
       // validação do input password
       if (
         !this.validate.password ||
@@ -148,13 +128,6 @@ export default {
       ) {
         return this.wrongPasswordRegex();
       }
-
-      // checagem se o e-mail que quer cadastrar já existe no banco de dados
-      const filteredEmail = this.removeQuotesSpaces(this.validate.email);
-      const result = this.allUsers.find((item) => item.email === filteredEmail);
-
-      // caso o e-mail já exista
-      if (result) return this.ifEmailAlreadyExists();
 
       // atualização do usuário
       this.$store.dispatch("usersModule/updateUser", data);

@@ -24,22 +24,28 @@
           />
 
           <label for="image">Imagem: </label>
-          <input
+          <textarea
             v-model="formData.image"
             type="text"
             placeholder="Insira o link da imagem"
             id="image"
             name="image"
-          />
+            col="30"
+            rows="3"
+          >
+          </textarea>
 
           <label for="slogan">Descrição:</label>
-          <input
+          <textarea
             v-model="formData.description"
             type="text"
             placeholder="Insira a descrição"
             id="description"
             name="description"
-          />
+            col="30"
+            rows="8"
+          >
+          </textarea>
 
           <label for="image">Preço: </label>
           <input
@@ -170,7 +176,7 @@ export default {
         font-weight: bold;
       }
 
-      & input {
+      & input, textarea, select {
         font-weight: bold;
         font-size: 1.2rem;
         width: 50%;

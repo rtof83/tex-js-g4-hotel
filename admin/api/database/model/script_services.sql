@@ -1,7 +1,7 @@
 INSERT INTO `services` (`name`, `image`, `detail`, `price`, `createdAt`, `updatedAt`) VALUES
-	('Cofre', 'http', 'asmnda,msn d,mans,dna,nms', 50.00, '2023-03-19 14:55:29', '2023-03-19 14:55:29'),
-	('Lavanderia', 'http', 'asmnda,msn d,mans,dna,nms', 40.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45'),
-	('Café da Manhã no quarto', 'http', 'asmnda,msn d,mans,dna,nms', 25.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45'),
-	('Massagem', 'http', 'asmnda,msn d,mans,dna,nms', 30.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45'),
-	('Sala de Palestras', 'http', 'asmnda,msn d,mans,dna,nms', 120.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45'),
-	('Passeio Turístico', 'http', 'asmnda,msn d,mans,dna,nms', 150.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45')
+	('Cofre', 'https://tex-js-grupo4.s3.amazonaws.com/img/services/vault.jpeg', 'Tenha a segurança extra que procura com um cofre privado em seu quarto.', 50.00, '2023-03-19 14:55:29', '2023-03-19 14:55:29'),
+	('Lavanderia', 'https://tex-js-grupo4.s3.amazonaws.com/img/services/laundry.jpg', 'Ninguém quer perder tempo lavando roupas durante uma viagem não é? Nós lavamos pra você!', 40.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45'),
+	('Café da Manhã no quarto', 'https://tex-js-grupo4.s3.amazonaws.com/img/services/coffee_cafe_table_beverage_cup.jpg', 'Tenha o conforto de acordar com um saboroso café da manhã no quarto', 25.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45'),
+	('Massagem', 'https://tex-js-grupo4.s3.amazonaws.com/img/services/massage.jpeg', 'Nada melhor que uma massagem relaxante no final de um dia cansativo!', 30.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45'),
+	('Sala de Palestras', 'https://tex-js-grupo4.s3.amazonaws.com/img/services/lecture-room.jpg', 'Realize seus eventos conosco! Use nossa sala de palestras com espaço para 500 pessoas.', 120.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45'),
+	('Passeio Turístico', 'https://tex-js-grupo4.s3.amazonaws.com/img/services/tourist.jpg', 'Aproveite sua estadia conosco e conheça as maravilhas da nossa cidade com o nosso passeio turístico personalizado!', 150.00, '2023-03-19 14:55:45', '2023-03-19 14:55:45')

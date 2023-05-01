@@ -4,21 +4,9 @@ const User = require("../../models/User");
 
 module.exports = app.put("/users/:id", isAuth, async (req, res) => {
   try {
-    // checagem se email já existe no banco de dados
-    const email = await User.findOne({ where: { email: req.body.email } });
-
-    if (email)
-      return res.status(401).json({ message: "email already exists!" });
-
-    // validação do req.body.email
-    if (
-      !req.body.email ||
-      !req.body.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-    ) {
-      return res.status(400).json({
-        message: "email format not valid",
-      });
-    }
+    // checagem se há tentativa de alterar o email
+    if (req.body.email || req.body.email === "")
+      return res.status(400).json({ message: "Can't change email" });
 
     // validação do req.body.password
     if (
@@ -53,5 +41,5 @@ module.exports = app.put("/users/:id", isAuth, async (req, res) => {
       .json({ message: "User updated successfully", result });
   } catch (error) {
     return res.status(500).json({ error: error.message });
-  };
+  }
 });

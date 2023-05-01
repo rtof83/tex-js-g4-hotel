@@ -26,8 +26,8 @@
 
             <th scope="row">{{ item.id }}</th>
             <td>{{ item.name }}</td>
-            <td>{{ item.image }}</td>
-            <td>{{ item.description }}</td>
+            <td><img class="image" :src="item.image"/></td>
+            <td width="40%">{{ item.description }}</td>
             <td>R$ {{ item.price }}</td>
             <td>{{ item.status ? 'Ativo' : 'Inativo' }}</td>
             
@@ -97,7 +97,8 @@
       },
 
       deleteRecord(id) {
-        this.$store.dispatch("accommodationsModule/deleteAccommodation", id);
+        if (window.confirm('Tem certeza que deseja excluir este registro?'))
+          this.$store.dispatch("accommodationsModule/deleteAccommodation", id);
       },
     },
 
@@ -107,23 +108,6 @@
 }
 </script>
 
-<style scoped>
-  .content {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-
-  .panel {
-    width: 80%;
-    text-align: center;
-    padding: 2rem;
-    border-radius: .5rem;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  }
-
-  h1 {
-    text-shadow: 1px 1px 2px #838383cc;
-    font-weight: 600;
-  }
+<style scoped lang="scss">
+  @import "@/assets/scss/admin-component.scss";
 </style>
