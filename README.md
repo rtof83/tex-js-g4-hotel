@@ -73,7 +73,7 @@
   exemplo de configuração:
 
   ```javascript
-  APP_PORT = 3000
+  APP_PORT    = 3000
 
   DB_NAME     =  name          |
   DB_USER     =  user          | 
@@ -183,6 +183,6 @@
 
 &nbsp;
 
-Se quiser saber mais sobre nós e esse projeto, acesse o  [link da apresentação](https://docs.google.com/presentation/d/12AroSm4YYZ2jrKXBzxyCUIlyw9ipJx4nond_gP05a_0/edit#slide=id.p).
+Se quiser saber mais sobre nós e esse projeto, acesse o  [link da apresentação](https://vimeo.com/824220389).
 
 Desenvolvido para fins educacionais.
