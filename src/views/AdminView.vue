@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script>
+<script lang='jsx'>
   import AdminBanners from '@/components/AdminBanners.vue';
   import AdminAccommodations from '@/components/AdminAccommodations.vue';
   import AdminContacts from '@/components/AdminContacts.vue';

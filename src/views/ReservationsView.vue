@@ -96,11 +96,18 @@ export default {
             1,
             true
           );
-        }
+        };
 
-        const accommodation = this.accommodations.find(
-          (item) => item.id === this.reservation.accommodationId
-        );
+        let accommodation;
+        if (!this.reservation.accommodationId) {
+          accommodation = this.accommodations[0];
+          this.reservation.accommodationId = accommodation.accommodationId;
+        } else {
+          accommodation = this.accommodations.find(
+            (item) => item.id === this.reservation.accommodationId
+          );
+        };
+
         this.reservation.accommodation = accommodation.name;
         this.reservation.accommodationDesc = accommodation.description;
         this.reservation.accommodationTotal = this.reservation.rates * this.reservation.qty * accommodation.price;
