@@ -6,6 +6,7 @@ const Permission = require("./models/Permission");
 const User = require("./models/User");
 const Coupon = require("./models/Coupon");
 const Review = require("./models/Review");
+const Contact = require("./models/Contact");
 
 // accommodations routes
 require("./common/getAllRecords")("/accommodations", Accommodation);
@@ -45,9 +46,9 @@ require("./common/deleteRecord")("/services", Service);
 require("./common/createRecord")("/services", Service);
 
 // contacts routes
-require("./routes/contacts/getContacts");
-require("./routes/contacts/createContact");
-require("./routes/contacts/deleteContact");
+require("./common/getAllRecords")("/contacts", Contact);
+require("./common/createRecord")("/contacts", Contact);
+require("./common/deleteRecord")("/contacts", Contact);
 
 // coupons routes
 require("./common/getAllRecords")("/coupons", Coupon);

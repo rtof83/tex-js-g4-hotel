@@ -1,9 +1,33 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
+const { conn } = require('../database/conn');
 
-module.exports = mongoose.model('Contact', {
-  name: String,
-  email: String,
-  phone: String,
-  subject: String,
-  message: String
+const Contact = conn.define('contact', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true
+  },
+  name: {
+    type: Sequelize.STRING(50),
+    allowNull: false
+  },
+  email: {
+    type: Sequelize.STRING(100),
+    allowNull: false
+  },
+  phone: {
+    type: Sequelize.STRING(50),
+    allowNull: false
+  },
+  subject: {
+    type: Sequelize.STRING(50),
+    allowNull: false
+  },
+  message: {
+    type: Sequelize.STRING(),
+    allowNull: false
+  }
 });
+
+module.exports = Contact;

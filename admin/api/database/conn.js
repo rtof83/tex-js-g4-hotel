@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const mongoose = require('mongoose');
 
 const express = require('express');
 const app = express();
@@ -16,9 +15,6 @@ const conn = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env
   port: process.env.DB_PORT
 });
 
-// mongoDB
-const connMongo = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_PASS}@${process.env.MDB_CLUSTER}.${process.env.MDB_URL}/${process.env.MDB_NAME}?retryWrites=true&w=majority`;
-
 (async () => {
   await conn.sync();
 })();
@@ -26,9 +22,6 @@ const connMongo = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_PASS}
 try {
   conn.authenticate()
     .then(() => console.log('MySQL connection has been established successfully.'));
-  
-  mongoose.connect(connMongo)
-    .then(() => console.log('MongoDB connection has been established successfully.'));
 
   app.listen(process.env.APP_PORT);
 } catch (error) {
