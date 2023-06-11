@@ -20,7 +20,7 @@
 
 | Recursos          |                                  |
 | ----------------- | -------------------------------- |
-| `API`             | Node                             |
+| `API`             | Node 18                          |
 | `WEB`             | Vue 3                            |
 | `Estilização`     | Sass                             |
 | `Base de Dados`   | MySQL e MongoDB                  |
@@ -73,14 +73,14 @@
   exemplo de configuração:
 
   ```javascript
-  APP_PORT = 3000
+  APP_PORT     =  3000
 
-  DB_NAME     =  name          |
-  DB_USER     =  user          | 
-  DB_PASS     =  password      |
-  DB_DIALECT  =  mysql         | --> parâmetros base de dados mySQL
-  DB_PORT     =  3306          |
-  DB_HOST     =  localhost     | 
+  DB_NAME      =  name          |
+  DB_USER      =  user          | 
+  DB_PASS      =  password      |
+  DB_DIALECT   =  mysql         | --> parâmetros base de dados mySQL
+  DB_PORT      =  3306          |
+  DB_HOST      =  localhost     | 
  
   MDB_USER     =  user         |
   MDB_PASS     =  password     | 
