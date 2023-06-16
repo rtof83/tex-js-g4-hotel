@@ -20,7 +20,7 @@
 
 | Recursos          |                                  |
 | ----------------- | -------------------------------- |
-| `API`             | Node                             |
+| `API`             | Node 18                          |
 | `WEB`             | Vue 3                            |
 | `Estilização`     | Sass                             |
 | `Base de Dados`   | MySQL e MongoDB                  |
@@ -42,11 +42,13 @@
     - npm install;
     - npm run serve;
 
-- porta padrão API: 3000;
-  - {baseURL}:{PORT}/admin
+- porta API: arquivo de configuração .env;
 
 - porta padrão WEB: 8080;
-  - {baseURL}:{PORT}/
+
+- acesso web:
+  - rota pública -> {baseURL}:{PORT}/#
+  - rota admin -> {baseURL}:{PORT}/#/admin
 
 - usuário padrão (admin):
   - email: admin@email.com
@@ -57,7 +59,7 @@
     - http://tex-js-grupo4.s3-website-us-east-1.amazonaws.com
 
   - API (instanciada em EC2 AWS):
-    - http://34.235.89.154:3010
+    - http://3.92.70.204:3010
 
   - Base de Dados instanciada em RDS:
     - database.c4gffxjofhme.us-east-1.rds.amazonaws.com:3306;
@@ -73,14 +75,14 @@
   exemplo de configuração:
 
   ```javascript
-  APP_PORT    = 3000
+  APP_PORT     =  3000
 
-  DB_NAME     =  name          |
-  DB_USER     =  user          | 
-  DB_PASS     =  password      |
-  DB_DIALECT  =  mysql         | --> parâmetros base de dados mySQL
-  DB_PORT     =  3306          |
-  DB_HOST     =  localhost     | 
+  DB_NAME      =  name          |
+  DB_USER      =  user          | 
+  DB_PASS      =  password      |
+  DB_DIALECT   =  mysql         | --> parâmetros base de dados mySQL
+  DB_PORT      =  3306          |
+  DB_HOST      =  localhost     | 
  
   MDB_USER     =  user         |
   MDB_PASS     =  password     | 
