@@ -56,13 +56,13 @@
 
 - ### a aplicação pode ser acessada através dos links:
   - WEB (armazenado em instância Amazon S3):
-    - http://tex-js-grupo4.s3-website-us-east-1.amazonaws.com
+    - http://hotel-node-mysql-vue.s3-website-us-east-1.amazonaws.com
 
   - API (instanciada em EC2 AWS):
-    - http://3.92.70.204:3010
+    - http://3.89.158.18:3003
 
   - Base de Dados instanciada em RDS:
-    - database.c4gffxjofhme.us-east-1.rds.amazonaws.com:3306;
+    - database.cwypxob1ifsj.us-east-1.rds.amazonaws.com:3306;
 
 &nbsp;
 
